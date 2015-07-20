@@ -30,6 +30,8 @@ def print_line(type, text)
     print '[i] '.cyan
   elsif type == :error
     print '[!] '.red
+  elsif type == :indent
+    print ' |  '.light_white
   else
     print '    '
   end
@@ -48,7 +50,18 @@ def main
     c = ComponentScanner.new(opts[:url])
     print_line(:good, "URL: #{c.target_uri}")
     print_line(:good, "Started: #{Time.now.asctime}")
-    c.scan
+    components = c.scan
+
+    print_line(:default, '')
+    print_line(:warning, "Found #{components.length} vulnerable components.")
+    print_line(:default, '')
+
+    components.each do |c|
+      print_line(:good, "Name: #{c[:name]} - v#{c[:version]}")
+      print_line(:indent, "Location: #{c[:extension_url]}")
+      print_line(:indent, "Manifest: #{c[:manifest_url]}")
+      print_line(:default, '')
+    end
   else
     puts opts
   end

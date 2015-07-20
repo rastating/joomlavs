@@ -5,7 +5,7 @@ require 'typhoeus'
 class ExtensionScanner
 
   def initialize(target_uri, data_file)
-    @target_uri = target_uri
+    @target_uri = target_uri.chomp('/')
     @data_file = data_file
     @extensions_uri = ''
     @hydra = Typhoeus::Hydra.hydra
@@ -40,17 +40,35 @@ class ExtensionScanner
   end
 
   def create_request(path)
-    Typhoeus::Request.new(target_uri.chomp('/') + path, followlocation: true)
+    Typhoeus::Request.new(target_uri + path, followlocation: true)
   end
 
-  def process_result(ext, res)
-    doc = Nokogiri::XML(res)
-    print "Found #{ext['name']} #{doc.xpath('//extension/version').text}\r\n"
+  def process_result(ext, uri, res)
+    manifest = Nokogiri::XML(res)
+    extension = Hash.new
+    extension[:version] = Gem::Version.new(manifest.xpath('//extension/version').text)
+    extension[:name] = manifest.xpath('//extension/name').text
+    extension[:author_url] = manifest.xpath('//extension/authorUrl').text
+    extension[:extension_url] = target_uri + extension_uri(ext['name'])
+    extension[:manifest_url] = target_uri + uri
+    extension[:vulns] = Array.new
+
+    ext['vulns'].each do |v|
+      if Gem::Version.new(v['introduced_in']) <= extension[:version]
+        if v['fixed_in'].nil? or Gem::Version.new(v['fixed_in']) > extension[:version]
+          extension[:vulns].push(v)
+        end
+      end
+    end
+
+    extension
   end
 
   def scan
     json = File.read(@data_file)
     extensions = JSON.parse(json)
+    detected = Array.new
+    lock = Mutex.new
 
     extensions.each do |e|
       # Attempt to find the extension named manifest first.
@@ -58,13 +76,21 @@ class ExtensionScanner
       req = create_request(uri)
       req.on_complete do |resp|
         if resp.code == 200
-          process_result(e, resp.body)
+          lock.synchronize do
+            res = process_result(e, uri, resp.body)
+            detected.push(res) if res[:vulns].length > 0
+          end
         else
           # Extension named manifest wasn't found, try to find manifest.xml
           uri = normalize_uri(extension_uri(e['name']), "manifest.xml")
           req = create_request(uri)
           req.on_complete do |resp|
-            process_result(e, resp.body) if resp.code == 200
+            lock.synchronize do
+              if resp.code == 200
+                res = process_result(e, uri, resp.body)
+                detected.push(res) if res[:vulns].length > 0
+              end
+            end
           end
 
           hydra.queue req
@@ -75,5 +101,6 @@ class ExtensionScanner
     end
 
     hydra.run
+    detected
   end
 end
