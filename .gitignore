@@ -79,3 +79,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Sublime SFTP plugin config
+sftp-config.json
