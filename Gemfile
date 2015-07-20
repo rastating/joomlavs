@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'colorize'
 gem 'nokogiri'
 gem 'slop'
 gem 'typhoeus'
