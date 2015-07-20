@@ -55,12 +55,28 @@ def main
     print_line(:default, '')
     print_line(:warning, "Found #{components.length} vulnerable components.")
     print_line(:default, '')
+    print_line(:default, '------------------------------------------------------------------')
 
     components.each do |c|
+      print_line(:default, '')
       print_line(:good, "Name: #{c[:name]} - v#{c[:version]}")
       print_line(:indent, "Location: #{c[:extension_url]}")
       print_line(:indent, "Manifest: #{c[:manifest_url]}")
+      print_line(:indent, "Description: #{c[:description]}") unless c[:description].empty?
+      print_line(:indent, "Author: #{c[:author]}") unless c[:author].empty?
+      print_line(:indent, "Author URL: #{c[:author_url]}") unless c[:author_url].empty?
       print_line(:default, '')
+      
+      c[:vulns].each do |v|
+        print_line(:default, '')
+        print_line(:error, "Title: #{v['title']}")
+        print_line(:indent, "Reference: https://www.exploit-db.com/exploits/#{v['edbid']}") if v['edbid']
+        print_line(:indent, "Reference: http://osvdb.org/#{v['osvdbid']}") if v['osvdbid']
+        print_line(:info, "Fixed in: #{v['fixed_in']}") if v['fixed_in']
+        print_line(:default, '')
+      end
+
+      print_line(:default, '------------------------------------------------------------------')
     end
   else
     puts opts

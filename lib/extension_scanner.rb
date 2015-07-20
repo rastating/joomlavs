@@ -48,13 +48,15 @@ class ExtensionScanner
     extension = Hash.new
     extension[:version] = Gem::Version.new(manifest.xpath('//extension/version').text)
     extension[:name] = manifest.xpath('//extension/name').text
+    extension[:author] = manifest.xpath('//extension/author').text
     extension[:author_url] = manifest.xpath('//extension/authorUrl').text
     extension[:extension_url] = target_uri + extension_uri(ext['name'])
     extension[:manifest_url] = target_uri + uri
+    extension[:description] = manifest.xpath('//extension/description').text
     extension[:vulns] = Array.new
 
     ext['vulns'].each do |v|
-      if Gem::Version.new(v['introduced_in']) <= extension[:version]
+      if v['introduced_in'].nil? or Gem::Version.new(v['introduced_in']) <= extension[:version]
         if v['fixed_in'].nil? or Gem::Version.new(v['fixed_in']) > extension[:version]
           extension[:vulns].push(v)
         end
