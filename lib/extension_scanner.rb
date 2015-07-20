@@ -7,20 +7,11 @@ class ExtensionScanner
   def initialize(target_uri, data_file)
     @target_uri = target_uri.chomp('/')
     @data_file = data_file
-    @extensions_uri = ''
     @hydra = Typhoeus::Hydra.hydra
   end
 
   def target_uri
     @target_uri
-  end
-
-  def extensions_uri
-    @extensions_uri
-  end
-
-  def extension_uri(name)
-    normalize_uri(extensions_uri, name)
   end
 
   def hydra
@@ -43,15 +34,15 @@ class ExtensionScanner
     Typhoeus::Request.new(target_uri + path, followlocation: true)
   end
 
-  def process_result(ext, uri, res)
+  def process_result(ext, extension_path, manifest_uri, res)
     manifest = Nokogiri::XML(res)
     extension = Hash.new
     extension[:version] = Gem::Version.new(manifest.xpath('//extension/version').text)
     extension[:name] = manifest.xpath('//extension/name').text
     extension[:author] = manifest.xpath('//extension/author').text
     extension[:author_url] = manifest.xpath('//extension/authorUrl').text
-    extension[:extension_url] = target_uri + extension_uri(ext['name'])
-    extension[:manifest_url] = target_uri + uri
+    extension[:extension_url] = target_uri + extension_path
+    extension[:manifest_url] = target_uri + manifest_uri
     extension[:description] = manifest.xpath('//extension/description').text
     extension[:vulns] = Array.new
 
@@ -66,32 +57,29 @@ class ExtensionScanner
     extension
   end
 
-  def scan
-    json = File.read(@data_file)
-    extensions = JSON.parse(json)
-    detected = Array.new
-    lock = Mutex.new
+  def possible_paths(name)
+    nil
+  end
 
-    extensions.each do |e|
+  def queue_requests(name, path_index = 0, &block)
+    paths = possible_paths(name)
+    if (path_index < paths.length)
       # Attempt to find the extension named manifest first.
-      uri = normalize_uri(extension_uri(e['name']), "#{e['name']}.xml")
+      uri = normalize_uri(paths[path_index], "#{name}.xml")
       req = create_request(uri)
       req.on_complete do |resp|
         if resp.code == 200
-          lock.synchronize do
-            res = process_result(e, uri, resp.body)
-            detected.push(res) if res[:vulns].length > 0
-          end
+          block.call(resp, paths[path_index], uri)
         else
           # Extension named manifest wasn't found, try to find manifest.xml
-          uri = normalize_uri(extension_uri(e['name']), "manifest.xml")
+          uri = normalize_uri(paths[path_index], "manifest.xml")
           req = create_request(uri)
           req.on_complete do |resp|
-            lock.synchronize do
-              if resp.code == 200
-                res = process_result(e, uri, resp.body)
-                detected.push(res) if res[:vulns].length > 0
-              end
+            if resp.code == 200
+              block.call(resp, paths[path_index], uri)
+            else
+              # Neither manifests could be found, try the next path
+              queue_requests(name, path_index + 1, &block)
             end
           end
 
@@ -100,6 +88,22 @@ class ExtensionScanner
       end
 
       hydra.queue req
+    end
+  end
+
+  def scan
+    json = File.read(@data_file)
+    extensions = JSON.parse(json)
+    detected = Array.new
+    lock = Mutex.new
+
+    extensions.each do |e|
+      queue_requests(e['name']) do |resp, extension_path, manifest_uri|
+        lock.synchronize do
+          res = process_result(e, extension_path, manifest_uri, resp.body)
+          detected.push(res) if res[:vulns].length > 0
+        end
+      end
     end
 
     hydra.run
