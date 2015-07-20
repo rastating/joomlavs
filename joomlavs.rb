@@ -1,6 +1,7 @@
 require 'slop'
 require 'colorize'
 require_relative 'lib/component_scanner'
+require_relative 'lib/module_scanner'
 
 def print_banner
   print %(
@@ -39,6 +40,27 @@ def print_line(type, text)
   print "#{text}\r\n".light_white
 end
 
+def display_detected_extension(e)
+  print_line(:default, '')
+  print_line(:good, "Name: #{e[:name]} - v#{e[:version]}")
+  print_line(:indent, "Location: #{e[:extension_url]}")
+  print_line(:indent, "Manifest: #{e[:manifest_url]}")
+  print_line(:indent, "Description: #{e[:description]}") unless e[:description].empty?
+  print_line(:indent, "Author: #{e[:author]}") unless e[:author].empty?
+  print_line(:indent, "Author URL: #{e[:author_url]}") unless e[:author_url].empty?
+  
+  e[:vulns].each do |v|
+    print_line(:default, '')
+    print_line(:error, "Title: #{v['title']}")
+    print_line(:indent, "Reference: https://www.exploit-db.com/exploits/#{v['edbid']}") if v['edbid']
+    print_line(:indent, "Reference: http://osvdb.org/#{v['osvdbid']}") if v['osvdbid']
+    print_line(:info, "Fixed in: #{v['fixed_in']}") if v['fixed_in']
+    print_line(:default, '')
+  end
+
+  print_line(:default, '------------------------------------------------------------------')
+end
+
 def main
   print_banner
 
@@ -47,37 +69,27 @@ def main
   end
 
   if opts[:url]
-    c = ComponentScanner.new(opts[:url])
-    print_line(:good, "URL: #{c.target_uri}")
+    print_line(:good, "URL: #{opts[:url]}")
     print_line(:good, "Started: #{Time.now.asctime}")
-    components = c.scan
 
+    scanner = ComponentScanner.new(opts[:url])
     print_line(:default, '')
+    print_line(:good, "Scanning for vulnerable components...")
+    components = scanner.scan
     print_line(:warning, "Found #{components.length} vulnerable components.")
     print_line(:default, '')
     print_line(:default, '------------------------------------------------------------------')
+    components.each { |c| display_detected_extension(c) }
 
-    components.each do |c|
-      print_line(:default, '')
-      print_line(:good, "Name: #{c[:name]} - v#{c[:version]}")
-      print_line(:indent, "Location: #{c[:extension_url]}")
-      print_line(:indent, "Manifest: #{c[:manifest_url]}")
-      print_line(:indent, "Description: #{c[:description]}") unless c[:description].empty?
-      print_line(:indent, "Author: #{c[:author]}") unless c[:author].empty?
-      print_line(:indent, "Author URL: #{c[:author_url]}") unless c[:author_url].empty?
-      print_line(:default, '')
-      
-      c[:vulns].each do |v|
-        print_line(:default, '')
-        print_line(:error, "Title: #{v['title']}")
-        print_line(:indent, "Reference: https://www.exploit-db.com/exploits/#{v['edbid']}") if v['edbid']
-        print_line(:indent, "Reference: http://osvdb.org/#{v['osvdbid']}") if v['osvdbid']
-        print_line(:info, "Fixed in: #{v['fixed_in']}") if v['fixed_in']
-        print_line(:default, '')
-      end
+    scanner = ModuleScanner.new(opts[:url])
+    print_line(:default, '')
+    print_line(:good, "Scanning for vulnerable modules...")
+    modules = scanner.scan
+    print_line(:warning, "Found #{modules.length} vulnerable modules.")
+    print_line(:default, '')
+    print_line(:default, '------------------------------------------------------------------')
+    modules.each { |m| display_detected_extension(m) }
 
-      print_line(:default, '------------------------------------------------------------------')
-    end
   else
     puts opts
   end
