@@ -1,37 +1,12 @@
 require 'json'
 require 'nokogiri'
-require 'typhoeus'
+require_relative 'scanner'
 
-class ExtensionScanner
+class ExtensionScanner < Scanner
 
   def initialize(target_uri, data_file)
-    @target_uri = target_uri.chomp('/')
+    super(target_uri)
     @data_file = data_file
-    @hydra = Typhoeus::Hydra.hydra
-  end
-
-  def target_uri
-    @target_uri
-  end
-
-  def hydra
-    @hydra
-  end
-
-  def normalize_uri(*parts)
-    uri = parts * "/"
-    uri = uri.gsub!("//", "/") while uri.index("//")
-
-    # Makes sure there's a starting slash
-    unless uri[0,1] == '/'
-      uri = '/' + uri
-    end
-
-    uri
-  end
-
-  def create_request(path)
-    Typhoeus::Request.new(target_uri + path, followlocation: true)
   end
 
   def process_result(ext, extension_path, manifest_uri, res)
