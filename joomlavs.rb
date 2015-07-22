@@ -2,6 +2,7 @@ require 'slop'
 require 'colorize'
 require_relative 'lib/component_scanner'
 require_relative 'lib/module_scanner'
+require_relative 'lib/fingerprint_scanner'
 
 def print_banner
   print %(
@@ -71,6 +72,14 @@ def main
   if opts[:url]
     print_line(:good, "URL: #{opts[:url]}")
     print_line(:good, "Started: #{Time.now.asctime}")
+
+    scanner = FingerprintScanner.new(opts[:url])
+    print_line(:default, '')
+    print_line(:good, "Detecting version number from README.txt...")
+    version = scanner.version_from_readme
+    print_line(:warning, "Website appears to be running version #{version} of Joomla!") if version
+    print_line(:error, "Couldn't determine version from README.txt") unless version
+
 
     scanner = ComponentScanner.new(opts[:url])
     print_line(:default, '')
