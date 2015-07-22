@@ -74,12 +74,20 @@ def main
     print_line(:good, "Started: #{Time.now.asctime}")
 
     scanner = FingerprintScanner.new(opts[:url])
+
     print_line(:default, '')
     print_line(:good, "Detecting version number from README.txt...")
     version = scanner.version_from_readme
     print_line(:warning, "Website appears to be running version #{version} of Joomla!") if version
     print_line(:error, "Couldn't determine version from README.txt") unless version
 
+    print_line(:default, '')
+    print_line(:good, "Looking for interesting headers...")
+    interesting_headers = scanner.interesting_headers
+    print_line(:warning, "Found #{interesting_headers.length} interesting headers.")
+    interesting_headers.each do | header |
+      print_line(:indent, "#{header[0]}: #{header[1]}")
+    end
 
     scanner = ComponentScanner.new(opts[:url])
     print_line(:default, '')
