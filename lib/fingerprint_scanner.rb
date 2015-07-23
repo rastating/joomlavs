@@ -52,6 +52,25 @@ class FingerprintScanner < Scanner
       ]
     end
 
+    def registration_uri
+      '/index.php?option=com_users&view=registration'
+    end
+
+    def user_registration_enabled
+      # Follow location option must be set to false to detect the
+      # redirect to the login page if registration is disabled.
+      req = create_request(registration_uri)
+      req.options['followlocation'] = false
+
+      enabled = true
+      req.on_complete do |resp|
+        enabled = resp.code == 200
+      end
+
+      req.run
+      enabled
+    end
+
     def version_from_readme
       req = create_request('/README.txt')
       version = ''

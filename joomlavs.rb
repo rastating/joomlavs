@@ -82,6 +82,11 @@ def main
     print_line(:error, "Couldn't determine version from README.txt") unless version
 
     print_line(:default, '')
+    print_line(:good, 'Checking if user registration is enabled...')
+    print_line(:warning, "User registration is available at #{scanner.target_uri}#{scanner.registration_uri}") if scanner.user_registration_enabled
+    print_line(:good, 'User registration is not enabled.') unless scanner.user_registration_enabled
+
+    print_line(:default, '')
     print_line(:good, "Looking for interesting headers...")
     interesting_headers = scanner.interesting_headers
     print_line(:warning, "Found #{interesting_headers.length} interesting headers.")
