@@ -56,6 +56,33 @@ class FingerprintScanner < Scanner
       '/index.php?option=com_users&view=registration'
     end
 
+    def directory_listing_enabled(uri)
+      req = create_request(uri)
+      enabled = false
+      req.on_complete do |resp|
+        enabled = resp.code == 200 && resp.body[%r{<title>Index of}]
+      end
+
+      req.run
+      enabled
+    end
+
+    def administrator_components_listing_enabled
+      directory_listing_enabled('/administrator/components')
+    end
+
+    def components_listing_enabled
+      directory_listing_enabled('/components')
+    end
+
+    def administrator_modules_listing_enabled
+      directory_listing_enabled('/administrator/modules')
+    end
+
+    def modules_listing_enabled
+      directory_listing_enabled('/modules')
+    end
+
     def user_registration_enabled
       # Follow location option must be set to false to detect the
       # redirect to the login page if registration is disabled.

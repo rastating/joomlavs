@@ -94,6 +94,13 @@ def main
       print_line(:indent, "#{header[0]}: #{header[1]}")
     end
 
+    print_line(:default, '')
+    print_line(:good, "Looking for directory listings...")
+    print_line(:warning, "Components listing enabled: #{scanner.target_uri}/administrator/components") if scanner.administrator_components_listing_enabled
+    print_line(:warning, "Components listing enabled: #{scanner.target_uri}/components") if scanner.components_listing_enabled
+    print_line(:warning, "Modules listing enabled: #{scanner.target_uri}/administrator/modules") if scanner.administrator_modules_listing_enabled
+    print_line(:warning, "Modules listing enabled: #{scanner.target_uri}/modules") if scanner.modules_listing_enabled
+
     scanner = ComponentScanner.new(opts[:url])
     print_line(:default, '')
     print_line(:good, "Scanning for vulnerable components...")
