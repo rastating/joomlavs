@@ -54,6 +54,7 @@ def main
 
   opts = Slop.parse do |o|
     o.string '-u', '--url', 'The Joomla URL/domain to scan.'
+    o.string '--basic-auth', '<username:password> The basic HTTP authentication credentials'
     o.bool '--follow-redirection', 'Automatically follow redirections'
     o.bool '-v', '--verbose', 'Enable verbose mode'
   end
@@ -62,7 +63,7 @@ def main
     output.print_good("URL: #{opts[:url]}")
     output.print_good("Started: #{Time.now.asctime}")
 
-    scanner = FingerprintScanner.new(opts[:url], opts[:follow_redirection])
+    scanner = FingerprintScanner.new(opts[:url], opts)
     check_target_redirection(scanner, output, opts)
     target = scanner.target_uri
 
@@ -92,7 +93,7 @@ def main
     output.print_warning("Modules listing enabled: #{scanner.target_uri}/administrator/modules") if scanner.administrator_modules_listing_enabled
     output.print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if scanner.modules_listing_enabled
 
-    scanner = ComponentScanner.new(target, opts[:follow_redirection])
+    scanner = ComponentScanner.new(target, opts)
     output.print_line_break
     output.print_good("Scanning for vulnerable components...")
     components = scanner.scan
@@ -101,7 +102,7 @@ def main
     output.print_horizontal_rule(:default)
     components.each { |c| display_detected_extension(c, output) }
 
-    scanner = ModuleScanner.new(target, opts[:follow_redirection])
+    scanner = ModuleScanner.new(target, opts)
     output.print_line_break
     output.print_good("Scanning for vulnerable modules...")
     modules = scanner.scan

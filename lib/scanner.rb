@@ -1,11 +1,10 @@
 require 'typhoeus'
 
 class Scanner
-  attr_accessor :target_uri
 
-  def initialize(target_uri, follow_redirection)
+  def initialize(target_uri, opts)
     update_target_uri target_uri
-    @follow_redirection = follow_redirection
+    @opts = opts
     @hydra = Typhoeus::Hydra.hydra
   end
 
@@ -22,7 +21,7 @@ class Scanner
   end
 
   def follow_redirection
-    @follow_redirection
+    @opts[:follow_redirection]
   end
 
   def normalize_uri(*parts)
@@ -38,7 +37,9 @@ class Scanner
   end
 
   def create_request(path)
-    Typhoeus::Request.new(target_uri + path, followlocation: follow_redirection ? true : false)
+    req = Typhoeus::Request.new(target_uri + path, followlocation: @opts[:follow_redirection] ? true : false)
+    req.options['userpwd'] = @opts[:basic_auth] if @opts[:basic_auth]
+    req
   end
 
   def target_redirects_to

@@ -2,8 +2,8 @@ require_relative 'scanner'
 
 class FingerprintScanner < Scanner
 
-    def initialize(target_uri, follow_redirection)
-      super(target_uri, follow_redirection)
+    def initialize(target_uri, opts)
+      super(target_uri, opts)
     end
 
     def common_resp_headers
