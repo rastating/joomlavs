@@ -26,47 +26,73 @@ def display_detected_extension(e, output)
   output.print_horizontal_rule(:default)
 end
 
+def check_target_redirection(scanner, output, opts)
+  redirected_uri = scanner.target_redirects_to
+  if redirected_uri
+    if opts[:follow_redirection]
+      scanner.update_target_uri redirected_uri
+      output.print_info("Now targetting #{scanner.target_uri}") if opts[:verbose]
+    else
+      output.print_line_break
+      output.print_info("The remote host tried to redirect to: #{redirected_uri}")
+      answer = output.read_input('Do you want to follow the redirection? [Y]es [N]o [A]bort: ')
+      if answer =~ /^y/i
+        scanner.update_target_uri redirected_uri
+        output.print_info("Now targetting #{scanner.target_uri}") if opts[:verbose]
+      elsif answer =~ /^a/i
+        output.print_line_break
+        output.print_good('Scan aborted')
+        exit(1)
+      end
+    end
+  end
+end
+
 def main
   output = Output.new
   output.print_banner
 
   opts = Slop.parse do |o|
     o.string '-u', '--url', 'The Joomla URL/domain to scan.'
+    o.bool '--follow-redirection', 'Automatically follow redirections'
+    o.bool '-v', '--verbose', 'Enable verbose mode'
   end
 
   if opts[:url]
     output.print_good("URL: #{opts[:url]}")
     output.print_good("Started: #{Time.now.asctime}")
 
-    scanner = FingerprintScanner.new(opts[:url])
+    scanner = FingerprintScanner.new(opts[:url], opts[:follow_redirection])
+    check_target_redirection(scanner, output, opts)
+    target = scanner.target_uri
 
     output.print_line_break
-    output.print_good("Determining Joomla version...")
+    output.print_good("Determining Joomla version...") if opts[:verbose]
     version = scanner.version_from_readme
-    output.print_warning("Website appears to be running version #{version} of Joomla!") if version
+    output.print_good("Joomla version #{version} identified from README.txt") if version
     output.print_error("Couldn't determine version from README.txt") unless version
 
-    output.print_line_break
-    output.print_good('Checking if user registration is enabled...')
-    output.print_warning("User registration is available at #{scanner.target_uri}#{scanner.registration_uri}") if scanner.user_registration_enabled
-    output.print_good('User registration is not enabled.') unless scanner.user_registration_enabled
+    output.print_line_break if opts[:verbose]
+    output.print_good('Checking if registration is enabled...') if opts[:verbose]
+    output.print_warning("Registration is enabled: #{scanner.target_uri}#{scanner.registration_uri}") if scanner.user_registration_enabled
+    output.print_good('User registration is not enabled.') if !scanner.user_registration_enabled && opts[:verbose]
 
-    output.print_line_break
-    output.print_good("Looking for interesting headers...")
+    output.print_line_break if opts[:verbose]
+    output.print_good("Looking for interesting headers...") if opts[:verbose]
     interesting_headers = scanner.interesting_headers
-    output.print_warning("Found #{interesting_headers.length} interesting headers.")
+    output.print_good("Found #{interesting_headers.length} interesting headers.")
     interesting_headers.each do | header |
       output.print_indent("#{header[0]}: #{header[1]}")
     end
 
-    output.print_line_break
-    output.print_good("Looking for directory listings...")
+    output.print_line_break if opts[:verbose]
+    output.print_good("Looking for directory listings...") if opts[:verbose]
     output.print_warning("Components listing enabled: #{scanner.target_uri}/administrator/components") if scanner.administrator_components_listing_enabled
     output.print_warning("Components listing enabled: #{scanner.target_uri}/components") if scanner.components_listing_enabled
     output.print_warning("Modules listing enabled: #{scanner.target_uri}/administrator/modules") if scanner.administrator_modules_listing_enabled
     output.print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if scanner.modules_listing_enabled
 
-    scanner = ComponentScanner.new(opts[:url])
+    scanner = ComponentScanner.new(target, opts[:follow_redirection])
     output.print_line_break
     output.print_good("Scanning for vulnerable components...")
     components = scanner.scan
@@ -75,7 +101,7 @@ def main
     output.print_horizontal_rule(:default)
     components.each { |c| display_detected_extension(c, output) }
 
-    scanner = ModuleScanner.new(opts[:url])
+    scanner = ModuleScanner.new(target, opts[:follow_redirection])
     output.print_line_break
     output.print_good("Scanning for vulnerable modules...")
     modules = scanner.scan

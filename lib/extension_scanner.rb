@@ -4,8 +4,8 @@ require_relative 'scanner'
 
 class ExtensionScanner < Scanner
 
-  def initialize(target_uri, data_file)
-    super(target_uri)
+  def initialize(target_uri, data_file, follow_redirection)
+    super(target_uri, follow_redirection)
     @data_file = data_file
   end
 

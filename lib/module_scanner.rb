@@ -2,8 +2,8 @@ require_relative 'extension_scanner'
 
 class ModuleScanner < ExtensionScanner
 
-  def initialize(target_uri)
-    super(target_uri, 'data/modules.json')
+  def initialize(target_uri, follow_redirection)
+    super(target_uri, 'data/modules.json', follow_redirection)
   end
 
   def possible_paths(name)

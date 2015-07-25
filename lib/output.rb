@@ -1,7 +1,8 @@
 require 'colorize'
+require 'readline'
 
 class Output
-  def print_line(type, text)
+  def print_line(type, text, new_line = true)
     if type == :good
       print '[+] '.green
     elsif type == :warning
@@ -12,11 +13,14 @@ class Output
       print '[!] '.red
     elsif type == :indent
       print ' |  '.light_white
+    elsif type == :prompt
+      print '[?] '.light_white
     else
       print '    '
     end
         
-    print "#{text}\r\n".light_white
+    print "#{text}".light_white
+    print "\r\n" if new_line
   end
 
   def print_banner
@@ -36,6 +40,11 @@ class Output
 ----------------------------------------------------------------------
 
 ).light_white
+  end
+
+  def read_input(prompt)
+    print_line(:prompt, prompt, false)
+    Readline.readline
   end
 
   def print_good(text)

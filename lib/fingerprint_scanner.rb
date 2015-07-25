@@ -2,8 +2,8 @@ require_relative 'scanner'
 
 class FingerprintScanner < Scanner
 
-    def initialize(target_uri)
-      super(target_uri)
+    def initialize(target_uri, follow_redirection)
+      super(target_uri, follow_redirection)
     end
 
     def common_resp_headers
@@ -68,19 +68,19 @@ class FingerprintScanner < Scanner
     end
 
     def administrator_components_listing_enabled
-      directory_listing_enabled('/administrator/components')
+      directory_listing_enabled('/administrator/components/')
     end
 
     def components_listing_enabled
-      directory_listing_enabled('/components')
+      directory_listing_enabled('/components/')
     end
 
     def administrator_modules_listing_enabled
-      directory_listing_enabled('/administrator/modules')
+      directory_listing_enabled('/administrator/modules/')
     end
 
     def modules_listing_enabled
-      directory_listing_enabled('/modules')
+      directory_listing_enabled('/modules/')
     end
 
     def user_registration_enabled
