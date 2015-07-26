@@ -56,6 +56,8 @@ def main
     o.string '-u', '--url', 'The Joomla URL/domain to scan.'
     o.string '--basic-auth', '<username:password> The basic HTTP authentication credentials'
     o.bool '--follow-redirection', 'Automatically follow redirections'
+    o.string '--proxy', '<[protocol://]host:port> HTTP, SOCKS4 SOCKS4A and SOCKS5 are supported. If no protocol is given, HTTP will be used'
+    o.string '--proxy-auth', '<username:password> The proxy authentication credentials'
     o.integer '-t', '--threads', 'The number of threads to use when multi-threading requests', default: 20
     o.bool '-v', '--verbose', 'Enable verbose mode'
   end
