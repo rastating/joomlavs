@@ -2,29 +2,44 @@ require 'colorize'
 require 'readline'
 
 class Output
+  def initialize (use_colours = True)
+    @use_colours = use_colours
+  end
+
+  def use_colours
+    @use_colours
+  end
+
   def print_line(type, text, new_line = true)
     if type == :good
-      print '[+] '.green
+      print '[+] '.green if use_colours
+      print '[+] ' unless use_colours
     elsif type == :warning
-      print '[!] '.yellow
+      print '[!] '.yellow if use_colours
+      print '[!] ' unless use_colours
     elsif type == :info
-      print '[i] '.cyan
+      print '[i] '.cyan if use_colours
+      print '[i] ' unless use_colours
     elsif type == :error
-      print '[!] '.red
+      print '[!] '.red if use_colours
+      print '[!] ' unless use_colours
     elsif type == :indent
-      print ' |  '.light_white
+      print ' |  '.light_white if use_colours
+      print ' |  ' unless use_colours
     elsif type == :prompt
-      print '[?] '.light_white
+      print '[?] '.light_white if use_colours
+      print '[?] ' unless use_colours
     else
       print '    '
     end
         
-    print "#{text}".light_white
+    print "#{text}".light_white if use_colours
+    print "#{text}" unless use_colours
     print "\r\n" if new_line
   end
 
   def print_banner
-    print %(
+    banner = %(
 ----------------------------------------------------------------------
 
      ██╗ ██████╗  ██████╗ ███╗   ███╗██╗      █████╗ ██╗   ██╗███████╗
@@ -39,7 +54,9 @@ class Output
 
 ----------------------------------------------------------------------
 
-).light_white
+)
+    print banner.light_white if use_colours
+    print banner unless use_colours
   end
 
   def read_input(prompt)
