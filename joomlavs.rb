@@ -57,6 +57,7 @@ def main
     o.string '--proxy', '<[protocol://]host:port> HTTP, SOCKS4 SOCKS4A and SOCKS5 are supported. If no protocol is given, HTTP will be used'
     o.string '--proxy-auth', '<username:password> The proxy authentication credentials'
     o.integer '-t', '--threads', 'The number of threads to use when multi-threading requests', default: 20
+    o.string '--user-agent', 'The user agent string to send with all requests', default: 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
     o.bool '-v', '--verbose', 'Enable verbose mode'
   end
 

@@ -37,7 +37,11 @@ class Scanner
   end
 
   def create_request(path)
-    req = Typhoeus::Request.new(target_uri + path, followlocation: @opts[:follow_redirection] ? true : false)
+    req = Typhoeus::Request.new(
+      target_uri + path, 
+      followlocation: @opts[:follow_redirection] ? true : false,
+      headers: { 'User-Agent' => @opts[:user_agent] }
+    )
     req.options['userpwd'] = @opts[:basic_auth] if @opts[:basic_auth]
     req.options['proxy'] = @opts[:proxy] if @opts[:proxy]
     req.options['proxyuserpwd'] = @opt[:proxy_auth] if @opts[:proxy_auth]
