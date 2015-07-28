@@ -50,15 +50,23 @@ end
 
 def main
   opts = Slop.parse do |o|
+    o.separator 'Basic options'
     o.string '-u', '--url', 'The Joomla URL/domain to scan.'
     o.string '--basic-auth', '<username:password> The basic HTTP authentication credentials'
+    o.bool '-v', '--verbose', 'Enable verbose mode'
+
+    o.separator 'Enumeration options'
+    o.bool '-a', '--scan-all', 'Scan for all vulnerable extensions'
+    o.bool '-c', '--scan-components', 'Scan for vulnerable components'
+    o.bool '-m', '--scan-modules', 'Scan for vulnerable modules'
+
+    o.separator 'Advanced options'
     o.bool '--follow-redirection', 'Automatically follow redirections'
     o.bool '--no-colour', 'Disable colours in output'
     o.string '--proxy', '<[protocol://]host:port> HTTP, SOCKS4 SOCKS4A and SOCKS5 are supported. If no protocol is given, HTTP will be used'
     o.string '--proxy-auth', '<username:password> The proxy authentication credentials'
     o.integer '-t', '--threads', 'The number of threads to use when multi-threading requests', default: 20
     o.string '--user-agent', 'The user agent string to send with all requests', default: 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
-    o.bool '-v', '--verbose', 'Enable verbose mode'
   end
 
   output = Output.new !opts[:no_colour]
@@ -98,23 +106,27 @@ def main
     output.print_warning("Modules listing enabled: #{scanner.target_uri}/administrator/modules") if scanner.administrator_modules_listing_enabled
     output.print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if scanner.modules_listing_enabled
 
-    scanner = ComponentScanner.new(target, opts)
-    output.print_line_break
-    output.print_good("Scanning for vulnerable components...")
-    components = scanner.scan
-    output.print_warning("Found #{components.length} vulnerable components.")
-    output.print_line_break
-    output.print_horizontal_rule(:default)
-    components.each { |c| display_detected_extension(c, output) }
+    if opts[:scan_all] || opts[:scan_components]
+      scanner = ComponentScanner.new(target, opts)
+      output.print_line_break
+      output.print_good("Scanning for vulnerable components...")
+      components = scanner.scan
+      output.print_warning("Found #{components.length} vulnerable components.")
+      output.print_line_break
+      output.print_horizontal_rule(:default)
+      components.each { |c| display_detected_extension(c, output) }
+    end
 
-    scanner = ModuleScanner.new(target, opts)
-    output.print_line_break
-    output.print_good("Scanning for vulnerable modules...")
-    modules = scanner.scan
-    output.print_warning("Found #{modules.length} vulnerable modules.")
-    output.print_line_break
-    output.print_horizontal_rule(:default)
-    modules.each { |m| display_detected_extension(m, output) }
+    if opts[:scan_all] || opts[:scan_modules]
+      scanner = ModuleScanner.new(target, opts)
+      output.print_line_break
+      output.print_good("Scanning for vulnerable modules...")
+      modules = scanner.scan
+      output.print_warning("Found #{modules.length} vulnerable modules.")
+      output.print_line_break
+      output.print_horizontal_rule(:default)
+      modules.each { |m| display_detected_extension(m, output) }
+    end
   else
     puts opts
   end
