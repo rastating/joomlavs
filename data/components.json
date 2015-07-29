@@ -20,5 +20,45 @@
         "date": "2015-03-10"
       }
     ]
+  },
+  {
+    "name": "helpdeskpro",
+    "vulns": [
+      {
+        "title": "Helpdesk Pro < 1.4.0 Direct Object References",
+        "cveid": "2015-4071",
+        "edbid": 37666,
+        "date": "2015-07-16",
+        "fixed_in": "1.4.0"
+      },
+      {
+        "title": "Helpdesk Pro < 1.4.0 Multiple XSS",
+        "cveid": "2015-4072",
+        "edbid": 37666,
+        "date": "2015-07-21",
+        "fixed_in": "1.4.0"
+      },
+      {
+        "title": "Helpdesk Pro < 1.4.0 SQL Injection",
+        "cveid": "2015-4073",
+        "edbid": 37666,
+        "date": "2015-07-21",
+        "fixed_in": "1.4.0"
+      },
+      {
+        "title": "Helpdesk Pro < 1.4.0 Local File Disclosure / Path Traversal",
+        "cveid": "2015-4074",
+        "edbid": 37666,
+        "date": "2015-07-21",
+        "fixed_in": "1.4.0"
+      },
+      {
+        "title": "Helpdesk Pro < 1.4.0 Unauthenticated File Upload",
+        "cveid": "2015-4075",
+        "edbid": 37666,
+        "date": "2015-07-21",
+        "fixed_in": "1.4.0"
+      }
+    ]
   }
 ]
