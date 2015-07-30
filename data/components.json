@@ -81,5 +81,16 @@
         "introduced_in": 1
       }
     ]
+  },
+  {
+    "name": "gallery_wd",
+    "vulns": [
+      {
+        "title": "Joomla Gallery WD - SQL Injection Vulnerability",
+        "edbid": 36560,
+        "osvdbid": 120066,
+        "date": "2015-03-30"
+      }
+    ]
   }
 ]
