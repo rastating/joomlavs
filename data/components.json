@@ -70,5 +70,16 @@
         "date": "2015-07-13"
       }
     ]
+  },
+  {
+    "name": "simpleimageupload",
+    "vulns": [
+      {
+        "title": "Simple Image Upload - Arbitrary File Upload",
+        "edbid": 37364,
+        "date": "2015-06-23",
+        "introduced_in": 1
+      }
+    ]
   }
 ]
