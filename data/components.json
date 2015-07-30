@@ -60,5 +60,15 @@
         "fixed_in": "1.4.0"
       }
     ]
+  },
+  {
+    "name": "docman",
+    "vulns": [
+      {
+        "title": "Full Path Disclosure(FPD) & Local File Disclosure/Include(LFD/LFI)",
+        "edbid": 37620,
+        "date": "2015-07-13"
+      }
+    ]
   }
 ]
