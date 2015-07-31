@@ -92,5 +92,16 @@
         "date": "2015-03-30"
       }
     ]
+  },
+  {
+    "name": "spiderfaq",
+    "vulns": [
+      {
+        "title": "Joomla Spider FAQ SQL Injection Vulnerability",
+        "edbid": 36464,
+        "osvdbid": 119910,
+        "date": "2015-03-22"
+      }
+    ]
   }
 ]
