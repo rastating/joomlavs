@@ -127,5 +127,19 @@
         "fixed_in": "1.2.6"
       }
     ]
+  },
+  {
+    "name": "contactformmaker",
+    "vulns": [
+      {
+        "title": "Joomla Contact Form Maker 1.0.1 Component - SQL injection vulnerability",
+        "edbid": 36561,
+        "cveid": "2015-2798",
+        "osvdbid": 120067,
+        "date": "2015-03-30",
+        "introduced_in": "1.0.1",
+        "fixed_in": "1.0.2"
+      }
+    ]
   }
 ]
