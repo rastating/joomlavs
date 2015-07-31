@@ -17,7 +17,17 @@
         "title": "Joomla Simple Photo Gallery 1.0 - Arbitrary File Upload",
         "osvdbid": 119624,
         "edbid": 36373,
-        "date": "2015-03-10"
+        "date": "2015-03-10",
+        "introduced_in": 1,
+        "fixed_in": 1.1
+      },
+      {
+        "title": "Joomla Simple Photo Gallery 1.0 - SQL injection",
+        "osvdbid": 119627,
+        "edbid": 36385,
+        "date": "2015-03-16",
+        "introduced_in": 1,
+        "fixed_in": 1.1
       }
     ]
   },
