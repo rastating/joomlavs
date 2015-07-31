@@ -103,5 +103,19 @@
         "date": "2015-03-22"
       }
     ]
+  },
+  {
+    "name": "ecommercewd",
+    "vulns": [
+      {
+        "title": "Joomla ECommerce-WD Plugin 1.2.5 - SQL Injection Vulnerabilities",
+        "edbid": 36439,
+        "cveid": "2015-2562",
+        "osvdbid": 119771,
+        "date": "2015-03-19",
+        "introduced_in": "1.2.5",
+        "fixed_in": "1.2.6"
+      }
+    ]
   }
 ]
