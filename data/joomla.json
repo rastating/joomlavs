@@ -15,5 +15,14 @@
     "date": "2014-02-05",
     "introduced_in": "3.2.1",
     "fixed_in": "3.2.2"
+  },
+  {
+    "title": "Joomla Media Manager File Upload Vulnerability",
+    "edbid": 27610,
+    "cveid": "2013-5576",
+    "osvdbid": 95933,
+    "date": "2013-08-15",
+    "introduced_in": 2.5,
+    "fixed_in": "3.1.5"
   }
 ]
