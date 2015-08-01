@@ -315,5 +315,17 @@
         "fixed_in": "3.0.3"
       }
     ]
+  },
+  {
+    "name": "virtuemart",
+    "vulns": [
+      {
+        "title": "Joomla! VirtueMart Component 2.0.22a - SQL Injection",
+        "edbid": 27879,
+        "osvdbid": 96586,
+        "date": "2013-08-26",
+        "fixed_in": "2.0.22b"
+      }
+    ]
   }
 ]
