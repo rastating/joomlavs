@@ -7,5 +7,13 @@
     "date": "2014-10-21",
     "introduced_in": "2.5.25",
     "fixed_in": "3.3.5"
+  },
+  {
+    "title": "Joomla 3.2.1 - SQL Injection Vulnerability",
+    "edbid": 31459,
+    "osvdbid": 103126,
+    "date": "2014-02-05",
+    "introduced_in": "3.2.1",
+    "fixed_in": "3.2.2"
   }
 ]
