@@ -228,5 +228,17 @@
         "date": "2014-09-11"
       }
     ]
+  },
+  {
+    "name": "spidercalendar",
+    "vulns": [
+      {
+        "title": "Joomla Spider Calendar <= 3.2.6 - SQL Injection",
+        "edbid": 34571,
+        "osvdbid": 111201,
+        "fixed_in": "3.2.7",
+        "date": "2014-08-31"
+      }
+    ]
   }
 ]
