@@ -240,5 +240,17 @@
         "date": "2014-08-31"
       }
     ]
+  },
+  {
+    "name": "youtubegallery",
+    "vulns": [
+      {
+        "title": "Joomla Youtube Gallery Component - SQL Injection Vulnerability",
+        "edbid": 34087,
+        "cveid": "2014-4960",
+        "osvdbid": 109195,
+        "date": "15-07-2014"
+      }
+    ]
   }
 ]
