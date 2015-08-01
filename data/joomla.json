@@ -1,0 +1,11 @@
+[
+  {
+    "title": "Joomla Akeeba Kickstart Unserialize Remote Code Execution",
+    "edbid": 35033,
+    "osvdbid": 112407,
+    "cveid": "2014-7228",
+    "date": "2014-10-21",
+    "introduced_in": "2.5.25",
+    "fixed_in": "3.3.5"
+  }
+]
