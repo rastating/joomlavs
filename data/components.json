@@ -276,5 +276,18 @@
         "fixed_in": 1.7
       }
     ]
+  },
+  {
+    "name": "community",
+    "vulns": [
+      {
+        "title": "Joomla JomSocial Component 2.6 - Code Execution Exploit",
+        "edbid": 31435,
+        "osvdbid": 102756,
+        "date": "2014-02-05",
+        "introduced_in": 2.6,
+        "fixed_in": "3.1.0.1"
+      }
+    ]
   }
 ]
