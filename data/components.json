@@ -181,13 +181,15 @@
         "title": "Joomla Face Gallery 1.0 SQL Injection",
         "edbid": 34754,
         "osvdbid": 112011,
-        "fixed_in": "1.0.1"
+        "fixed_in": "1.0.1",
+        "date": "2014-09-17"
       },
       {
         "title": "Joomla Face Gallery 1.0 Arbitrary File Download",
         "edbid": 34754,
         "osvdbid": 112010,
-        "fixed_in": "1.0.1"
+        "fixed_in": "1.0.1",
+        "date": "2014-09-17"
       }
     ]
   },
@@ -198,7 +200,8 @@
         "title": "Joomla Mac Gallery 1.5 - Arbitrary File Download",
         "edbid": 34755,
         "osvdbid": 112009,
-        "fixed_in": "1.5.1"
+        "fixed_in": "1.5.1",
+        "date": "2014-09-17"
       }
     ]
   },
