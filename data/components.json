@@ -216,5 +216,17 @@
         "date": "2014-09-12"
       }
     ]
+  },
+  {
+    "name": "spidercontacts",
+    "vulns": [
+      {
+        "title": "Joomla Spider Contacts 1.3.6 (index.php contacts_id param) - SQL Injection",
+        "edbid": 34625,
+        "osvdbid": 111381,
+        "fixed_in": "1.3.7",
+        "date": "2014-09-11"
+      }
+    ]
   }
 ]
