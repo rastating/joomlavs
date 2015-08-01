@@ -264,5 +264,17 @@
         "fixed_in": "3.0.5"
       }
     ]
+  },
+  {
+    "name": "ajax-shoutbox",
+    "vulns": [
+      {
+        "title": "Joomla AJAX Shoutbox <= 1.6 - Remote SQL Injection Vulnerability",
+        "edbid": 32331,
+        "osvdbid": 104467,
+        "date": "2010-04-01",
+        "fixed_in": 1.7
+      }
+    ]
   }
 ]
