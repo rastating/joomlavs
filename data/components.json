@@ -160,5 +160,18 @@
         "fixed_in": "2.1.0.2"
       }
     ]
+  },
+  {
+    "name": "creativecontactform",
+    "vulns": [
+      {
+        "title": "Creative Contact Form 2.0.0 - Shell Upload Vulnerability",
+        "edbid": 35057,
+        "cveid": "2014-8739",
+        "osvdbid": 113673,
+        "date": "2014-10-25",
+        "fixed_in": "2.0.1"
+      }
+    ]
   }
 ]
