@@ -327,5 +327,18 @@
         "fixed_in": "2.0.22b"
       }
     ]
+  },
+  {
+    "name": "redshop",
+    "vulns": [
+      {
+        "title": "Joomla redSHOP Component 1.2 - SQL Injection",
+        "edbid": 27532,
+        "cveid": "2010-2694",
+        "osvdbid": 66246,
+        "date": "2013-08-08",
+        "fixed_in": 1.3
+      }
+    ]
   }
 ]
