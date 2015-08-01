@@ -252,5 +252,17 @@
         "date": "15-07-2014"
       }
     ]
+  },
+  {
+    "name": "kunena",
+    "vulns": [
+      {
+        "title": "Joomla Kunena Component 3.0.4 - Persistent XSS",
+        "edbid": 32562,
+        "osvdbid": 105095,
+        "date": "2014-02-26",
+        "fixed_in": "3.0.5"
+      }
+    ]
   }
 ]
