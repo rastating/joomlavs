@@ -141,5 +141,24 @@
         "fixed_in": "1.0.2"
       }
     ]
+  },
+  {
+    "name": "hdflvplayer",
+    "vulns": [
+      {
+        "title": "Joomla HD FLV Player < 2.1.0.1 - Arbitrary File Download Vulnerability",
+        "edbid": 35246,
+        "osvdbid": 114696,
+        "date": "2014-11-15",
+        "fixed_in": "2.1.0.2"
+      },
+      {
+        "title": "Joomla HD FLV Player < 2.1.0.1 - SQL Injection Vulnerability",
+        "edbid": 35220,
+        "osvdbid": 114696,
+        "date": "2014-11-13",
+        "fixed_in": "2.1.0.2"
+      }
+    ]
   }
 ]
