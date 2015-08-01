@@ -289,5 +289,18 @@
         "fixed_in": "3.1.0.1"
       }
     ]
+  },
+  {
+    "name": "komento",
+    "vulns": [
+      {
+        "title": "Joomla Komento Extension 1.7.2 - Stored XSS Vulnerabilities",
+        "edbid": 31174,
+        "osvdbid": 101961,
+        "cveid": "2014-0793",
+        "date": "2014-01-23",
+        "fixed_in": "1.7.3"
+      }
+    ]
   }
 ]
