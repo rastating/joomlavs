@@ -201,5 +201,17 @@
         "fixed_in": "1.5.1"
       }
     ]
+  },
+  {
+    "name": "formmaker",
+    "vulns": [
+      {
+        "title": "Joomla Spider Form Maker <= 3.4 - SQLInjection",
+        "edbid": 34637,
+        "osvdbid": 111467,
+        "fixed_in": "3.4.1",
+        "date": "2014-09-12"
+      }
+    ]
   }
 ]
