@@ -9,7 +9,8 @@ def display_vulns(vulns, output)
   vulns.each do |v|
     output.print_line_break
     output.print_line(:error, "Title: #{v['title']}")
-    output.print_indent("Reference: https://www.exploit-db.com/exploits/#{v['edbid']}") if v['edbid']
+    output.print_indent("Reference: https://www.exploit-db.com/exploits/#{v['edbid']}/") if v['edbid']
+    output.print_indent("Reference: http://www.cvedetails.com/cve/#{v['cveid']}/") if v['cveid']
     output.print_indent("Reference: http://osvdb.org/#{v['osvdbid']}") if v['osvdbid']
     output.print_line(:info, "Fixed in: #{v['fixed_in']}") if v['fixed_in']
     output.print_line_break
@@ -123,7 +124,6 @@ def main
     output.print_line_break
     output.print_good("Determining Joomla version...") if opts[:verbose]
     version = scanner.version_from_readme
-    version = 3.0
     output.print_good("Joomla version #{version} identified from README.txt") if version
     output.print_error("Couldn't determine version from README.txt") unless version
 
