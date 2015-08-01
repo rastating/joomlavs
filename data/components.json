@@ -302,5 +302,18 @@
         "fixed_in": "1.7.3"
       }
     ]
+  },
+  {
+    "name": "jvcomment",
+    "vulns": [
+      {
+        "title": "Joomla JV Comment Extension 3.0.2 (index.php id param) - SQL Injection",
+        "edbid": 31175,
+        "osvdbid": 101960,
+        "cveid": "2014-0794",
+        "date": "2014-01-24",
+        "fixed_in": "3.0.3"
+      }
+    ]
   }
 ]
