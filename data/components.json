@@ -190,5 +190,16 @@
         "fixed_in": "1.0.1"
       }
     ]
+  },
+  {
+    "name": "macgallery",
+    "vulns": [
+      {
+        "title": "Joomla Mac Gallery 1.5 - Arbitrary File Download",
+        "edbid": 34755,
+        "osvdbid": 112009,
+        "fixed_in": "1.5.1"
+      }
+    ]
   }
 ]
