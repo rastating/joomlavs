@@ -173,5 +173,22 @@
         "fixed_in": "2.0.1"
       }
     ]
+  },
+  {
+    "name": "facegallery",
+    "vulns": [
+      {
+        "title": "Joomla Face Gallery 1.0 SQL Injection",
+        "edbid": 34754,
+        "osvdbid": 112011,
+        "fixed_in": "1.0.1"
+      },
+      {
+        "title": "Joomla Face Gallery 1.0 Arbitrary File Download",
+        "edbid": 34754,
+        "osvdbid": 112010,
+        "fixed_in": "1.0.1"
+      }
+    ]
   }
 ]
