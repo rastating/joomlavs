@@ -363,5 +363,18 @@
         "date": "2013-05-13"
       }
     ]
+  },
+  {
+    "name": "dj-classifieds",
+    "vulns": [
+      {
+        "title": "Joomla DJ Classifieds Extension 2.0 - Blind SQL Injection Vulnerability",
+        "edbid": 25248,
+        "osvdbid": 93090,
+        "date": "2013-05-04",
+        "introduced_in": 2,
+        "fixed_in": 2.1
+      }
+    ]
   }
 ]
