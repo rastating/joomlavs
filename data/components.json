@@ -401,5 +401,16 @@
         "date": "2013-03-18"
       }
     ]
+  },
+  {
+    "name": "collector",
+    "vulns": [
+      {
+        "title": "Joomla com_collector Component Arbitrary File Upload Vulnerability",
+        "edbid": 24228,
+        "osvdbid": 89439,
+        "date": "2013-01-19"
+      }
+    ]
   }
 ]
