@@ -448,5 +448,17 @@
         "introduced_in": 1.1
       }
     ]
+  },
+  {
+    "name": "commedia",
+    "vulns": [
+      {
+        "title": "Joomla Commedia Plugin (index.php task parameter) SQL Injection",
+        "edbid": 22152,
+        "osvdbid": 86485,
+        "date": "2012-10-22",
+        "introduced_in": 3.1
+      }
+    ]
   }
 ]
