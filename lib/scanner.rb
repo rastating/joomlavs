@@ -44,7 +44,7 @@ class Scanner
     )
     req.options['userpwd'] = @opts[:basic_auth] if @opts[:basic_auth]
     req.options['proxy'] = @opts[:proxy] if @opts[:proxy]
-    req.options['proxyuserpwd'] = @opt[:proxy_auth] if @opts[:proxy_auth]
+    req.options['proxyuserpwd'] = @opts[:proxy_auth] if @opts[:proxy_auth]
     req
   end
 
@@ -65,7 +65,7 @@ class Scanner
     if resp.code == 301 || resp.code == 302
       loc = resp.headers['location']
     end
-    
+
     loc
   end
 end
