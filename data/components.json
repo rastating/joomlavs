@@ -417,5 +417,24 @@
         "date": "2013-01-19"
       }
     ]
+  },
+  {
+    "name": "jooproperty",
+    "vulns": [
+      {
+        "title": "Jooproperty Component for Joomla! product_id Parameter XSS ",
+        "edbid": 23286,
+        "osvdbid": 88349,
+        "date": "2012-12-11",
+        "introduced_in": "1.13.0"
+      },
+      {
+        "title": "Jooproperty Component for Joomla! product_id Parameter SQL Injection",
+        "edbid": 23286,
+        "osvdbid": 88348,
+        "date": "2012-12-11",
+        "introduced_in": "1.13.0"
+      }
+    ]
   }
 ]
