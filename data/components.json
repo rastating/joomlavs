@@ -238,6 +238,11 @@
         "osvdbid": 111201,
         "fixed_in": "3.2.7",
         "date": "2014-08-31"
+      },
+      {
+        "title": "Joomla Spider Calendar (index.php date param) Blind SQL Injection Vulnerability",
+        "edbid": 23782,
+        "date": "2012-12-31"
       }
     ]
   },
