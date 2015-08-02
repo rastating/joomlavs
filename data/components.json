@@ -436,5 +436,17 @@
         "introduced_in": "1.13.0"
       }
     ]
+  },
+  {
+    "name": "spidercatalog",
+    "vulns": [
+      {
+        "title": "Joomla Spider Catalog (index.php product_id parameter) SQL Injection Vulnerability",
+        "edbid": 22403,
+        "osvdbid": 86846,
+        "date": "2012-11-01",
+        "introduced_in": 1.1
+      }
+    ]
   }
 ]
