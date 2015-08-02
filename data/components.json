@@ -352,5 +352,16 @@
         "fixed_in": "2.5.104"
       }
     ]
+  },
+  {
+    "name": "s5clanroster",
+    "vulns": [
+      {
+        "title": "Joomla S5 Clan Roster com_s5clanroster (index.php id param) - SQL Injection",
+        "edbid": 25410,
+        "osvdbid": 93457,
+        "date": "2013-05-13"
+      }
+    ]
   }
 ]
