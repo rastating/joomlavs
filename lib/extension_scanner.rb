@@ -22,9 +22,20 @@ class ExtensionScanner < Scanner
     extension[:vulns] = Array.new
 
     ext['vulns'].each do |v|
-      if v['introduced_in'].nil? or Gem::Version.new(v['introduced_in']) <= extension[:version]
-        if v['fixed_in'].nil? or Gem::Version.new(v['fixed_in']) > extension[:version]
-          extension[:vulns].push(v)
+      if v['ranges']
+        v['ranges'].each do |r|
+          if Gem::Version.new(r['introduced_in']) <= extension[:version]
+            if Gem::Version.new(r['fixed_in']) > extension[:version]
+              extension[:vulns].push(v)
+              break
+            end
+          end
+        end
+      else
+        if v['introduced_in'].nil? or Gem::Version.new(v['introduced_in']) <= extension[:version]
+          if v['fixed_in'].nil? or Gem::Version.new(v['fixed_in']) > extension[:version]
+            extension[:vulns].push(v)
+          end
         end
       end
     end

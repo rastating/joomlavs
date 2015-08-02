@@ -37,9 +37,20 @@ def joomla_vulnerabilities(version)
   found = Array.new
 
   vulns.each do |v|
-    if v['introduced_in'].nil? or Gem::Version.new(v['introduced_in']) <= version
-      if v['fixed_in'].nil? or Gem::Version.new(v['fixed_in']) > version
-        found.push(v)
+    if v['ranges']
+      v['ranges'].each do |r|
+        if Gem::Version.new(r['introduced_in']) <= version
+          if Gem::Version.new(r['fixed_in']) > version
+            found.push(v)
+            break
+          end
+        end
+      end
+    else
+      if v['introduced_in'].nil? or Gem::Version.new(v['introduced_in']) <= version
+        if v['fixed_in'].nil? or Gem::Version.new(v['fixed_in']) > version
+          found.push(v)
+        end
       end
     end
   end
