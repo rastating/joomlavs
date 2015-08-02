@@ -376,5 +376,19 @@
         "fixed_in": 2.1
       }
     ]
+  },
+  {
+    "name": "civicrm",
+    "vulns": [
+      {
+        "title": "CiviCRM for Joomla 4.2.2 - Remote Code Injection",
+        "edbid": 24969,
+        "osvdbid": 59051,
+        "cveid": "2011-4275",
+        "date": "2013-04-20",
+        "introduced_in": "4.2.2",
+        "fixed_in": "4.2.3"
+      }
+    ]
   }
 ]
