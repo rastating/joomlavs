@@ -390,5 +390,16 @@
         "fixed_in": "4.2.3"
       }
     ]
+  },
+  {
+    "name": "rsfiles",
+    "vulns": [
+      {
+        "title": "Joomla RSfiles Component (cid param) - SQL Injection Vulnerability",
+        "edbid": 24851,
+        "osvdbid": 91448,
+        "date": "2013-03-18"
+      }
+    ]
   }
 ]
