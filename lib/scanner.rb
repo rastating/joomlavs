@@ -48,17 +48,24 @@ class Scanner
     req
   end
 
+  def run_request(req)
+    req.on_complete do |resp|
+      return resp
+    end
+
+    req.run
+  end
+
   def target_redirects_to
     req = create_request('/')
     req.options['followlocation'] = false
     loc = nil
-    req.on_complete do |resp|
-      if resp.code == 301 || resp.code == 302
-        loc = resp.headers['location']
-      end
-    end
+    resp = run_request(req)
 
-    req.run
+    if resp.code == 301 || resp.code == 302
+      loc = resp.headers['location']
+    end
+    
     loc
   end
 end
