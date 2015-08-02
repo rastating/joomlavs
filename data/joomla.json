@@ -64,5 +64,23 @@
         "fixed_in": "2.5.10"
       }
     ]
+  },
+  {
+    "title": "Joomla! <= 3.0.2 (highlight.php) PHP Object Injection Vulnerability",
+    "edbid": 24551,
+    "cveid": "2013-1453",
+    "osvdbid": 89852,
+    "fixed_in": "2.5.9",
+    "date": "2013-02-27",
+    "ranges": [
+      {
+        "introduced_in": 3,
+        "fixed_in": "3.0.3"
+      },
+      {
+        "introduced_in": 2.5,
+        "fixed_in": "2.5.9"
+      }
+    ]
   }
 ]
