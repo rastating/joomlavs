@@ -340,5 +340,17 @@
         "fixed_in": 1.3
       }
     ]
+  },
+  {
+    "name": "sectionex",
+    "vulns": [
+      {
+        "title": "Joomla Sectionex Component 2.5.96 - SQL Injection Vulnerability",
+        "edbid": 27405,
+        "osvdbid": 95997,
+        "date": "2013-08-07",
+        "fixed_in": "2.5.104"
+      }
+    ]
   }
 ]
