@@ -5,7 +5,20 @@
     "osvdbid": 112407,
     "cveid": "2014-7228",
     "date": "2014-10-21",
-    "introduced_in": "2.5.25",
+    "ranges": [
+      {
+        "introduced_in": 1,
+        "fixed_in": "2.5.26"
+      },
+      {
+        "introduced_in": 3,
+        "fixed_in": "3.2.6"
+      },
+      {
+        "introduced_in": "3.3.0",
+        "fixed_in": "3.3.5"
+      }
+    ],
     "fixed_in": "3.3.5"
   },
   {
@@ -22,8 +35,17 @@
     "cveid": "2013-5576",
     "osvdbid": 95933,
     "date": "2013-08-15",
-    "introduced_in": 2.5,
-    "fixed_in": "3.1.5"
+    "fixed_in": "3.1.5",
+    "ranges": [
+      {
+        "introduced_in": "2.5",
+        "fixed_in": "2.5.14"
+      },
+      {
+        "introduced_in": "3",
+        "fixed_in": "3.1.5"
+      }
+    ]
   },
   {
     "title": "Joomla! <= 3.0.3 (remember.php) - PHP Object Injection Vulnerability",
