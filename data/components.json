@@ -466,5 +466,17 @@
         "introduced_in": 3.1
       }
     ]
+  },
+  {
+    "name": "fss",
+    "vulns": [
+      {
+        "title": "Joomla Freestyle Support 1.9.1.1447 (com_fss) SQL Injection",
+        "edbid": 22097,
+        "osvdbid": 86499,
+        "date": "2012-10-19",
+        "introduced_in": "1.9.1.1447"
+      }
+    ]
   }
 ]
