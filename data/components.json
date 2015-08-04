@@ -267,6 +267,12 @@
         "osvdbid": 105095,
         "date": "2014-02-26",
         "fixed_in": "3.0.5"
+      },
+      {
+        "title": "Joomla Kunena Component (index.php search parameter) SQL Injection",
+        "edbid": 22153,
+        "osvdbid": 86718,
+        "date": "2012-10-22"
       }
     ]
   },
