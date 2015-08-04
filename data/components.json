@@ -478,5 +478,16 @@
         "introduced_in": "1.9.1.1447"
       }
     ]
+  },
+  {
+    "name": "tag",
+    "vulns": [
+      {
+        "title": "Joomla Tags (index.php tag parameter) SQL Injection",
+        "edbid": 22098,
+        "osvdbid": 86789,
+        "date": "2012-10-19"
+      }
+    ]
   }
 ]
