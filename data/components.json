@@ -489,5 +489,22 @@
         "date": "2012-10-19"
       }
     ]
+  },
+  {
+    "name": "icagenda",
+    "vulns": [
+      {
+        "title": "iCagenda Component for Joomla! index.php id Parameter SQL Injection",
+        "edbid": 22004,
+        "osvdbid": 85148,
+        "date": "2012-10-16"
+      },
+      {
+        "title": "iCagenda Component for Joomla! index.php Multiple Parameter Malformed Input Path Disclosure",
+        "edbid": 22004,
+        "osvdbid": 85147,
+        "date": "2012-10-16"
+      }
+    ]
   }
 ]
