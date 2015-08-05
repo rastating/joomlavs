@@ -561,5 +561,24 @@
         "date": "2012-08-06"
       }
     ]
+  },
+  {
+    "name": "joomgalaxy",
+    "vulns": [
+      {
+        "title": "Joomgalaxy Component for Joomla! index.php catid Parameter SQL Injection ",
+        "osvdbid": 84446,
+        "edbid": 20197,
+        "introduced_in": "1.2.0.4",
+        "date": "2012-08-02"
+      },
+      {
+        "title": "Joomgalaxy Component for Joomla! Add Post Image Attachment Arbitrary File Upload ",
+        "osvdbid": 84445,
+        "edbid": 20197,
+        "introduced_in": "1.2.0.4",
+        "date": "2012-08-02"
+      }
+    ]
   }
 ]
