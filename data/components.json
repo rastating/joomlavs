@@ -539,5 +539,17 @@
         "date": "2012-08-09"
       }
     ]
+  },
+  {
+    "name": "enmasse",
+    "vulns": [
+      {
+        "title": "Joomla En Masse Component 1.2.0.4 - SQL Injection",
+        "edbid": 20343,
+        "osvdbid": 84490,
+        "date": "2012-08-08",
+        "introduced_in": "1.2.0.4"
+      }
+    ]
   }
 ]
