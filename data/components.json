@@ -528,5 +528,16 @@
         "date": "2012-09-10"
       }
     ]
+  },
+  {
+    "name": "fireboard",
+    "vulns": [
+      {
+        "title": "Joomla FireBoard Component (com_fireboard) SQL Injection Vulnerability",
+        "edbid": 20390,
+        "osvdbid": 85153,
+        "date": "2012-08-09"
+      }
+    ]
   }
 ]
