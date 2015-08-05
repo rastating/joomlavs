@@ -311,6 +311,11 @@
         "cveid": "2014-0793",
         "date": "2014-01-23",
         "fixed_in": "1.7.3"
+      },
+      {
+        "title": "Joomla! Komento Component 'cid' Parameter SQL Injection Vulnerability",
+        "edbid": 37675,
+        "date": "2012-08-27"
       }
     ]
   },
@@ -504,6 +509,18 @@
         "edbid": 22004,
         "osvdbid": 85147,
         "date": "2012-10-16"
+      }
+    ]
+  },
+  {
+    "name": "rokmodule",
+    "vulns": [
+      {
+        "title": "Joomla RokModule Component (index.php module parameter) Blind SQLi",
+        "edbid": 21221,
+        "cveid": "2010-1480",
+        "osvdbid": 63710,
+        "date": "2012-09-10"
       }
     ]
   }
