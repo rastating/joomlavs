@@ -551,5 +551,15 @@
         "introduced_in": "1.2.0.4"
       }
     ]
+  },
+  {
+    "name": "photo",
+    "vulns": [
+      {
+        "title": "Joomla! 'com_photo' module Multiple SQL Injection Vulnerabilities",
+        "edbid": 37575,
+        "date": "2012-08-06"
+      }
+    ]
   }
 ]
