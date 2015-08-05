@@ -404,6 +404,11 @@
         "date": "2013-04-20",
         "introduced_in": "4.2.2",
         "fixed_in": "4.2.3"
+      },
+      {
+        "title": "Joomla! CiviCRM Component Multiple Arbitrary File Upload Vulnerabilities",
+        "edbid": 37648,
+        "date": "2012-08-22"
       }
     ]
   },
