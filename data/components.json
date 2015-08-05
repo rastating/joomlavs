@@ -598,9 +598,20 @@
     "vulns": [
       {
         "title": "Joomla Movm Extension (com_movm) SQL Injection",
-        "osvdbid": 84439,
         "edbid": 20170,
+        "osvdbid": 84439,
         "date": "2012-08-01"
+      }
+    ]
+  },
+  {
+    "name": "odudeprofile",
+    "vulns": [
+      {
+        "title": "Joomla Odudeprofile component 'profession' Parameter SQL Injection Vulnerability",
+        "edbid": 37540,
+        "date": "2012-07-25",
+        "introduced_in": 2.7
       }
     ]
   }
