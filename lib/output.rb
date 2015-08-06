@@ -2,7 +2,7 @@ require 'colorize'
 require 'readline'
 
 class Output
-  def initialize (use_colours = True)
+  def initialize (use_colours = true)
     @use_colours = use_colours
   end
 
