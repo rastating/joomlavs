@@ -82,5 +82,115 @@
         "fixed_in": "2.5.9"
       }
     ]
+  },
+  {
+    "title": "Joomla! CMS 1.5 beta 2 (search) Remote Code Execution Vulnerability",
+    "edbid": 4212,
+    "date": "2007-07-22",
+    "introduced_in": "1.5",
+    "fixed_in": "1.5.1"
+  },
+  {
+    "title": "Joomla! 1.0.13 - Search Component SearchWord Cross-Site Scripting Vulnerability",
+    "edbid": 30655,
+    "date": "2007-10-11",
+    "introduced_in": "1.0.13",
+    "fixed_in": "1.0.14"
+  },
+  {
+    "title": "Joomla 1.5 RC3 com_search Component - index.php Multiple Parameter SQL Injection",
+    "edbid": 30849,
+    "date": "2007-12-05",
+    "introduced_in": "1.5",
+    "fixed_in": "1.5.1"
+  },
+  {
+    "title": "Joomla 1.0.x - 'ordering' Parameter Cross-Site Scripting Vulnerability",
+    "edbid": 35167,
+    "date": "2011-01-06",
+    "introduced_in": "1.0.x",
+    "fixed_in": "1.1"
+  },
+  {
+    "title": "Joomla! 1.5 Beta1/Beta2/RC1 - Remote SQL Injection Exploit",
+    "edbid": 4350,
+    "date": "2007-09-01",
+    "introduced_in": "1.5",
+    "fixed_in": "1.5.1"
+  },
+  {
+    "title": "Joomla Component com_content 1.0.0 (ItemID) SQL Injection Vuln",
+    "edbid": 6025,
+    "date": "2008-07-08",
+    "introduced_in": "1.0.0",
+    "fixed_in": "1.0.1"
+  },
+  {
+    "title": "joomla simple file lister module <= 1.0 - Directory Traversal Vulnerability",
+    "edbid": 17736,
+    "date": "2011-08-28",
+    "fixed_in": "1.0.1"
+  },
+  {
+    "title": "Joomla 1.5 RC3 com_content index.php view Parameter SQL Injection",
+    "edbid": 30848,
+    "date": "2007-12-05",
+    "introduced_in": "1.5",
+    "fixed_in": "1.5.1"
+  },
+  {
+    "title": "Joomla! 1.5.x - Cross-Site Scripting and Information Disclosure Vulnerabilities",
+    "edbid": 33061,
+    "date": "2009-06-01",
+    "introduced_in": "1.5",
+    "fixed_in": "1.6"
+  },
+  {
+    "title": "Joomla 1.6.3 - CSRF Exploit",
+    "edbid": 17496,
+    "date": "2011-07-06",
+    "introduced_in": "1.6.3",
+    "fixed_in": "2"
+  },
+  {
+    "title": "Joomla! CMS 1.6.3 Multiple Cross Site Scripting Vulnerabilities",
+    "edbid": 35894,
+    "date": "2011-06-28",
+    "introduced_in": "1.6.3",
+    "fixed_in": "2"
+  },
+  {
+    "title": "Joomla! 1.5.x - Multiple Modules 'search' Parameter Cross-Site Scripting Vulnerabilities",
+    "edbid": 34056,
+    "date": "2010-05-28",
+    "introduced_in": "1.5",
+    "fixed_in": "1.5.1"
+  },
+  {
+    "title": "Joomla Redirect Component 1.5.19 - 'com_redirect' Local File Include Vulnerability",
+    "edbid": 35097,
+    "date": "2010-12-13",
+    "introduced_in": "1.5.19",
+    "fixed_in": "2"
+  },
+  {
+    "title": "Joomla! 1.7.0 and Prior Multiple Cross Site Scripting Vulnerabilities",
+    "edbid": 36176,
+    "date": "2011-09-29",
+    "fixed_in": "1.7.1"
+  },
+  {
+    "title": "Joomla_1.6.0-Alpha2 - XSS Vulnerabilities",
+    "edbid": 12489,
+    "date": "2010-05-03",
+    "introduced_in": "1.6.0",
+    "fixed_in": "1.6.1"
+  },
+  {
+    "title": "Joomla! Spam Mail Relay Vulnerability",
+    "edbid": 15979,
+    "date": "2011-01-12",
+    "introduced_in": "1.5.22",
+    "fixed_in": "1.6.1"
   }
 ]
