@@ -10,8 +10,27 @@ def display_vulns(vulns, output)
     output.print_line_break
     output.print_line(:error, "Title: #{v['title']}")
     output.print_indent("Reference: https://www.exploit-db.com/exploits/#{v['edbid']}/") if v['edbid']
-    output.print_indent("Reference: http://www.cvedetails.com/cve/#{v['cveid']}/") if v['cveid']
-    output.print_indent("Reference: http://osvdb.org/#{v['osvdbid']}") if v['osvdbid']
+    
+    if v['cveid'] 
+      if v['cveid'].kind_of?(Array)
+        v['cveid'].each do |cveid|
+          output.print_indent("Reference: http://www.cvedetails.com/cve/#{cveid}/")
+        end
+      else
+        output.print_indent("Reference: http://www.cvedetails.com/cve/#{v['cveid']}/")
+      end
+    end
+
+    if v['osvdbid']
+      if v['osvdbid'].kind_of?(Array)
+        v['osvdbid'].each do |osvdbid|
+          output.print_indent("Reference: http://osvdb.org/#{osvdbid}")
+        end
+      else
+        output.print_indent("Reference: http://osvdb.org/#{v['osvdbid']}")
+      end
+    end
+    
     output.print_line(:info, "Fixed in: #{v['fixed_in']}") if v['fixed_in']
     output.print_line_break
   end
