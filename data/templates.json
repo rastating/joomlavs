@@ -1,0 +1,14 @@
+[
+  {
+    "name": "be2004-2",
+    "vulns": [
+      {
+        "title": "Joomla Template Be2004-2 (index.php) Remote File Include Exploit",
+        "edbid": 3759,
+        "cveid": "2007-2143",
+        "osvdbid": "37572",
+        "date": "2007-04-17"
+      }
+    ]
+  }
+]
