@@ -6036,6 +6036,14 @@
         "title": "Joomla! iF Portfolio Nexus 'controller' Parameter Remote File Include Vulnerability",
         "edbid": 33440,
         "date": "2009-12-29"
+      },
+      {
+        "title": "Joomla Ext. iF Portfolio Nexus SQL injection",
+        "edbid": 10177,
+        "cveid": "2009-4057",
+        "osvdbid": 60308,
+        "introduced_in": 1.1,
+        "date": "2009-11-18"
       }
     ]
   },
