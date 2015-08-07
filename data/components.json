@@ -4388,7 +4388,10 @@
       {
         "title": "joomla joomgalaxy 1.2.0.4 - Multiple Vulnerabilities",
         "edbid": 20197,
-        "osvdbid": [84446, 84445],
+        "osvdbid": [
+          84446,
+          84445
+        ],
         "date": "2012-08-02",
         "introduced_in": "1.2.0.4"
       }
@@ -4436,7 +4439,10 @@
       {
         "title": "Joomla JooProperty 1.13.0 - Multiple Vulnerabilities",
         "edbid": 23286,
-        "osvdbid": [88349, 88348],
+        "osvdbid": [
+          88349,
+          88348
+        ],
         "date": "2012-12-11",
         "introduced_in": "1.13.0"
       }
@@ -4825,7 +4831,10 @@
       {
         "title": "Joomla Face Gallery 1.0 - Multiple vulnerabilities",
         "edbid": 34754,
-        "osvdbid": [112011, 112010],
+        "osvdbid": [
+          112011,
+          112010
+        ],
         "date": "2014-09-24",
         "introduced_in": "1.0"
       }
@@ -8576,7 +8585,10 @@
       {
         "title": "Joomla iCagenda Component - (id parameter) Multiple Vulnerabilities",
         "edbid": 22004,
-        "osvdbid": [85147, 85148],
+        "osvdbid": [
+          85147,
+          85148
+        ],
         "date": "2012-10-16"
       }
     ]
@@ -9729,6 +9741,19 @@
         "title": "Joomla! 'com_photo' module Multiple SQL Injection Vulnerabilities",
         "edbid": 37575,
         "date": "2012-08-06"
+      }
+    ]
+  },
+  {
+    "name": "turtushout",
+    "vulns": [
+      {
+        "title": "Joomla Component Turtushout 0.11 (Name) SQL Injection Vulnerability",
+        "edbid": 9653,
+        "cveid": "2009-3335",
+        "osvdbid": 58362,
+        "date": "2009-09-14",
+        "introduced_in": 0.11
       }
     ]
   }
