@@ -6330,6 +6330,13 @@
         "title": "Joomla Component com_jvideodirect Directory Traversal",
         "edbid": 11089,
         "date": "2010-01-10"
+      },
+      {
+        "title": "Joomla Component jVideoDirect Blind SQL Injection Vulnerability",
+        "edbid": 11280,
+        "cveid": "2010-0803",
+        "osvdbid": 62042,
+        "date": "2010-01-28"
       }
     ]
   },
