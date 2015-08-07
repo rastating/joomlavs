@@ -9804,5 +9804,17 @@
         "fixed_in": 1.7
       }
     ]
+  },
+  {
+    "name": "jw_allvideos",
+    "vulns": [
+      {
+        "title": "Joomla (Jw_allVideos) Remote File Download Vulnerability",
+        "edbid": 11447,
+        "cveid": "2010-0696",
+        "osvdbid": "62331",
+        "date": "2010-02-14"
+      }
+    ]
   }
 ]
