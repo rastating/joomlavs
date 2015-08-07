@@ -2459,6 +2459,12 @@
         "osvdbid": 96586,
         "date": "2013-08-26",
         "fixed_in": "2.0.22b"
+      },
+      {
+        "title": "Joomla VirtueMart Module Customers_who_bought - SQL Injection Vulnerability",
+        "edbid": 11270,
+        "date": "2010-01-27",
+        "introduced_in": 1.1
       }
     ]
   },
