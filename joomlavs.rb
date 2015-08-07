@@ -4,6 +4,7 @@ require_relative 'lib/output'
 require_relative 'lib/component_scanner'
 require_relative 'lib/module_scanner'
 require_relative 'lib/fingerprint_scanner'
+require_relative 'lib/template_scanner'
 
 def display_vulns(vulns, output)
   vulns.each do |v|
@@ -110,13 +111,14 @@ def main
     o.bool '-a', '--scan-all', 'Scan for all vulnerable extensions'
     o.bool '-c', '--scan-components', 'Scan for vulnerable components'
     o.bool '-m', '--scan-modules', 'Scan for vulnerable modules'
+    o.bool '-t', '--scan-templates', 'Scan for vulnerable templates'
 
     o.separator 'Advanced options'
     o.bool '--follow-redirection', 'Automatically follow redirections'
     o.bool '--no-colour', 'Disable colours in output'
     o.string '--proxy', '<[protocol://]host:port> HTTP, SOCKS4 SOCKS4A and SOCKS5 are supported. If no protocol is given, HTTP will be used'
     o.string '--proxy-auth', '<username:password> The proxy authentication credentials'
-    o.integer '-t', '--threads', 'The number of threads to use when multi-threading requests', default: 20
+    o.integer '--threads', 'The number of threads to use when multi-threading requests', default: 20
     o.string '--user-agent', 'The user agent string to send with all requests', default: 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
   end
 
@@ -185,6 +187,17 @@ def main
       output.print_line_break
       output.print_horizontal_rule(:default)
       modules.each { |m| display_detected_extension(m, output) }
+    end
+
+    if opts[:scan_all] || opts[:scan_templates]
+      scanner = TemplateScanner.new(target, opts)
+      output.print_line_break
+      output.print_good("Scanning for vulnerable templates...")
+      templates = scanner.scan
+      output.print_warning("Found #{templates.length} vulnerable templates.")
+      output.print_line_break
+      output.print_horizontal_rule(:default)
+      templates.each { |t| display_detected_extension(t, output) }
     end
   else
     puts opts
