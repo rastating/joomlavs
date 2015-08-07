@@ -9764,5 +9764,20 @@
         "introduced_in": 0.11
       }
     ]
+  },
+  {
+    "name": "memorybook",
+    "vulns": [
+      {
+        "title": "joomla component memorybook 1.2 - Multiple Vulnerabilities",
+        "edbid": 10731,
+        "osvdbid": [
+          61451,
+          61452
+        ],
+        "date": "2009-12-27",
+        "introduced_in": 1.2
+      }
+    ]
   }
 ]
