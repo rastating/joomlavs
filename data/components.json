@@ -9779,5 +9779,17 @@
         "introduced_in": 1.2
       }
     ]
+  },
+  {
+    "name": "jbdiary",
+    "vulns": [
+      {
+        "title": "Joomla (JBDiary) BLIND SQL Injection Vulnerabilities",
+        "edbid": 11239,
+        "osvdbid": "61940",
+        "date": "2010-01-23",
+        "fixed_in": 1.7
+      }
+    ]
   }
 ]
