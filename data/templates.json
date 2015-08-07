@@ -10,5 +10,17 @@
         "date": "2007-04-17"
       }
     ]
+  },
+  {
+    "name": "bridgeofhope",
+    "vulns": [
+      {
+        "title": "Joomla Bridge of Hope Template SQL Injection Vulnerability",
+        "edbid": 10964,
+        "cveid": "2010-2254",
+        "osvdbid": "65426",
+        "date": "2010-01-03"
+      }
+    ]
   }
 ]
