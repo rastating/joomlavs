@@ -192,5 +192,22 @@
     "date": "2011-01-12",
     "introduced_in": "1.5.22",
     "fixed_in": "1.6.1"
+  },
+  {
+    "title": "Joomla 1.5.0 Beta (pcltar.php) Remote File Inclusion Vulnerability",
+    "edbid": 3781,
+    "cveid": "2007-2199",
+    "osvdbid": 36009,
+    "date": "2007-04-23",
+    "introduced_in": 1.5,
+    "fixed_in": "1.5.1"
+  },
+  {
+    "title": "Joomla <= 1.5.8 (xstandard editor) Local Directory Traversal Vulnerability",
+    "edbid": 7691,
+    "cveid": "2009-0113",
+    "osvdbid": 51172,
+    "date": "2009-01-07",
+    "fixed_in": "1.5.9"
   }
 ]
