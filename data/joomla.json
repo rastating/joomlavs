@@ -209,5 +209,14 @@
     "osvdbid": 51172,
     "date": "2009-01-07",
     "fixed_in": "1.5.9"
+  },
+  {
+    "title": "Joomla 1.5.12 - tinybrowser Remote File Upload/Execute Vulnerability",
+    "edbid": 9926,
+    "cveid": "2011-4908",
+    "osvdbid": 64578,
+    "date": "2009-07-22",
+    "introduced_in": "1.5.12",
+    "fixed_in": "1.5.13"
   }
 ]
