@@ -9945,5 +9945,18 @@
         "date": "2010-07-12"
       }
     ]
+  },
+  {
+    "name": "proofreader",
+    "vulns": [
+      {
+        "title": "Joomla! ProofReader 1.0 RC9 Component Cross-Site Scripting Vulnerability",
+        "edbid": 33377,
+        "cveid": "2009-4112",
+        "osvdbid": 60653,
+        "date": "2009-11-16",
+        "fixed_in": "1.0RC9"
+      }
+    ]
   }
 ]
