@@ -82,3 +82,4 @@ $RECYCLE.BIN/
 
 # Sublime SFTP plugin config
 sftp-config.json
+Gemfile.lock
