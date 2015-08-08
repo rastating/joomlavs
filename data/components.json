@@ -4619,6 +4619,23 @@
         "fixed_in": "3.1.0.1"
       },
       {
+        "title": "Joomla Component JomSocial 1.6.288 - Multiple XSS",
+        "edbid": 13962,
+        "osvdbid": [
+          65786,
+          65785,
+          65784,
+          65783,
+          65782,
+          65780,
+          65781,
+          65779
+        ],
+        "date": "2010-06-21",
+        "introduced_in": "1.6.288",
+        "fixed_in": "1.6.291"
+      },
+      {
         "title": "Joomla Template BizWeb com_community Persistent XSS Vulnerability",
         "edbid": 13955,
         "date": "2010-06-21"
