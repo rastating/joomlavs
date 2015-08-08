@@ -232,5 +232,13 @@
     "date": "2011-03-17",
     "introduced_in": 1.6,
     "fixed_in": "1.6.1"
+  },
+  {
+    "title": "Joomla 2.5.0-2.5.1 Time Based SQL Injection Exploit",
+    "edbid": 18618,
+    "osvdbid": 80705,
+    "date": "2012-03-19",
+    "introduced_in": 2.5,
+    "fixed_in": "2.5.2"
   }
 ]
