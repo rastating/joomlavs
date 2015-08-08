@@ -9995,5 +9995,15 @@
         "fixed_in": "2.1.2"
       }
     ]
+  },
+  {
+    "name": "faqbook",
+    "vulns": [
+      {
+        "title": "Joomla Minitek FAQ Book 1.3 'id' Parameter SQL Injection Vulnerability",
+        "edbid": 35839,
+        "date": "2011-06-13"
+      }
+    ]
   }
 ]
