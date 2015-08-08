@@ -67,5 +67,18 @@
         "date": "2012-02-02"
       }
     ]
+  },
+  {
+    "name": "ccnewsletter",
+    "vulns": [
+      {
+        "title": "Joomla CCNewsLetter Module 1.0.7 'id' Parameter SQL Injection Vulnerability",
+        "edbid": 37101,
+        "cveid": "2011-5099",
+        "osvdbid": 81534,
+        "date": "2012-04-23",
+        "introduced_in": "1.0.7"
+      }
+    ]
   }
 ]
