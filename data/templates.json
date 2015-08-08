@@ -22,5 +22,15 @@
         "date": "2010-01-03"
       }
     ]
+  },
+  {
+    "name": "youhostit",
+    "vulns": [
+      {
+        "title": "Joomla! You!Hostit! 1.0.1 Template Cross-Site Scripting Vulnerability",
+        "edbid": 33393,
+        "date": "2009-12-04"
+      }
+    ]
   }
 ]
