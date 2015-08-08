@@ -122,83 +122,86 @@ def main
     o.string '--user-agent', 'The user agent string to send with all requests', default: 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
   end
 
-  output = Output.new !opts[:no_colour]
-  output.print_banner
+  o = Output.new !opts[:no_colour]
+  o.print_banner
 
   if opts[:url]
-    output.print_good("URL: #{opts[:url]}")
-    output.print_good("Started: #{Time.now.asctime}")
+    o.print_good("URL: #{opts[:url]}")
+    o.print_good("Started: #{Time.now.asctime}")
 
     scanner = FingerprintScanner.new(opts[:url], opts)
-    check_target_redirection(scanner, output, opts)
+    check_target_redirection(scanner, o, opts)
     target = scanner.target_uri
 
-    output.print_line_break
-    output.print_good('Checking if registration is enabled...') if opts[:verbose]
-    output.print_warning("Registration is enabled: #{scanner.target_uri}#{scanner.registration_uri}") if scanner.user_registration_enabled
-    output.print_good('User registration is not enabled.') if !scanner.user_registration_enabled && opts[:verbose]
+    o.print_line_break
+    o.print_good('Checking if registration is enabled...') if opts[:verbose]
+    o.print_warning("Registration is enabled: #{scanner.target_uri}#{scanner.registration_uri}") if scanner.user_registration_enabled
+    o.print_good('User registration is not enabled.') if !scanner.user_registration_enabled && opts[:verbose]
 
-    output.print_line_break if opts[:verbose]
-    output.print_good("Looking for interesting headers...") if opts[:verbose]
+    o.print_line_break if opts[:verbose]
+    o.print_good("Looking for interesting headers...") if opts[:verbose]
     interesting_headers = scanner.interesting_headers
-    output.print_good("Found #{interesting_headers.length} interesting headers.")
+    o.print_good("Found #{interesting_headers.length} interesting headers.")
     interesting_headers.each do | header |
-      output.print_indent("#{header[0]}: #{header[1]}")
+      o.print_indent("#{header[0]}: #{header[1]}")
     end
 
-    output.print_line_break if opts[:verbose]
-    output.print_good("Looking for directory listings...") if opts[:verbose]
-    output.print_warning("Components listing enabled: #{scanner.target_uri}/administrator/components") if scanner.administrator_components_listing_enabled
-    output.print_warning("Components listing enabled: #{scanner.target_uri}/components") if scanner.components_listing_enabled
-    output.print_warning("Modules listing enabled: #{scanner.target_uri}/administrator/modules") if scanner.administrator_modules_listing_enabled
-    output.print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if scanner.modules_listing_enabled
+    o.print_line_break if opts[:verbose]
+    o.print_good("Looking for directory listings...") if opts[:verbose]
+    o.print_warning("Components listing enabled: #{scanner.target_uri}/administrator/components") if scanner.administrator_components_listing_enabled
+    o.print_warning("Components listing enabled: #{scanner.target_uri}/components") if scanner.components_listing_enabled
+    o.print_warning("Modules listing enabled: #{scanner.target_uri}/administrator/modules") if scanner.administrator_modules_listing_enabled
+    o.print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if scanner.modules_listing_enabled
 
-    output.print_line_break
-    output.print_good("Determining Joomla version...") if opts[:verbose]
+    o.print_line_break
+    o.print_good("Determining Joomla version...") if opts[:verbose]
     version = scanner.version_from_readme
-    output.print_good("Joomla version #{version} identified from README.txt") if version
-    output.print_error("Couldn't determine version from README.txt") unless version
+    o.print_good("Joomla version #{version} identified from README.txt") if version
+    o.print_error("Couldn't determine version from README.txt") unless version
 
     if version
       joomla_vulns = joomla_vulnerabilities(Gem::Version.new(version))
       if joomla_vulns
-        output.print_warning("Found #{joomla_vulns.length} vulnerabilities affecting this version of Joomla!")
-        display_vulns(joomla_vulns, output)
+        o.print_warning("Found #{joomla_vulns.length} vulnerabilities affecting this version of Joomla!")
+        display_vulns(joomla_vulns, o)
       end
     end
 
     if opts[:scan_all] || opts[:scan_components]
       scanner = ComponentScanner.new(target, opts)
-      output.print_line_break
-      output.print_good("Scanning for vulnerable components...")
+      o.print_line_break
+      o.print_good("Scanning for vulnerable components...")
       components = scanner.scan
-      output.print_warning("Found #{components.length} vulnerable components.")
-      output.print_line_break
-      output.print_horizontal_rule(:default)
-      components.each { |c| display_detected_extension(c, output) }
+      o.print_warning("Found #{components.length} vulnerable components.")
+      o.print_line_break
+      o.print_horizontal_rule(:default)
+      components.each { |c| display_detected_extension(c, o) }
     end
 
     if opts[:scan_all] || opts[:scan_modules]
       scanner = ModuleScanner.new(target, opts)
-      output.print_line_break
-      output.print_good("Scanning for vulnerable modules...")
+      o.print_line_break
+      o.print_good("Scanning for vulnerable modules...")
       modules = scanner.scan
-      output.print_warning("Found #{modules.length} vulnerable modules.")
-      output.print_line_break
-      output.print_horizontal_rule(:default)
-      modules.each { |m| display_detected_extension(m, output) }
+      o.print_warning("Found #{modules.length} vulnerable modules.")
+      o.print_line_break
+      o.print_horizontal_rule(:default)
+      modules.each { |m| display_detected_extension(m, o) }
     end
 
     if opts[:scan_all] || opts[:scan_templates]
       scanner = TemplateScanner.new(target, opts)
-      output.print_line_break
-      output.print_good("Scanning for vulnerable templates...")
+      o.print_line_break
+      o.print_good("Scanning for vulnerable templates...")
       templates = scanner.scan
-      output.print_warning("Found #{templates.length} vulnerable templates.")
-      output.print_line_break
-      output.print_horizontal_rule(:default)
-      templates.each { |t| display_detected_extension(t, output) }
+      o.print_warning("Found #{templates.length} vulnerable templates.")
+      o.print_line_break
+      o.print_horizontal_rule(:default)
+      templates.each { |t| display_detected_extension(t, o) }
     end
+
+    o.print_line_break
+    o.print_good 'Finished'
   else
     puts opts
   end
