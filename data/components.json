@@ -1656,6 +1656,13 @@
         "title": "Joomla Component com_mdigg SQL Injection Vulnerability",
         "edbid": 10847,
         "date": "2009-12-31"
+      },
+      {
+        "title": "Joomla mdigg Component SQL Injection Vulnerability",
+        "edbid": 17464,
+        "cveid": "2008-6149",
+        "osvdbid": 51005,
+        "date": "2011-07-01"
       }
     ]
   },
