@@ -6,7 +6,7 @@
         "title": "Mambo <= 4.5.3 & Joomla <= 1.0.7 - (feed) Denial of Service Exploit",
         "edbid": 1698,
         "date": "2006-04-19",
-        "fixed_in": "4.5.3.1"
+        "fixed_in": "1.0.8"
       }
     ]
   },
