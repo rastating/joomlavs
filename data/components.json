@@ -7618,6 +7618,13 @@
         "title": "JExtensions Property Finder Component for Joomla! 'sf_id' Parameter SQL Injection Vulnerability",
         "edbid": 35090,
         "date": "2010-12-10"
+      },
+      {
+        "title": "Joomla Component JE Section Finder LFI Vulnerability",
+        "edbid": 14064,
+        "cveid": "2010-2680",
+        "osvdbid": 66261,
+        "date": "2010-06-26"
       }
     ]
   },
@@ -9878,6 +9885,40 @@
         "edbid": 14060,
         "osvdbid": "65814",
         "date": "2010-06-26"
+      }
+    ]
+  },
+  {
+    "name": "music",
+    "vulns": [
+      {
+        "title": "Joomla Music Manager Component LFI Vulnerability",
+        "edbid": 14274,
+        "cveid": "2010-2857",
+        "osvdbid": "66607",
+        "date": "2010-07-08"
+      }
+    ]
+  },
+  {
+    "name": "joomanager",
+    "vulns": [
+      {
+        "title": "Joomla Joomanager SQL Injection Vulnerability",
+        "edbid": 14127,
+        "cveid": "2010-2622",
+        "osvdbid": "66085",
+        "date": "2010-06-30"
+      }
+    ]
+  },
+  {
+    "name": "healthstats",
+    "vulns": [
+      {
+        "title": "Joomla Health & Fitness Stats Persistent XSS Vulnerability",
+        "edbid": 14335,
+        "date": "2010-07-12"
       }
     ]
   }
