@@ -9982,5 +9982,18 @@
         "fixed_in": "1.0RC9"
       }
     ]
+  },
+  {
+    "name": "freichat",
+    "vulns": [
+      {
+        "title": "Joomla! FreiChat Component 1.0/2.x Unspecified HTML Injection Vulnerability",
+        "edbid": 34374,
+        "cveid": "2010-4949",
+        "osvdbid": 66628,
+        "date": "2010-07-26",
+        "fixed_in": "2.1.2"
+      }
+    ]
   }
 ]
