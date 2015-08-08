@@ -1,2 +1,14 @@
 [
+  {
+    "name": "VisitorData",
+    "vulns": [
+      {
+        "title": "Joomla Module Camp26 Visitor Data 1.1 - Remote code Execution",
+        "edbid": 12574,
+        "osvdbid": "64583",
+        "date": "2010-05-11",
+        "introduced_in": 1.1
+      }
+    ]
+  }
 ]
