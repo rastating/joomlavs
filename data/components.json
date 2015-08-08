@@ -8489,6 +8489,14 @@
         "title": "Joomla! 'com_jesubmit' Component 'index.php' Arbitrary File Upload Vulnerability",
         "edbid": 36624,
         "date": "2012-01-24"
+      },
+      {
+        "title": "Joomla Component JE Story Submit SQL Injection Vulnerability",
+        "edbid": 14054,
+        "cveid": "2010-5022",
+        "osvdbid": 76886,
+        "date": "2010-06-25",
+        "introduced_in": 1.4
       }
     ]
   },
