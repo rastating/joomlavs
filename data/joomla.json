@@ -247,5 +247,12 @@
     "date": "2009-11-23",
     "introduced_in": 1.5,
     "fixed_in": "1.5.12"
+  },
+  {
+    "title": "Joomla! 1.5.x SQL Error Information Disclosure Vulnerability",
+    "edbid": 34955,
+    "date": "2010-11-05",
+    "introduced_in": 1.5,
+    "fixed_in": "1.5.22"
   }
 ]
