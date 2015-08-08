@@ -34,5 +34,16 @@
         "introduced_in": 1.3
       }
     ]
+  },
+  {
+    "name": "joomulus",
+    "vulns": [
+      {
+        "title": "Joomla! Joomulus Component 2.0 - 'tagcloud.swf' Cross-Site Scripting Vulnerability",
+        "edbid": 33441,
+        "date": "2009-12-28",
+        "introduced_in": 2
+      }
+    ]
   }
 ]
