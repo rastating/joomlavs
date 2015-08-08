@@ -2632,6 +2632,13 @@
         "osvdbid": 66246,
         "date": "2013-08-12",
         "introduced_in": "1.2"
+      },
+      {
+        "title": "RedShop 1.0.23.1 Joomla Component Blind SQL Injection Vulnerability",
+        "edbid": 14368,
+        "osvdbid": 66392,
+        "date": "2010-07-15",
+        "introduced_in": "1.0.23.1"
       }
     ]
   },
