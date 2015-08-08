@@ -272,5 +272,12 @@
       }
     ],
     "fixed_in": "2.5.2"
+  },
+  {
+    "title": "Joomla 2.5.x Language Switcher ModuleMultiple Cross Site Scripting Vulnerabilities",
+    "edbid": 37473,
+    "date": "2012-07-02",
+    "introduced_in": 2.5,
+    "fixed_in": 3
   }
 ]
