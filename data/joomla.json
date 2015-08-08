@@ -225,5 +225,12 @@
     "date": "2011-02-01",
     "introduced_in": "1.5.22",
     "fixed_in": "1.6.1"
+  },
+  {
+    "title": "Joomla! 1.6 - Multiple SQL Injection Vulnerabilities",
+    "edbid": 16992,
+    "date": "2011-03-17",
+    "introduced_in": 1.6,
+    "fixed_in": "1.6.1"
   }
 ]
