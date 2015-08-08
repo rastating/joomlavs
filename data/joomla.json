@@ -240,5 +240,12 @@
     "date": "2012-03-19",
     "introduced_in": 2.5,
     "fixed_in": "2.5.2"
+  },
+  {
+    "title": "Joomla! 1.5.x 404 Error Page Cross-Site Scripting Vulnerability",
+    "edbid": 33378,
+    "date": "2009-11-23",
+    "introduced_in": 1.5,
+    "fixed_in": "1.5.12"
   }
 ]
