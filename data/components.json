@@ -9864,5 +9864,16 @@
         "date": "2010-06-19"
       }
     ]
+  },
+  {
+    "name": "jemediaplayer",
+    "vulns": [
+      {
+        "title": "Joomla JE Media Player Component LFI Vulnerability",
+        "edbid": 14060,
+        "osvdbid": "65814",
+        "date": "2010-06-26"
+      }
+    ]
   }
 ]
