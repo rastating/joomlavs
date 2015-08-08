@@ -1196,6 +1196,12 @@
         "edbid": 5740,
         "date": "2008-06-04",
         "introduced_in": "1.1"
+      },
+      {
+        "title": "Joomla! EasyBook 2.0.0rc4 Component Multiple HTML Injection Vulnerabilities",
+        "edbid": 33639,
+        "date": "2009-09-17",
+        "introduced_in": "2.0.0rc4"
       }
     ]
   },
