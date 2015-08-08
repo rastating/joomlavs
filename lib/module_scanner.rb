@@ -8,8 +8,8 @@ class ModuleScanner < ExtensionScanner
 
   def possible_paths(name)
     paths = Array.new
-    paths.push(normalize_uri('administrator', 'modules', name))
-    paths.push(normalize_uri('modules', name))
+    paths.push(normalize_uri('administrator', 'modules', "mod_#{name}"))
+    paths.push(normalize_uri('modules', "mod_#{name}"))
     paths
   end
 end
