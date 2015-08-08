@@ -9921,5 +9921,15 @@
         "date": "2010-07-12"
       }
     ]
+  },
+  {
+    "name": "easyblog",
+    "vulns": [
+      {
+        "title": "Joomla EasyBlog Persistent XSS Vulnerability",
+        "edbid": 14336,
+        "date": "2010-07-12"
+      }
+    ]
   }
 ]
