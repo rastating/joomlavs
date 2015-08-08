@@ -9816,5 +9816,17 @@
         "date": "2010-02-14"
       }
     ]
+  },
+  {
+    "name": "rscomments",
+    "vulns": [
+      {
+        "title": "Joomla Component RSComments 1.0.0 Persistent XSS",
+        "edbid": 13935,
+        "cveid": "2010-2464",
+        "osvdbid": "65726",
+        "date": "2010-06-19"
+      }
+    ]
   }
 ]
