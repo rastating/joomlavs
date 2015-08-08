@@ -10,5 +10,16 @@
         "introduced_in": 1.1
       }
     ]
+  },
+  {
+    "name": "spo",
+    "vulns": [
+      {
+        "title": "Joomla Component mod_spo SQL Injection Vulnerability",
+        "edbid": 17560,
+        "date": "2011-07-21",
+        "introduced_in": 1.5
+      }
+    ]
   }
 ]
