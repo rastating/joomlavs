@@ -2856,6 +2856,14 @@
         "title": "Webee Comments Component 1.1/1.2 for Joomla! index2.php articleId SQL Injection",
         "edbid": 33637,
         "date": "2009-11-15"
+      },
+      {
+        "title": "Webee Comments Component 1.1/1.2 for Joomla! Multiple BBCode Tags XSS",
+        "edbid": 33638,
+        "cveid": "2009-4651",
+        "osvdbid": 62525,
+        "date": "2009-11-15",
+        "introduced_in": "1.1.1"
       }
     ]
   },
