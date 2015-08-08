@@ -80,5 +80,16 @@
         "introduced_in": "1.0.7"
       }
     ]
+  },
+  {
+    "name": "artuploader",
+    "vulns": [
+      {
+        "title": "Joomla! Art Uploader Component 'upload.php' Arbitrary File Upload Vulnerability",
+        "edbid": 37379,
+        "date": "2012-06-12",
+        "introduced_in": "1.0.1"
+      }
+    ]
   }
 ]
