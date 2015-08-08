@@ -91,5 +91,16 @@
         "introduced_in": "1.0.1"
       }
     ]
+  },
+  {
+    "name": "jfancy",
+    "vulns": [
+      {
+        "title": "Joomla! jFancy Component 'script.php' Arbitrary File Upload Vulnerability",
+        "edbid": 37382,
+        "date": "2012-06-13",
+        "introduced_in": "2.0.3"
+      }
+    ]
   }
 ]
