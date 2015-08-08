@@ -7714,6 +7714,11 @@
         "title": "Joomla Component MS Comment 0.8.0b - LFI Vulnerability",
         "edbid": 12611,
         "date": "2010-05-15"
+      },
+      {
+        "title": "Joomla MS Comment Component 0.8.0b Security Bypass and Cross-Site Scripting Vulnerabilities",
+        "edbid": 33646,
+        "date": "2009-12-31"
       }
     ]
   },
