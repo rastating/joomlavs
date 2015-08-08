@@ -8238,6 +8238,17 @@
         "title": "Joomla JE Ajax Event Calendar Component (com_jeajaxeventcalendar) SQL Injection",
         "edbid": 15610,
         "date": "2010-11-25"
+      },
+      {
+        "title": "Joomla JE Ajax Event Calendar SQL Injection Vulnerability",
+        "edbid": 13997,
+        "osvdbid": 65828,
+        "cveid": [
+          "2010-2513",
+          "2010-4365"
+        ],
+        "date": "2010-06-23",
+        "introduced_in": "1.0.5"
       }
     ]
   },
