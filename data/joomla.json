@@ -254,5 +254,23 @@
     "date": "2010-11-05",
     "introduced_in": 1.5,
     "fixed_in": "1.5.22"
+  },
+  {
+    "title": "Joomla! 'redirect.php' SQL Injection Vulnerability",
+    "edbid": 36913,
+    "cveid": "2012-1116",
+    "osvdbid": 79837,
+    "date": "2012-03-05",
+    "ranges": [
+      {
+        "introduced_in": 1.7,
+        "fixed_in": 2
+      },
+      {
+        "introduced_in": 2.5,
+        "fixed_in": "2.5.2"
+      }
+    ],
+    "fixed_in": "2.5.2"
   }
 ]
