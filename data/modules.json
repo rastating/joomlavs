@@ -55,5 +55,17 @@
         "date": "2010-01-26"
       }
     ]
+  },
+  {
+    "name": "currencyconverter",
+    "vulns": [
+      {
+        "title": "Joomla! Currency Converter Component 'from' Parameter Cross-Site Scripting Vulnerability",
+        "edbid": 36659,
+        "cveid": "2012-1018",
+        "osvdbid": 78998,
+        "date": "2012-02-02"
+      }
+    ]
   }
 ]
