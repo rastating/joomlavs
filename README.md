@@ -29,11 +29,12 @@ Enumeration options
     -a, --scan-all         Scan for all vulnerable extensions
     -c, --scan-components  Scan for vulnerable components
     -m, --scan-modules     Scan for vulnerable modules
+    -t, --scan-templates   Scan for vulnerable templates
 Advanced options
     --follow-redirection   Automatically follow redirections
     --no-colour            Disable colours in output
     --proxy                <[protocol://]host:port> HTTP, SOCKS4 SOCKS4A and SOCKS5 are supported. If no protocol is given, HTTP will be used
     --proxy-auth           <username:password> The proxy authentication credentials
-    -t, --threads          The number of threads to use when multi-threading requests
+    --threads              The number of threads to use when multi-threading requests
     --user-agent           The user agent string to send with all requests
 ```
