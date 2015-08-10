@@ -60,7 +60,9 @@ class FingerprintScanner < Scanner
       req = create_request(uri)
       enabled = false
       req.on_complete do |resp|
-        enabled = resp.code == 200 && resp.body[%r{<title>Index of}]
+        if resp.code == 200 && resp.body[%r{<title>Index of}]
+          enabled = true
+        end
       end
 
       req.run
