@@ -77,6 +77,28 @@ class ExtensionScanner < Scanner
     end
   end
 
+  def self.version_is_vulnerable(version, vuln)
+    found = false
+    if vuln['ranges']
+      vuln['ranges'].each do |r|
+        if Gem::Version.new(r['introduced_in']) <= version
+          if Gem::Version.new(r['fixed_in']) > version
+            found = true
+            break
+          end
+        end
+      end
+    else
+      if vuln['introduced_in'].nil? || Gem::Version.new(vuln['introduced_in']) <= version
+        if vuln['fixed_in'].nil? || Gem::Version.new(vuln['fixed_in']) > version
+          found = true
+        end
+      end
+    end
+
+    found
+  end
+
   def scan
     json = File.read(@data_file)
     extensions = JSON.parse(json)

@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/LineLength
 require 'slop'
 
 require_relative 'lib/output'
@@ -6,32 +7,24 @@ require_relative 'lib/module_scanner'
 require_relative 'lib/fingerprint_scanner'
 require_relative 'lib/template_scanner'
 
+def display_reference(ref, base_url, output)
+  return unless ref
+  if ref.is_a?(Array)
+    ref.each do |id|
+      output.print_indent("Reference: #{base_url}#{id}/")
+    end
+  else
+    output.print_indent("Reference: #{base_url}#{ref}/")
+  end
+end
+
 def display_vulns(vulns, output)
   vulns.each do |v|
     output.print_line_break
     output.print_line(:error, "Title: #{v['title']}")
-    output.print_indent("Reference: https://www.exploit-db.com/exploits/#{v['edbid']}/") if v['edbid']
-    
-    if v['cveid'] 
-      if v['cveid'].kind_of?(Array)
-        v['cveid'].each do |cveid|
-          output.print_indent("Reference: http://www.cvedetails.com/cve/#{cveid}/")
-        end
-      else
-        output.print_indent("Reference: http://www.cvedetails.com/cve/#{v['cveid']}/")
-      end
-    end
-
-    if v['osvdbid']
-      if v['osvdbid'].kind_of?(Array)
-        v['osvdbid'].each do |osvdbid|
-          output.print_indent("Reference: http://osvdb.org/#{osvdbid}")
-        end
-      else
-        output.print_indent("Reference: http://osvdb.org/#{v['osvdbid']}")
-      end
-    end
-    
+    display_reference v['edbid'], 'https://www.exploit-db.com/exploits/', output
+    display_reference v['cveid'], 'http://www.cvedetails.com/cve/', output
+    display_reference v['osvdbid'], 'http://osvdb.org/', output
     output.print_line(:info, "Fixed in: #{v['fixed_in']}") if v['fixed_in']
     output.print_line_break
   end
@@ -45,7 +38,7 @@ def display_detected_extension(e, output)
   output.print_indent("Description: #{e[:description]}") unless e[:description].empty?
   output.print_indent("Author: #{e[:author]}") unless e[:author].empty?
   output.print_indent("Author URL: #{e[:author_url]}") unless e[:author_url].empty?
-  
+
   display_vulns(e[:vulns], output)
 
   output.print_horizontal_rule(:default)
@@ -54,25 +47,10 @@ end
 def joomla_vulnerabilities(version)
   json = File.read('data/joomla.json')
   vulns = JSON.parse(json)
-  found = Array.new
+  found = []
 
   vulns.each do |v|
-    if v['ranges']
-      v['ranges'].each do |r|
-        if Gem::Version.new(r['introduced_in']) <= version
-          if Gem::Version.new(r['fixed_in']) > version
-            found.push(v)
-            break
-          end
-        end
-      end
-    else
-      if v['introduced_in'].nil? or Gem::Version.new(v['introduced_in']) <= version
-        if v['fixed_in'].nil? or Gem::Version.new(v['fixed_in']) > version
-          found.push(v)
-        end
-      end
-    end
+    found.push(v) if ExtensionScanner.version_is_vulnerable(version, v)
   end
 
   found
@@ -80,22 +58,22 @@ end
 
 def check_target_redirection(scanner, output, opts)
   redirected_uri = scanner.target_redirects_to
-  if redirected_uri
-    if opts[:follow_redirection]
+  return unless redirected_uri
+
+  if opts[:follow_redirection]
+    scanner.update_target_uri redirected_uri
+    output.print_info("Now targetting #{scanner.target_uri}") if opts[:verbose]
+  else
+    output.print_line_break
+    output.print_info("The remote host tried to redirect to: #{redirected_uri}")
+    answer = output.read_input('Do you want to follow the redirection? [Y]es [N]o [A]bort: ')
+    if answer =~ /^y/i
       scanner.update_target_uri redirected_uri
       output.print_info("Now targetting #{scanner.target_uri}") if opts[:verbose]
-    else
+    elsif answer =~ /^a/i
       output.print_line_break
-      output.print_info("The remote host tried to redirect to: #{redirected_uri}")
-      answer = output.read_input('Do you want to follow the redirection? [Y]es [N]o [A]bort: ')
-      if answer =~ /^y/i
-        scanner.update_target_uri redirected_uri
-        output.print_info("Now targetting #{scanner.target_uri}") if opts[:verbose]
-      elsif answer =~ /^a/i
-        output.print_line_break
-        output.print_good('Scan aborted')
-        exit(1)
-      end
+      output.print_good('Scan aborted')
+      exit(1)
     end
   end
 end
@@ -139,25 +117,25 @@ def main
     o.print_good('User registration is not enabled.') if !scanner.user_registration_enabled && opts[:verbose]
 
     o.print_line_break if opts[:verbose]
-    o.print_good("Looking for interesting headers...") if opts[:verbose]
+    o.print_good('Looking for interesting headers...') if opts[:verbose]
     interesting_headers = scanner.interesting_headers
     o.print_good("Found #{interesting_headers.length} interesting headers.")
-    interesting_headers.each do | header |
+    interesting_headers.each do |header|
       o.print_indent("#{header[0]}: #{header[1]}")
     end
 
     o.print_line_break if opts[:verbose]
-    o.print_good("Looking for directory listings...") if opts[:verbose]
+    o.print_good('Looking for directory listings...') if opts[:verbose]
     o.print_warning("Components listing enabled: #{scanner.target_uri}/administrator/components") if scanner.administrator_components_listing_enabled
     o.print_warning("Components listing enabled: #{scanner.target_uri}/components") if scanner.components_listing_enabled
     o.print_warning("Modules listing enabled: #{scanner.target_uri}/administrator/modules") if scanner.administrator_modules_listing_enabled
     o.print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if scanner.modules_listing_enabled
 
     o.print_line_break
-    o.print_good("Determining Joomla version...") if opts[:verbose]
+    o.print_good('Determining Joomla version...') if opts[:verbose]
     version = scanner.version_from_readme
     o.print_good("Joomla version #{version} identified from README.txt") if version
-    o.print_error("Couldn't determine version from README.txt") unless version
+    o.print_error('Couldn\'t determine version from README.txt') unless version
 
     if version
       joomla_vulns = joomla_vulnerabilities(Gem::Version.new(version))
@@ -170,7 +148,7 @@ def main
     if opts[:scan_all] || opts[:scan_components]
       scanner = ComponentScanner.new(target, opts)
       o.print_line_break
-      o.print_good("Scanning for vulnerable components...")
+      o.print_good('Scanning for vulnerable components...')
       components = scanner.scan
       o.print_warning("Found #{components.length} vulnerable components.")
       o.print_line_break
@@ -181,7 +159,7 @@ def main
     if opts[:scan_all] || opts[:scan_modules]
       scanner = ModuleScanner.new(target, opts)
       o.print_line_break
-      o.print_good("Scanning for vulnerable modules...")
+      o.print_good('Scanning for vulnerable modules...')
       modules = scanner.scan
       o.print_warning("Found #{modules.length} vulnerable modules.")
       o.print_line_break
@@ -192,7 +170,7 @@ def main
     if opts[:scan_all] || opts[:scan_templates]
       scanner = TemplateScanner.new(target, opts)
       o.print_line_break
-      o.print_good("Scanning for vulnerable templates...")
+      o.print_good('Scanning for vulnerable templates...')
       templates = scanner.scan
       o.print_warning("Found #{templates.length} vulnerable templates.")
       o.print_line_break
@@ -207,6 +185,7 @@ def main
   end
 end
 
+# rubocop:enable Metrics/LineLength
 main
 
 print "\r\n"
