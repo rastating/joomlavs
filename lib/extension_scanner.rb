@@ -1,9 +1,11 @@
+# rubocop:disable Metrics/LineLength
 require 'json'
 require 'nokogiri'
 require_relative 'scanner'
 
+# This class provides the base functionality required
+# to scan for various types of vulnerable Joomla extensions.
 class ExtensionScanner < Scanner
-
   def initialize(target_uri, data_file, opts)
     super(target_uri, opts)
     @data_file = data_file
@@ -11,7 +13,7 @@ class ExtensionScanner < Scanner
 
   def process_result(ext, extension_path, manifest_uri, res)
     manifest = Nokogiri::XML(res)
-    extension = Hash.new
+    extension = {}
     extension[:version] = Gem::Version.new(manifest.xpath('//extension/version').text)
     extension[:name] = manifest.xpath('//extension/name').text
     extension[:author] = manifest.xpath('//extension/author').text
@@ -19,25 +21,10 @@ class ExtensionScanner < Scanner
     extension[:extension_url] = target_uri + extension_path
     extension[:manifest_url] = target_uri + manifest_uri
     extension[:description] = manifest.xpath('//extension/description').text
-    extension[:vulns] = Array.new
+    extension[:vulns] = []
 
     ext['vulns'].each do |v|
-      if v['ranges']
-        v['ranges'].each do |r|
-          if Gem::Version.new(r['introduced_in']) <= extension[:version]
-            if Gem::Version.new(r['fixed_in']) > extension[:version]
-              extension[:vulns].push(v)
-              break
-            end
-          end
-        end
-      else
-        if v['introduced_in'].nil? or Gem::Version.new(v['introduced_in']) <= extension[:version]
-          if v['fixed_in'].nil? or Gem::Version.new(v['fixed_in']) > extension[:version]
-            extension[:vulns].push(v)
-          end
-        end
-      end
+      extension[:vulns].push(v) if ExtensionScanner.version_is_vulnerable(extension[:version], v)
     end
 
     extension
@@ -49,32 +36,32 @@ class ExtensionScanner < Scanner
 
   def queue_requests(name, path_index = 0, &block)
     paths = possible_paths(name)
-    if (path_index < paths.length)
-      # Attempt to find the extension named manifest first.
-      uri = normalize_uri(paths[path_index], "#{name}.xml")
-      req = create_request(uri)
-      req.on_complete do |resp|
-        if resp.code == 200
-          block.call(resp, paths[path_index], uri)
-        else
-          # Extension named manifest wasn't found, try to find manifest.xml
-          uri = normalize_uri(paths[path_index], "manifest.xml")
-          req = create_request(uri)
-          req.on_complete do |resp|
-            if resp.code == 200
-              block.call(resp, paths[path_index], uri)
-            else
-              # Neither manifests could be found, try the next path
-              queue_requests(name, path_index + 1, &block)
-            end
+    return unless path_index < paths.length
+
+    # Attempt to find the extension named manifest first.
+    uri = normalize_uri(paths[path_index], "#{name}.xml")
+    req = create_request(uri)
+    req.on_complete do |resp|
+      if resp.code == 200
+        block.call(resp, paths[path_index], uri)
+      else
+        # Extension named manifest wasn't found, try to find manifest.xml
+        uri = normalize_uri(paths[path_index], 'manifest.xml')
+        req = create_request(uri)
+        req.on_complete do |resp|
+          if resp.code == 200
+            block.call(resp, paths[path_index], uri)
+          else
+            # Neither manifests could be found, try the next path
+            queue_requests(name, path_index + 1, &block)
           end
-
-          hydra.queue req
         end
-      end
 
-      hydra.queue req
+        hydra.queue req
+      end
     end
+
+    hydra.queue req
   end
 
   def self.version_is_vulnerable(version, vuln)
@@ -99,10 +86,13 @@ class ExtensionScanner < Scanner
     found
   end
 
+  def data_file_json
+    JSON.parse(File.read(@data_file))
+  end
+
   def scan
-    json = File.read(@data_file)
-    extensions = JSON.parse(json)
-    detected = Array.new
+    extensions = data_file_json
+    detected = []
     lock = Mutex.new
 
     extensions.each do |e|
@@ -118,3 +108,5 @@ class ExtensionScanner < Scanner
     detected
   end
 end
+
+# rubocop:enable Metrics/LineLength
