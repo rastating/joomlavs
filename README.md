@@ -1,4 +1,4 @@
-# joomlavs
+# joomlavs [![Build Status](https://travis-ci.org/rastating/joomlavs.svg?branch=master)](https://travis-ci.org/rastating/joomlavs)
 A black box, Ruby powered, Joomla vulnerability scanner
 
 ## What is it?
@@ -7,7 +7,7 @@ JoomlaVS is a Ruby application that can help automate assessing how vulnerable a
 ## How to install
 JoomlaVS has so far only been tested on Debian, but the installation process should be similar across most operating systems.
 
-1. Ensure Ruby [2.1 or above] is installed on your system
+1. Ensure Ruby [2.0 or above] is installed on your system
 2. Clone the source code using ```git clone https://github.com/rastating/joomlavs.git```
 3. Install bundler and required gems using ```sudo gem install bundler && bundle install```
 
