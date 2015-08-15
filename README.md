@@ -2,7 +2,7 @@
 A black box, Ruby powered, Joomla vulnerability scanner
 
 ## What is it?
-Joomla VS is a Ruby application that can help automate assessing how vulnerable a Joomla installation is to exploitation. It supports basic finger printing and can scan for vulnerability to both extensions and vulnerabilities that exist within Joomla itself.
+Joomla VS is a Ruby application that can help automate assessing how vulnerable a Joomla installation is to exploitation. It supports basic finger printing and can scan for vulnerabilities in components, modules and templates as well as vulnerabilities that exist within Joomla itself.
 
 ## License
 Copyright (C) 2015 rastating
