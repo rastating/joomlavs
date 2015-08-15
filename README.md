@@ -2,10 +2,21 @@
 A black box, Ruby powered, Joomla vulnerability scanner
 
 ## What is it?
-JoomlaVS is a Ruby application that can help automate assessing how vulnerable a Joomla installation is to exploitation. It supports basic finger printing and can scan for vulnerability to both extensions and vulnerabilities that exist within Joomla itself.
+Joomla VS is a Ruby application that can help automate assessing how vulnerable a Joomla installation is to exploitation. It supports basic finger printing and can scan for vulnerability to both extensions and vulnerabilities that exist within Joomla itself.
+
+## License
+Copyright (C) 2015 rastating
+
+Running Joomla VS against websites without prior mutual consent may be illegal in your country. The author and parties involved in its development accept no liability and are not responsible for any misuse or damage caused by Joomla VS.
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## How to install
-JoomlaVS has so far only been tested on Debian, but the installation process should be similar across most operating systems.
+Joomla VS has so far only been tested on Debian, but the installation process should be similar across most operating systems.
 
 1. Ensure Ruby [2.0 or above] is installed on your system
 2. Clone the source code using ```git clone https://github.com/rastating/joomlavs.git```
