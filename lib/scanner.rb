@@ -1,7 +1,8 @@
 require 'typhoeus'
 
+# This class provides the base functionality
+# for all the scanner classes.
 class Scanner
-
   def initialize(target_uri, opts)
     update_target_uri target_uri
     @opts = opts
@@ -25,11 +26,11 @@ class Scanner
   end
 
   def normalize_uri(*parts)
-    uri = parts * "/"
-    uri = uri.gsub!("//", "/") while uri.index("//")
+    uri = parts * '/'
+    uri = uri.gsub!('//', '/') while uri.index('//')
 
     # Makes sure there's a starting slash
-    unless uri[0,1] == '/'
+    unless uri[0, 1] == '/'
       uri = '/' + uri
     end
 
@@ -38,7 +39,7 @@ class Scanner
 
   def create_request(path)
     req = Typhoeus::Request.new(
-      target_uri + path, 
+      target_uri + path,
       followlocation: @opts[:follow_redirection] ? true : false,
       headers: { 'User-Agent' => @opts[:user_agent] }
     )

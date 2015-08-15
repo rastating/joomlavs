@@ -1,6 +1,8 @@
 require 'colorize'
 require 'readline'
 
+# This class provides functionality to output
+# to the screen in a consistent style.
 class Output
   def initialize (use_colours = true)
     @use_colours = use_colours
@@ -32,7 +34,7 @@ class Output
     else
       print '    '
     end
-        
+
     print "#{text}".light_white if use_colours
     print "#{text}" unless use_colours
     print "\r\n" if new_line
