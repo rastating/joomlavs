@@ -1,9 +1,6 @@
 # joomlavs
 A black box, Ruby powered, Joomla vulnerability scanner
 
-## IMPORTANT NOTE
-JoomlaVS is still in its early stages of development, there may be bugs and the list of vulnerabilities is actively being built up, but may take a while to get a full list of published vulnerabilities.
-
 ## What is it?
 JoomlaVS is a Ruby application that can help automate assessing how vulnerable a Joomla installation is to exploitation. It supports basic finger printing and can scan for vulnerability to both extensions and vulnerabilities that exist within Joomla itself.
 
