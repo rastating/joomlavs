@@ -10005,5 +10005,37 @@
         "date": "2011-06-13"
       }
     ]
+  },
+  {
+    "name": "jem",
+    "vulns": [
+      {
+        "title": "Joomla Event Manager 2.1.4 - Multiple Vulnerabilities",
+        "edbid": 37767,
+        "introduced_in": "2.1.4",
+        "fixed_in": "2.1.5",
+        "date": "2015-08-13"
+      }
+    ]
+  },
+  {
+    "name": "informations",
+    "vulns": [
+      {
+        "title": "Joomla com_informations component - SQL Injection vulnerability",
+        "edbid": 37774,
+        "date": "2015-08-15"
+      }
+    ]
+  },
+  {
+    "name": "memorix",
+    "vulns": [
+      {
+        "title": "Joomla com_memorix component - SQL Injection vulnerability",
+        "edbid": 37773,
+        "date": "2015-08-15"
+      }
+    ]
   }
 ]
