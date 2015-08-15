@@ -1,4 +1,4 @@
-# joomlavs [![Build Status](https://travis-ci.org/rastating/joomlavs.svg?branch=master)](https://travis-ci.org/rastating/joomlavs)
+# joomlavs [![Build Status](https://travis-ci.org/rastating/joomlavs.svg?branch=master)](https://travis-ci.org/rastating/joomlavs) [![Code Climate](https://codeclimate.com/github/rastating/joomlavs/badges/gpa.svg)](https://codeclimate.com/github/rastating/joomlavs)
 A black box, Ruby powered, Joomla vulnerability scanner
 
 ## What is it?
