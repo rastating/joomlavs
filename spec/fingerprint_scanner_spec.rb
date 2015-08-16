@@ -116,6 +116,38 @@ describe FingerprintScanner do
     end
   end
 
+  describe '#extract_components_from_home' do
+    let(:typhoeus_body) { 'Index of page com_foo<br /> com_bar' }
+    it 'returns a list of the component names, minus the com_ prefix' do
+      res = @scanner.extract_components_from_home
+      expect(res).to eq ['foo', 'bar']
+    end
+  end
+
+  describe '#extract_modules_from_admin_index' do
+    let(:typhoeus_body) { 'Index of page mod_foo<br /> mod_bar' }
+    it 'returns a list of the module names, minus the mod_ prefix' do
+      res = @scanner.extract_modules_from_admin_index
+      expect(res).to eq ['foo', 'bar']
+    end
+  end
+
+  describe '#extract_modules_from_index' do
+    let(:typhoeus_body) { 'Index of page mod_foo<br /> mod_bar' }
+    it 'returns a list of the module names, minus the mod_ prefix' do
+      res = @scanner.extract_modules_from_index
+      expect(res).to eq ['foo', 'bar']
+    end
+  end
+
+  describe '#extract_modules_from_home' do
+    let(:typhoeus_body) { 'Index of page mod_foo<br /> mod_bar' }
+    it 'returns a list of the module names, minus the mod_ prefix' do
+      res = @scanner.extract_modules_from_home
+      expect(res).to eq ['foo', 'bar']
+    end
+  end
+
   describe '#extract_templates_from_admin_index' do
     let(:typhoeus_body) { %(
       <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
@@ -167,6 +199,32 @@ describe FingerprintScanner do
     it 'returns a list of possible template names' do
       res = @scanner.extract_templates_from_index
       expect(res).to eq ['hathor', 'isis', 'system']
+    end
+  end
+
+  describe '#extract_templates_from_home' do
+    let(:typhoeus_body) { %(
+      <!DOCTYPE html>
+      <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <base href="http://localhost/" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="generator" content="Joomla! - Open Source Content Management  - Version 3.4.3" />
+        <title>Home</title>
+        <link href="http://localhost/index.php" rel="canonical" />
+        <link href="/index.php?format=feed&amp;type=rss" rel="alternate" type="application/rss+xml" title="RSS 2.0" />
+        <link href="/index.php?format=feed&amp;type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0" />
+        <link href="/templates/protostar/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+        <link rel="stylesheet" href="/templates/protostar/css/template.css" type="text/css" />
+      </head>
+        
+      </body>
+      </html>
+      )}
+    it 'returns a list of possible templates from links found in the page source' do
+      res = @scanner.extract_templates_from_home
+      expect(res).to eq ['protostar']
     end
   end
 end
