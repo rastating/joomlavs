@@ -91,4 +91,82 @@ describe FingerprintScanner do
       end
     end
   end
+
+  describe '#extract_extension_list_from_page' do
+    let(:typhoeus_body) { 'Index of page com_foo<br /> com_bar' }
+    it 'returns a list of strings matching the specified pattern' do
+      res = @scanner.extract_extension_list_from_page('/', /com_[a-z0-9\-_]+/i)
+      expect(res).to eq ['com_foo', 'com_bar']
+    end
+  end
+
+  describe '#extract_components_from_admin_index' do
+    let(:typhoeus_body) { 'Index of page com_foo<br /> com_bar' }
+    it 'returns a list of the component names, minus the com_ prefix' do
+      res = @scanner.extract_components_from_admin_index
+      expect(res).to eq ['foo', 'bar']
+    end
+  end
+
+  describe '#extract_components_from_index' do
+    let(:typhoeus_body) { 'Index of page com_foo<br /> com_bar' }
+    it 'returns a list of the component names, minus the com_ prefix' do
+      res = @scanner.extract_components_from_index
+      expect(res).to eq ['foo', 'bar']
+    end
+  end
+
+  describe '#extract_templates_from_admin_index' do
+    let(:typhoeus_body) { %(
+      <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+      <html>
+       <head>
+        <title>Index of /administrator/templates</title>
+       </head>
+       <body>
+      <h1>Index of /administrator/templates</h1>
+        <table>
+         <tr><th valign="top"><img src="/icons/blank.gif" alt="[ICO]"></th><th><a href="?C=N;O=D">Name</a></th><th><a href="?C=M;O=A">Last modified</a></th><th><a href="?C=S;O=A">Size</a></th><th><a href="?C=D;O=A">Description</a></th></tr>
+         <tr><th colspan="5"><hr></th></tr>
+      <tr><td valign="top"><img src="/icons/back.gif" alt="[PARENTDIR]"></td><td><a href="/administrator/">Parent Directory</a></td><td>&nbsp;</td><td align="right">  - </td><td>&nbsp;</td></tr>
+      <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="hathor/">hathor/</a></td><td align="right">2015-07-02 16:34  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+      <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="isis/">isis/</a></td><td align="right">2015-07-02 16:34  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+      <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="system/">system/</a></td><td align="right">2015-07-02 16:34  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+         <tr><th colspan="5"><hr></th></tr>
+      </table>
+      </body></html>
+    ) }
+
+    it 'returns a list of possible template names' do
+      res = @scanner.extract_templates_from_admin_index
+      expect(res).to eq ['administrator', 'hathor', 'isis', 'system']
+    end
+  end
+
+  describe '#extract_templates_from_index' do
+    let(:typhoeus_body) { %(
+      <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+      <html>
+       <head>
+        <title>Index of /templates</title>
+       </head>
+       <body>
+      <h1>Index of /templates</h1>
+        <table>
+         <tr><th valign="top"><img src="/icons/blank.gif" alt="[ICO]"></th><th><a href="?C=N;O=D">Name</a></th><th><a href="?C=M;O=A">Last modified</a></th><th><a href="?C=S;O=A">Size</a></th><th><a href="?C=D;O=A">Description</a></th></tr>
+         <tr><th colspan="5"><hr></th></tr>
+      <tr><td valign="top"><img src="/icons/back.gif" alt="[PARENTDIR]"></td><td><a href="/">Parent Directory</a></td><td>&nbsp;</td><td align="right">  - </td><td>&nbsp;</td></tr>
+      <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="hathor/">hathor/</a></td><td align="right">2015-07-02 16:34  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+      <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="isis/">isis/</a></td><td align="right">2015-07-02 16:34  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+      <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="system/">system/</a></td><td align="right">2015-07-02 16:34  </td><td align="right">  - </td><td>&nbsp;</td></tr>
+         <tr><th colspan="5"><hr></th></tr>
+      </table>
+      </body></html>
+    ) }
+
+    it 'returns a list of possible template names' do
+      res = @scanner.extract_templates_from_index
+      expect(res).to eq ['hathor', 'isis', 'system']
+    end
+  end
 end
