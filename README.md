@@ -38,6 +38,7 @@ Enumeration options
     -c, --scan-components  Scan for vulnerable components
     -m, --scan-modules     Scan for vulnerable modules
     -t, --scan-templates   Scan for vulnerable templates
+    -q, --quiet            Scan using only passive methods
 Advanced options
     --follow-redirection   Automatically follow redirections
     --no-colour            Disable colours in output
