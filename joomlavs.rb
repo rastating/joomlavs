@@ -92,6 +92,27 @@ def check_target_redirection(scanner, output, opts)
   end
 end
 
+def components_filter(scanner, use_index, use_admin_index)
+  components = scanner.extract_components_from_home
+  components = components | scanner.extract_components_from_index if use_index
+  components = components | scanner.extract_components_from_admin_index if use_admin_index
+  components
+end
+
+def modules_filter(scanner, use_index, use_admin_index)
+  modules = scanner.extract_modules_from_home
+  modules = modules | scanner.extract_modules_from_index if use_index
+  modules = modules | scanner.extract_modules_from_admin_index if use_admin_index
+  modules
+end
+
+def templates_filter(scanner, use_index, use_admin_index)
+  templates = scanner.extract_templates_from_home
+  templates = templates | scanner.extract_templates_from_index if use_index
+  templates = templates | scanner.extract_templates_from_admin_index if use_admin_index
+  templates
+end
+
 def main
   opts = Slop.parse do |o|
     o.separator 'Basic options'
@@ -104,6 +125,7 @@ def main
     o.bool '-c', '--scan-components', 'Scan for vulnerable components'
     o.bool '-m', '--scan-modules', 'Scan for vulnerable modules'
     o.bool '-t', '--scan-templates', 'Scan for vulnerable templates'
+    o.bool '-q', '--quiet', 'Scan using only passive methods'
 
     o.separator 'Advanced options'
     o.bool '--follow-redirection', 'Automatically follow redirections'
@@ -140,10 +162,27 @@ def main
 
     o.print_line_break if opts[:verbose]
     o.print_good('Looking for directory listings...') if opts[:verbose]
-    o.print_warning("Components listing enabled: #{scanner.target_uri}/administrator/components") if scanner.administrator_components_listing_enabled
-    o.print_warning("Components listing enabled: #{scanner.target_uri}/components") if scanner.components_listing_enabled
-    o.print_warning("Modules listing enabled: #{scanner.target_uri}/administrator/modules") if scanner.administrator_modules_listing_enabled
-    o.print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if scanner.modules_listing_enabled
+
+    administrator_components_listing_enabled = scanner.administrator_components_listing_enabled
+    o.print_warning("Components listing enabled: #{scanner.target_uri}/administrator/components") if administrator_components_listing_enabled
+
+    components_listing_enabled = scanner.components_listing_enabled
+    o.print_warning("Components listing enabled: #{scanner.target_uri}/components") if components_listing_enabled
+
+    administrator_modules_listing_enabled = scanner.administrator_modules_listing_enabled
+    o.print_warning("Modules listing enabled: #{scanner.target_uri}/administrator/modules") if administrator_modules_listing_enabled
+
+    modules_listing_enabled = scanner.modules_listing_enabled  
+    o.print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if modules_listing_enabled
+
+    modules_listing_enabled = scanner.modules_listing_enabled  
+    o.print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if modules_listing_enabled
+
+    administrator_templates_listing_enabled = scanner.administrator_templates_listing_enabled
+    o.print_warning("Templates listing enabled: #{scanner.target_uri}/administrator/templates") if administrator_templates_listing_enabled
+
+    templates_listing_enabled = scanner.templates_listing_enabled
+    o.print_warning("Templates listing enabled: #{scanner.target_uri}/templates") if templates_listing_enabled
 
     o.print_line_break
     o.print_good('Determining Joomla version...') if opts[:verbose]
@@ -159,11 +198,25 @@ def main
       end
     end
 
+    filters = {
+      :components => [],
+      :modules => [],
+      :templates => []
+    }
+
+    if opts[:quiet]
+      o.print_line_break if opts[:verbose]
+      o.print_good 'Building extension filters...' if opts[:verbose]
+      filters[:components] = components_filter(scanner, components_listing_enabled, administrator_components_listing_enabled)
+      filters[:modules] = modules_filter(scanner, modules_listing_enabled, administrator_modules_listing_enabled)
+      filters[:templates] = templates_filter(scanner, templates_listing_enabled, administrator_templates_listing_enabled)
+    end
+
     if opts[:scan_all] || opts[:scan_components]
       scanner = ComponentScanner.new(target, opts)
       o.print_line_break
       o.print_good('Scanning for vulnerable components...')
-      components = scanner.scan
+      components = scanner.scan(filters[:components])
       o.print_warning("Found #{components.length} vulnerable components.")
       o.print_line_break
       o.print_horizontal_rule(:default)
@@ -174,7 +227,7 @@ def main
       scanner = ModuleScanner.new(target, opts)
       o.print_line_break
       o.print_good('Scanning for vulnerable modules...')
-      modules = scanner.scan
+      modules = scanner.scan(filters[:modules])
       o.print_warning("Found #{modules.length} vulnerable modules.")
       o.print_line_break
       o.print_horizontal_rule(:default)
@@ -185,7 +238,7 @@ def main
       scanner = TemplateScanner.new(target, opts)
       o.print_line_break
       o.print_good('Scanning for vulnerable templates...')
-      templates = scanner.scan
+      templates = scanner.scan(filters[:templates])
       o.print_warning("Found #{templates.length} vulnerable templates.")
       o.print_line_break
       o.print_horizontal_rule(:default)

@@ -104,8 +104,13 @@ class ExtensionScanner < Scanner
     JSON.parse(File.read(@data_file))
   end
 
-  def scan
-    extensions = data_file_json
+  def apply_filter(extensions, filter)
+    extensions.delete_if { |e| !filter.include? e['name'] } unless filter.empty?
+    extensions
+  end
+
+  def scan(filter = [])
+    extensions = apply_filter(data_file_json, filter)
     detected = []
     lock = Mutex.new
 

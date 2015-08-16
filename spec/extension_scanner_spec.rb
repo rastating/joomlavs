@@ -51,6 +51,23 @@ describe ExtensionScanner do
     end
   end
 
+  describe '#apply_filter' do
+    context 'when passed an array of strings as the filter' do
+      it 'returns the extensions array with the elements not found in the filter removed' do
+        extensions = [{ 'name' => 'foo' }, { 'name' => 'bar' }, { 'name' => 'hello' },  { 'name' => 'world' }]
+        filter = ['foo', 'hello']
+        expect(@scanner.apply_filter(extensions, filter)).to eq [{ 'name' => 'foo' }, { 'name' => 'hello' }]
+      end
+    end
+
+    context 'when passed an empty array as the filter' do
+      it 'returns the unmodified extensions array' do
+        extensions = [{ 'name' => 'foo' }, { 'name' => 'bar' }]
+        expect(@scanner.apply_filter(extensions, [])).to eq extensions
+      end
+    end
+  end
+
   describe '#possible_paths' do
     it 'returns nil' do
       expect(@scanner.possible_paths('foo')).to be_nil

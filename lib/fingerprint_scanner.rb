@@ -101,6 +101,91 @@ class FingerprintScanner < Scanner
     directory_listing_enabled('/modules/')
   end
 
+  def administrator_templates_listing_enabled
+    directory_listing_enabled('/administrator/templates/')
+  end
+
+  def templates_listing_enabled
+    directory_listing_enabled('/templates/')
+  end
+
+  def extract_extension_list_from_page(url, pattern)
+    matches = []
+    req = create_request(url)
+    req.on_complete do |resp|
+      matches = resp.body.to_enum(:scan, pattern).map { Regexp.last_match.to_s } if resp.code == 200
+    end
+
+    req.run
+    matches.uniq
+  end
+
+  def extract_components_from_page(url)
+    pattern = /com_[a-z0-9\-_]+/i
+    matches = extract_extension_list_from_page(url, pattern)
+    matches.map { |m| m.sub(/^com_/i, '') }
+  end
+
+  def extract_components_from_admin_index
+    extract_components_from_page '/administrator/components/'
+  end
+
+  def extract_components_from_index
+    extract_components_from_page '/components/'
+  end
+
+  def extract_components_from_home
+    extract_components_from_page '/'
+  end
+
+  def extract_modules_from_page(url)
+    pattern = /mod_[a-z0-9\-_]+/i
+    matches = extract_extension_list_from_page(url, pattern)
+    matches.map { |m| m.sub(/^mod_/i, '') }
+  end
+
+  def extract_modules_from_admin_index
+    extract_modules_from_page '/administrator/modules/'
+  end
+
+  def extract_modules_from_index
+    extract_modules_from_page '/modules/'
+  end
+
+  def extract_modules_from_home
+    extract_modules_from_page '/'
+  end
+
+  def extract_templates_from_page(url)
+    req = create_request(url)
+    matches = []
+
+    req.on_complete do |resp|
+      doc = Nokogiri::HTML(resp.body)
+      links = doc.css('a')
+      hrefs = links.map { |link| link.attribute('href').to_s }.uniq.sort.delete_if { |href| href.empty? || href.start_with?('?') || href == '/' }
+      matches = hrefs.map { |href| href.match(/\/?([a-z0-9\-_]+)\/?$/i)[1] }
+    end
+
+    req.run
+    matches
+  end
+
+  def extract_templates_from_admin_index
+    extract_templates_from_page '/administrator/templates/'
+  end
+
+  def extract_templates_from_index
+    extract_templates_from_page '/templates/'
+  end
+
+  def extract_templates_from_home
+    pattern = /(\/administrator)?\/templates\/[a-z0-9\-_]+/i
+    url = '/'
+    matches = extract_extension_list_from_page(url, pattern)
+    matches.map { |m| m.sub(/^(\/administrator)?\/templates\//i, '') }
+  end
+
   def user_registration_enabled
     # Follow location option must be set to false to detect the
     # redirect to the login page if registration is disabled.
