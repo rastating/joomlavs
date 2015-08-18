@@ -51,8 +51,8 @@ class ExtensionScanner < Scanner
     nil
   end
 
-  def queue_manifest_request(paths, name, path_index, &block)
-    uri = normalize_uri(paths[path_index], 'manifest.xml')
+  def queue_manifest_request(manifest_name, paths, name, path_index, &block)
+    uri = normalize_uri(paths[path_index], manifest_name)
     req = create_request(uri)
     req.on_complete do |resp|
       if resp.code == 200
@@ -80,7 +80,7 @@ class ExtensionScanner < Scanner
         block.call(resp, paths[path_index], uri)
       else
         # Extension named manifest wasn't found, try to find manifest.xml
-        queue_manifest_request(paths, name, path_index, &block)
+        queue_manifest_request('manifest.xml', paths, name, path_index, &block)
       end
     end
 

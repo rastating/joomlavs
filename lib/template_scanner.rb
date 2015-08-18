@@ -32,17 +32,6 @@ class TemplateScanner < ExtensionScanner
   def queue_requests(name, path_index = 0, &block)
     paths = possible_paths(name)
     return unless path_index < paths.length
-
-    uri = normalize_uri(paths[path_index], 'templateDetails.xml')
-    req = create_request(uri)
-    req.on_complete do |resp|
-      if resp.code == 200
-        block.call(resp, paths[path_index], uri)
-      else
-        queue_requests(name, path_index + 1, &block)
-      end
-    end
-
-    hydra.queue req
+    queue_manifest_request('templateDetails.xml', paths, name, path_index, &block)
   end
 end
