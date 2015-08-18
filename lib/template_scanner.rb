@@ -22,11 +22,8 @@ class TemplateScanner < ExtensionScanner
     super(target_uri, 'data/templates.json', opts)
   end
 
-  def possible_paths(name)
-    paths = []
-    paths.push(normalize_uri('administrator', 'templates', name))
-    paths.push(normalize_uri('templates', name))
-    paths
+  def directory_name
+    'templates'
   end
 
   def queue_requests(name, path_index = 0, &block)

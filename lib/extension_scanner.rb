@@ -47,8 +47,19 @@ class ExtensionScanner < Scanner
     extension
   end
 
+  def extension_prefix
+    ''
+  end
+
+  def directory_name
+    ''
+  end
+
   def possible_paths(name)
-    nil
+    paths = []
+    paths.push(normalize_uri('administrator', directory_name, "#{extension_prefix}#{name}"))
+    paths.push(normalize_uri(directory_name, "#{extension_prefix}#{name}"))
+    paths
   end
 
   def queue_manifest_request(manifest_name, paths, name, path_index, &block)

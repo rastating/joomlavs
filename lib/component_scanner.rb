@@ -22,10 +22,11 @@ class ComponentScanner < ExtensionScanner
     super(target_uri, 'data/components.json', opts)
   end
 
-  def possible_paths(name)
-    paths = []
-    paths.push(normalize_uri('administrator', 'components', "com_#{name}"))
-    paths.push(normalize_uri('components', "com_#{name}"))
-    paths
+  def extension_prefix
+    'com_'
+  end
+
+  def directory_name
+    'components'
   end
 end
