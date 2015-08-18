@@ -35,11 +35,11 @@ end
 def display_vulns(vulns, output)
   vulns.each do |v|
     output.print_line_break
-    output.print_line(:error, "Title: #{v['title']}")
+    output.print_error("Title: #{v['title']}")
     display_reference v['edbid'], 'https://www.exploit-db.com/exploits/', output
     display_reference v['cveid'], 'http://www.cvedetails.com/cve/', output
     display_reference v['osvdbid'], 'http://osvdb.org/', output
-    output.print_line(:info, "Fixed in: #{v['fixed_in']}") if v['fixed_in']
+    output.print_info("Fixed in: #{v['fixed_in']}") if v['fixed_in']
     output.print_line_break
   end
 end
@@ -55,7 +55,7 @@ def display_detected_extension(e, output)
 
   display_vulns(e[:vulns], output)
 
-  output.print_horizontal_rule(:default)
+  output.print_horizontal_rule
 end
 
 def joomla_vulnerabilities(version)
@@ -219,7 +219,7 @@ def main
       components = scanner.scan(filters[:components])
       o.print_warning("Found #{components.length} vulnerable components.")
       o.print_line_break
-      o.print_horizontal_rule(:default)
+      o.print_horizontal_rule
       components.each { |c| display_detected_extension(c, o) }
     end
 
@@ -230,7 +230,7 @@ def main
       modules = scanner.scan(filters[:modules])
       o.print_warning("Found #{modules.length} vulnerable modules.")
       o.print_line_break
-      o.print_horizontal_rule(:default)
+      o.print_horizontal_rule
       modules.each { |m| display_detected_extension(m, o) }
     end
 
@@ -241,7 +241,7 @@ def main
       templates = scanner.scan(filters[:templates])
       o.print_warning("Found #{templates.length} vulnerable templates.")
       o.print_line_break
-      o.print_horizontal_rule(:default)
+      o.print_horizontal_rule
       templates.each { |t| display_detected_extension(t, o) }
     end
 
