@@ -25,27 +25,57 @@ class ExtensionScanner < Scanner
     @data_file = data_file
   end
 
-  def process_result(ext, extension_path, manifest_uri, res)
-    manifest = Nokogiri::XML(res)
-    extension = {}
-    extension[:version] = Gem::Version.new(manifest.xpath('//extension/version').text)
-    extension[:name] = manifest.xpath('//extension/name').text
-    extension[:author] = manifest.xpath('//extension/author').text
-    extension[:author_url] = manifest.xpath('//extension/authorUrl').text
-    extension[:extension_url] = target_uri + extension_path
-    extension[:manifest_url] = target_uri + manifest_uri
-    extension[:description] = manifest.xpath('//extension/description').text
-    extension[:vulns] = []
+  def create_extension_from_manifest(xml, extension_path, manifest_uri)
+    manifest = Nokogiri::XML(xml)
+    {
+      version: Gem::Version.new(manifest.xpath('//extension/version').text),
+      name: manifest.xpath('//extension/name').text,
+      author: manifest.xpath('//extension/author').text,
+      author_url: manifest.xpath('//extension/authorUrl').text,
+      extension_url: "#{target_uri}#{extension_path}",
+      manifest_url: "#{target_uri}#{manifest_uri}",
+      description: manifest.xpath('//extension/description').text,
+      vulns: []
+    }
+  end
 
+  def process_result(ext, extension_path, manifest_uri, res)
+    extension = create_extension_from_manifest(res, extension_path, manifest_uri)
     ext['vulns'].each do |v|
       extension[:vulns].push(v) if ExtensionScanner.version_is_vulnerable(extension[:version], v)
     end
-
     extension
   end
 
+  def extension_prefix
+    ''
+  end
+
+  def directory_name
+    ''
+  end
+
   def possible_paths(name)
-    nil
+    paths = []
+    paths.push(normalize_uri('administrator', directory_name, "#{extension_prefix}#{name}"))
+    paths.push(normalize_uri(directory_name, "#{extension_prefix}#{name}"))
+    paths
+  end
+
+  def queue_manifest_request(manifest_name, paths, name, path_index, &block)
+    uri = normalize_uri(paths[path_index], manifest_name)
+    req = create_request(uri)
+    req.on_complete do |resp|
+      if resp.code == 200
+        # We found the manifest, invoke the callback.
+        block.call(resp, paths[path_index], uri)
+      else
+        # Neither manifests could be found, try the next path
+        queue_requests(name, path_index + 1, &block)
+      end
+    end
+
+    hydra.queue req
   end
 
   def queue_requests(name, path_index = 0, &block)
@@ -57,44 +87,39 @@ class ExtensionScanner < Scanner
     req = create_request(uri)
     req.on_complete do |resp|
       if resp.code == 200
+        # We found the named manifest, invoke the callback.
         block.call(resp, paths[path_index], uri)
       else
         # Extension named manifest wasn't found, try to find manifest.xml
-        uri = normalize_uri(paths[path_index], 'manifest.xml')
-        req = create_request(uri)
-        req.on_complete do |resp|
-          if resp.code == 200
-            block.call(resp, paths[path_index], uri)
-          else
-            # Neither manifests could be found, try the next path
-            queue_requests(name, path_index + 1, &block)
-          end
-        end
-
-        hydra.queue req
+        queue_manifest_request('manifest.xml', paths, name, path_index, &block)
       end
     end
 
     hydra.queue req
   end
 
+  def self.version_in_range(version, range)
+    in_range = false
+
+    if range['introduced_in'].nil? || Gem::Version.new(range['introduced_in']) <= version
+      if range['fixed_in'].nil? || Gem::Version.new(range['fixed_in']) > version
+        in_range = true
+      end
+    end
+
+    in_range
+  end
+
   def self.version_is_vulnerable(version, vuln)
     found = false
+
     if vuln['ranges']
-      vuln['ranges'].each do |r|
-        if Gem::Version.new(r['introduced_in']) <= version
-          if Gem::Version.new(r['fixed_in']) > version
-            found = true
-            break
-          end
-        end
+      vuln['ranges'].each do |range|
+        found = version_in_range(version, range)
+        break if found
       end
     else
-      if vuln['introduced_in'].nil? || Gem::Version.new(vuln['introduced_in']) <= version
-        if vuln['fixed_in'].nil? || Gem::Version.new(vuln['fixed_in']) > version
-          found = true
-        end
-      end
+      found = version_in_range(version, vuln)
     end
 
     found

@@ -69,8 +69,8 @@ describe ExtensionScanner do
   end
 
   describe '#possible_paths' do
-    it 'returns nil' do
-      expect(@scanner.possible_paths('foo')).to be_nil
+    it 'returns two paths with no prefix' do
+      expect(@scanner.possible_paths('foo')).to eq ['/administrator/foo', '/foo']
     end
   end
 

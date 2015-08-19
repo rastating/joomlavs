@@ -22,10 +22,11 @@ class ModuleScanner < ExtensionScanner
     super(target_uri, 'data/modules.json', opts)
   end
 
-  def possible_paths(name)
-    paths = []
-    paths.push(normalize_uri('administrator', 'modules', "mod_#{name}"))
-    paths.push(normalize_uri('modules', "mod_#{name}"))
-    paths
+  def extension_prefix
+    'mod_'
+  end
+
+  def directory_name
+    'modules'
   end
 end
