@@ -156,6 +156,12 @@ class FingerprintScanner < Scanner
     extract_modules_from_page '/'
   end
 
+  def get_hrefs_from_links(links)
+    hrefs = links.map { |link| link.attribute('href').to_s }
+    hrefs = hrefs.uniq.sort.delete_if { |href| href.empty? || href.start_with?('?') || href == '/' }
+    hrefs
+  end
+
   def extract_templates_from_page(url)
     req = create_request(url)
     matches = []
@@ -163,7 +169,7 @@ class FingerprintScanner < Scanner
     req.on_complete do |resp|
       doc = Nokogiri::HTML(resp.body)
       links = doc.css('a')
-      hrefs = links.map { |link| link.attribute('href').to_s }.uniq.sort.delete_if { |href| href.empty? || href.start_with?('?') || href == '/' }
+      hrefs = get_hrefs_from_links(links)
       matches = hrefs.map { |href| href.match(/\/?([a-z0-9\-_]+)\/?$/i)[1] }
     end
 
