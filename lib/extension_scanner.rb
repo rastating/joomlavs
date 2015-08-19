@@ -25,16 +25,20 @@ class ExtensionScanner < Scanner
     @data_file = data_file
   end
 
+  def root_element_xpath
+    '//*[self::extension or self::install]'
+  end
+
   def create_extension_from_manifest(xml, extension_path, manifest_uri)
     manifest = Nokogiri::XML(xml)
     {
-      version: Gem::Version.new(manifest.xpath('//extension/version').text),
-      name: manifest.xpath('//extension/name').text,
-      author: manifest.xpath('//extension/author').text,
-      author_url: manifest.xpath('//extension/authorUrl').text,
+      version: Gem::Version.new(manifest.xpath("#{root_element_xpath}/version").text),
+      name: manifest.xpath("#{root_element_xpath}/name").text,
+      author: manifest.xpath("#{root_element_xpath}/author").text,
+      author_url: manifest.xpath("#{root_element_xpath}/authorUrl").text,
       extension_url: "#{target_uri}#{extension_path}",
       manifest_url: "#{target_uri}#{manifest_uri}",
-      description: manifest.xpath('//extension/description').text,
+      description: manifest.xpath("#{root_element_xpath}/description").text,
       vulns: []
     }
   end
