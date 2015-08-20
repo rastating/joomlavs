@@ -186,8 +186,17 @@ def main
 
     o.print_line_break
     o.print_good('Determining Joomla version...') if opts[:verbose]
-    version = scanner.version_from_readme
-    o.print_good("Joomla version #{version} identified from README.txt") if version
+    o.print_info('Searching for version in meta data...') if opts[:verbose]
+    version = scanner.version_from_meta_tag
+    o.print_good("Joomla version #{version} identified from meta data") if version
+
+    unless version
+      version = scanner.version_from_readme
+      o.print_error('No version found in the meta data') if opts[:verbose]
+      o.print_info('Searching for version in README.txt...') if opts[:verbose]
+      o.print_good("Joomla version #{version} identified from README.txt") if version
+    end
+
     o.print_error('Couldn\'t determine version from README.txt') unless version
 
     if version
