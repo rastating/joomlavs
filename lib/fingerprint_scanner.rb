@@ -207,6 +207,20 @@ class FingerprintScanner < Scanner
     enabled
   end
 
+  def version_from_meta_tag
+    resp = run_request(index_request)
+    return nil unless resp.code == 200
+
+    version = nil
+    doc = Nokogiri::HTML(resp.body)
+    doc.xpath('//meta[@name=\'generator\']/@content').each do |gen|
+      match = /([0-9]+(\.?[0-9]+)?(\.?[0-9]+)?)+/.match(gen)
+      version = match.captures[0] if match
+    end
+
+    version
+  end
+
   def version_from_readme
     req = create_request('/README.txt')
     version = nil

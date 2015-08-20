@@ -51,6 +51,59 @@ describe FingerprintScanner do
     end
   end
 
+  describe '#version_from_meta_tag' do
+    context 'when a valid version number is in the meta tag' do
+      let(:typhoeus_body) { 
+        %(
+          <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" >
+          <head>
+            <meta name="robots" content="index, follow" />
+            <meta name="description" content="Joomla! Forum" />
+            <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+          </head>
+          </html>
+        ) 
+      }
+
+      it 'returns the version number from the meta tag' do
+        expect(@scanner.version_from_meta_tag).to eq '1.5'
+      end
+    end
+
+    context 'when no version number appears in the meta tag' do
+      let(:typhoeus_body) { 
+        %(
+          <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" >
+          <head>
+            <meta name="robots" content="index, follow" />
+            <meta name="description" content="Joomla! Forum" />
+            <meta name="generator" content="This is not the readme you are looking for." />
+          </head>
+          </html>
+        ) 
+      }
+      it 'returns nil' do
+        expect(@scanner.version_from_meta_tag).to be_nil
+      end
+    end
+
+    context 'when no generator meta tag is present' do
+      let(:typhoeus_body) { 
+        %(
+          <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" >
+          <head>
+            <meta name="robots" content="index, follow" />
+            <meta name="description" content="Joomla! Forum" />
+          </head>
+          </html>
+        ) 
+      }
+      it 'returns nil' do
+        expect(@scanner.version_from_meta_tag).to be_nil
+      end
+    end
+  end
+
   describe '#user_registration_enabled' do
     context 'when the response code is 200' do
       let(:typhoeus_code) { 200 }

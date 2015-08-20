@@ -64,6 +64,10 @@ class Scanner
     req
   end
 
+  def index_request
+    create_request('/')
+  end
+
   def run_request(req)
     req.on_complete do |resp|
       return resp
