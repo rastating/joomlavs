@@ -16,16 +16,8 @@
 require 'colorize'
 require 'readline'
 
-# This class provides functionality to output
-# to the screen in a consistent style.
-class Output
-  def initialize(use_colours = true)
-    @use_colours = use_colours
-  end
-
-  def use_colours
-    @use_colours
-  end
+module Output
+  attr_accessor :use_colours
 
   def print_line(prefix, text, new_line = true)
     print prefix
