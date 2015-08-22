@@ -24,10 +24,14 @@ require_relative 'lib/template_scanner'
 class JoomlaVS
   include Output
 
-  attr_accessor :opts
+  attr_reader :opts
+  attr_reader :fingerprint_scanner
+  attr_reader :target
+  attr_reader :joomla_version
 
   def initialize
     initialize_options
+    @use_colours = !opts[:no_colour]
   end
 
   def initialize_options
@@ -91,32 +95,32 @@ class JoomlaVS
     print_horizontal_rule
   end
 
-  def joomla_vulnerabilities(version)
+  def joomla_vulnerabilities
     json = File.read('data/joomla.json')
     vulns = JSON.parse(json)
     found = []
 
     vulns.each do |v|
-      found.push(v) if ExtensionScanner.version_is_vulnerable(version, v)
+      found.push(v) if ExtensionScanner.version_is_vulnerable(Gem::Version.new(joomla_version), v)
     end
 
     found
   end
 
-  def check_target_redirection(scanner)
-    redirected_uri = scanner.target_redirects_to
+  def check_target_redirection
+    redirected_uri = fingerprint_scanner.target_redirects_to
     return unless redirected_uri
 
     if opts[:follow_redirection]
-      scanner.update_target_uri redirected_uri
-      print_info("Now targetting #{scanner.target_uri}") if opts[:verbose]
+      fingerprint_scanner.update_target_uri redirected_uri
+      print_info("Now targetting #{fingerprint_scanner.target_uri}") if opts[:verbose]
     else
       print_line_break
       print_info("The remote host tried to redirect to: #{redirected_uri}")
       answer = read_input('Do you want to follow the redirection? [Y]es [N]o [A]bort: ')
       if answer =~ /^y/i
-        scanner.update_target_uri redirected_uri
-        print_info("Now targetting #{scanner.target_uri}") if opts[:verbose]
+        fingerprint_scanner.update_target_uri redirected_uri
+        print_info("Now targetting #{fingerprint_scanner.target_uri}") if opts[:verbose]
       elsif answer =~ /^a/i
         print_line_break
         print_good('Scan aborted')
@@ -125,145 +129,183 @@ class JoomlaVS
     end
   end
 
-  def components_filter(scanner, use_index, use_admin_index)
-    components = scanner.extract_components_from_home
-    components = components | scanner.extract_components_from_index if use_index
-    components = components | scanner.extract_components_from_admin_index if use_admin_index
+  def components_filter
+    return [] unless opts[:quiet]
+    components = fingerprint_scanner.extract_components_from_home
+
+    if fingerprint_scanner.components_listing_enabled
+      components |= fingerprint_scanner.extract_components_from_index
+    end
+
+    if fingerprint_scanner.administrator_components_listing_enabled
+      components |= fingerprint_scanner.extract_components_from_admin_index
+    end
+
     components
   end
 
-  def modules_filter(scanner, use_index, use_admin_index)
-    modules = scanner.extract_modules_from_home
-    modules = modules | scanner.extract_modules_from_index if use_index
-    modules = modules | scanner.extract_modules_from_admin_index if use_admin_index
+  def modules_filter
+    return [] unless opts[:quiet]
+    modules = fingerprint_scanner.extract_modules_from_home
+
+    if fingerprint_scanner.modules_listing_enabled
+      modules |= fingerprint_scanner.extract_modules_from_index
+    end
+
+    if fingerprint_scanner.administrator_modules_listing_enabled
+      modules |= fingerprint_scanner.extract_modules_from_admin_index
+    end
+
     modules
   end
 
-  def templates_filter(scanner, use_index, use_admin_index)
-    templates = scanner.extract_templates_from_home
-    templates = templates | scanner.extract_templates_from_index if use_index
-    templates = templates | scanner.extract_templates_from_admin_index if use_admin_index
+  def templates_filter
+    return [] unless opts[:quiet]
+    templates = fingerprint_scanner.extract_templates_from_home
+    
+    if fingerprint_scanner.templates_listing_enabled
+      templates |= fingerprint_scanner.extract_templates_from_index
+    end
+
+    if fingerprint_scanner.administrator_templates_listing_enabled
+      templates |= fingerprint_scanner.extract_templates_from_admin_index
+    end
+
     templates
   end
 
+  def check_user_registration
+    print_line_break
+    print_good('Checking if registration is enabled...') if opts[:verbose]
+    print_warning("Registration is enabled: #{fingerprint_scanner.target_uri}#{fingerprint_scanner.registration_uri}") if fingerprint_scanner.user_registration_enabled
+    print_good('User registration is not enabled.') if !fingerprint_scanner.user_registration_enabled && opts[:verbose]
+  end
+
+  def inspect_headers
+    print_line_break if opts[:verbose]
+    print_good('Looking for interesting headers...') if opts[:verbose]
+    interesting_headers = fingerprint_scanner.interesting_headers
+    print_good("Found #{interesting_headers.length} interesting headers.")
+    interesting_headers.each do |header|
+      print_indent("#{header[0]}: #{header[1]}")
+    end
+  end
+
+  def check_indexes
+    print_line_break if opts[:verbose]
+    print_good('Looking for directory listings...') if opts[:verbose]
+
+    if fingerprint_scanner.administrator_components_listing_enabled
+      print_warning("Components listing enabled: #{fingerprint_scanner.target_uri}/administrator/components")
+    end
+
+    if fingerprint_scanner.components_listing_enabled
+      print_warning("Components listing enabled: #{fingerprint_scanner.target_uri}/components")
+    end
+
+    if fingerprint_scanner.administrator_modules_listing_enabled
+      print_warning("Modules listing enabled: #{fingerprint_scanner.target_uri}/administrator/modules")
+    end
+
+    if fingerprint_scanner.modules_listing_enabled
+      print_warning("Modules listing enabled: #{fingerprint_scanner.target_uri}/modules")
+    end
+
+    if fingerprint_scanner.administrator_templates_listing_enabled
+      print_warning("Templates listing enabled: #{fingerprint_scanner.target_uri}/administrator/templates")
+    end
+
+    if fingerprint_scanner.templates_listing_enabled
+      print_warning("Templates listing enabled: #{fingerprint_scanner.target_uri}/templates")
+    end
+  end
+
+  def determine_joomla_version
+    print_line_break
+    print_good('Determining Joomla version...') if opts[:verbose]
+    print_info('Searching for version in meta data...') if opts[:verbose]
+    @joomla_version = fingerprint_scanner.version_from_meta_tag
+    print_good("Joomla version #{@joomla_version} identified from meta data") if joomla_version
+
+    unless @joomla_version
+      @joomla_version = fingerprint_scanner.version_from_readme
+      print_error('No version found in the meta data') if opts[:verbose]
+      print_info('Searching for version in README.txt...') if opts[:verbose]
+      print_good("Joomla version #{@joomla_version} identified from README.txt") if joomla_version
+    end
+
+    print_error('Couldn\'t determine version') unless joomla_version
+  end
+
+  def execute_fingerprinting_tasks
+    @fingerprint_scanner = FingerprintScanner.new(opts[:url], opts)
+    check_target_redirection
+    @target = fingerprint_scanner.target_uri
+    check_user_registration
+    inspect_headers
+    check_indexes
+    determine_joomla_version
+  end
+
+  def display_joomla_vulns
+    if joomla_version
+      joomla_vulns = joomla_vulnerabilities
+      if joomla_vulns
+        print_warning("Found #{joomla_vulns.length} vulnerabilities affecting this version of Joomla!")
+        display_vulns(joomla_vulns)
+      end
+    end
+  end
+
+  def scan_components
+    return unless opts[:scan_all] || opts[:scan_components]
+    scanner = ComponentScanner.new(target, opts)
+    print_line_break
+    print_good('Scanning for vulnerable components...')
+    components = scanner.scan(components_filter)
+    print_warning("Found #{components.length} vulnerable components.")
+    print_line_break
+    print_horizontal_rule
+    components.each { |c| display_detected_extension(c) }
+  end
+
+  def scan_modules
+    return unless opts[:scan_all] || opts[:scan_modules]
+    scanner = ModuleScanner.new(target, opts)
+    print_line_break
+    print_good('Scanning for vulnerable modules...')
+    modules = scanner.scan(modules_filter)
+    print_warning("Found #{modules.length} vulnerable modules.")
+    print_line_break
+    print_horizontal_rule
+    modules.each { |m| display_detected_extension(m) }
+  end
+
+  def scan_templates
+    return unless opts[:scan_all] || opts[:scan_templates]
+    scanner = TemplateScanner.new(target, opts)
+    print_line_break
+    print_good('Scanning for vulnerable templates...')
+    templates = scanner.scan(templates_filter)
+    print_warning("Found #{templates.length} vulnerable templates.")
+    print_line_break
+    print_horizontal_rule
+    templates.each { |t| display_detected_extension(t) }
+  end
+
   def start
-    @use_colours = !opts[:no_colour]
     print_banner
 
     if opts[:url]
       print_good("URL: #{opts[:url]}")
       print_good("Started: #{Time.now.asctime}")
+      @target = opts[:url]
 
-      scanner = FingerprintScanner.new(opts[:url], opts)
-      check_target_redirection(scanner)
-      target = scanner.target_uri
-
-      print_line_break
-      print_good('Checking if registration is enabled...') if opts[:verbose]
-      print_warning("Registration is enabled: #{scanner.target_uri}#{scanner.registration_uri}") if scanner.user_registration_enabled
-      print_good('User registration is not enabled.') if !scanner.user_registration_enabled && opts[:verbose]
-
-      print_line_break if opts[:verbose]
-      print_good('Looking for interesting headers...') if opts[:verbose]
-      interesting_headers = scanner.interesting_headers
-      print_good("Found #{interesting_headers.length} interesting headers.")
-      interesting_headers.each do |header|
-        print_indent("#{header[0]}: #{header[1]}")
-      end
-
-      print_line_break if opts[:verbose]
-      print_good('Looking for directory listings...') if opts[:verbose]
-
-      administrator_components_listing_enabled = scanner.administrator_components_listing_enabled
-      print_warning("Components listing enabled: #{scanner.target_uri}/administrator/components") if administrator_components_listing_enabled
-
-      components_listing_enabled = scanner.components_listing_enabled
-      print_warning("Components listing enabled: #{scanner.target_uri}/components") if components_listing_enabled
-
-      administrator_modules_listing_enabled = scanner.administrator_modules_listing_enabled
-      print_warning("Modules listing enabled: #{scanner.target_uri}/administrator/modules") if administrator_modules_listing_enabled
-
-      modules_listing_enabled = scanner.modules_listing_enabled  
-      print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if modules_listing_enabled
-
-      modules_listing_enabled = scanner.modules_listing_enabled  
-      print_warning("Modules listing enabled: #{scanner.target_uri}/modules") if modules_listing_enabled
-
-      administrator_templates_listing_enabled = scanner.administrator_templates_listing_enabled
-      print_warning("Templates listing enabled: #{scanner.target_uri}/administrator/templates") if administrator_templates_listing_enabled
-
-      templates_listing_enabled = scanner.templates_listing_enabled
-      print_warning("Templates listing enabled: #{scanner.target_uri}/templates") if templates_listing_enabled
-
-      print_line_break
-      print_good('Determining Joomla version...') if opts[:verbose]
-      print_info('Searching for version in meta data...') if opts[:verbose]
-      version = scanner.version_from_meta_tag
-      print_good("Joomla version #{version} identified from meta data") if version
-
-      unless version
-        version = scanner.version_from_readme
-        print_error('No version found in the meta data') if opts[:verbose]
-        print_info('Searching for version in README.txt...') if opts[:verbose]
-        print_good("Joomla version #{version} identified from README.txt") if version
-      end
-
-      print_error('Couldn\'t determine version from README.txt') unless version
-
-      if version
-        joomla_vulns = joomla_vulnerabilities(Gem::Version.new(version))
-        if joomla_vulns
-          print_warning("Found #{joomla_vulns.length} vulnerabilities affecting this version of Joomla!")
-          display_vulns(joomla_vulns)
-        end
-      end
-
-      filters = {
-        :components => [],
-        :modules => [],
-        :templates => []
-      }
-
-      if opts[:quiet]
-        print_line_break if opts[:verbose]
-        print_good 'Building extension filters...' if opts[:verbose]
-        filters[:components] = components_filter(scanner, components_listing_enabled, administrator_components_listing_enabled)
-        filters[:modules] = modules_filter(scanner, modules_listing_enabled, administrator_modules_listing_enabled)
-        filters[:templates] = templates_filter(scanner, templates_listing_enabled, administrator_templates_listing_enabled)
-      end
-
-      if opts[:scan_all] || opts[:scan_components]
-        scanner = ComponentScanner.new(target, opts)
-        print_line_break
-        print_good('Scanning for vulnerable components...')
-        components = scanner.scan(filters[:components])
-        print_warning("Found #{components.length} vulnerable components.")
-        print_line_break
-        print_horizontal_rule
-        components.each { |c| display_detected_extension(c) }
-      end
-
-      if opts[:scan_all] || opts[:scan_modules]
-        scanner = ModuleScanner.new(target, opts)
-        print_line_break
-        print_good('Scanning for vulnerable modules...')
-        modules = scanner.scan(filters[:modules])
-        print_warning("Found #{modules.length} vulnerable modules.")
-        print_line_break
-        print_horizontal_rule
-        modules.each { |m| display_detected_extension(m) }
-      end
-
-      if opts[:scan_all] || opts[:scan_templates]
-        scanner = TemplateScanner.new(target, opts)
-        print_line_break
-        print_good('Scanning for vulnerable templates...')
-        templates = scanner.scan(filters[:templates])
-        print_warning("Found #{templates.length} vulnerable templates.")
-        print_line_break
-        print_horizontal_rule
-        templates.each { |t| display_detected_extension(t) }
-      end
+      execute_fingerprinting_tasks
+      display_joomla_vulns
+      scan_components
+      scan_modules
+      scan_templates
 
       print_line_break
       print_good 'Finished'
