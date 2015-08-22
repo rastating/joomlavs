@@ -32,6 +32,7 @@ class JoomlaVS
   def initialize
     initialize_options
     @use_colours = !opts[:no_colour]
+    @target = opts[:url]
   end
 
   def initialize_options
@@ -58,6 +59,10 @@ class JoomlaVS
     end
   end
 
+  def print_indent_unless_empty(text, var)
+    print_indent(text) unless var.empty?
+  end
+
   def display_reference(ref, base_url)
     return unless ref
     if ref.is_a?(Array)
@@ -81,17 +86,23 @@ class JoomlaVS
     end
   end
 
-  def display_detected_extension(e)
-    print_line_break
+  def display_optional_extension_info(e)
+    print_indent_unless_empty("Description: #{e[:description]}", e[:description])
+    print_indent_unless_empty("Author: #{e[:author]}", e[:author])
+    print_indent_unless_empty("Author URL: #{e[:author_url]}", e[:author_url])
+  end
+
+  def display_required_extension_info(e)
     print_good("Name: #{e[:name]} - v#{e[:version]}")
     print_indent("Location: #{e[:extension_url]}")
     print_indent("Manifest: #{e[:manifest_url]}")
-    print_indent("Description: #{e[:description]}") unless e[:description].empty?
-    print_indent("Author: #{e[:author]}") unless e[:author].empty?
-    print_indent("Author URL: #{e[:author_url]}") unless e[:author_url].empty?
+  end
 
+  def display_detected_extension(e)
+    print_line_break
+    display_required_extension_info(e)
+    display_optional_extension_info(e)
     display_vulns(e[:vulns])
-
     print_horizontal_rule
   end
 
@@ -107,25 +118,40 @@ class JoomlaVS
     found
   end
 
+  def print_verbose(text)
+    print_info(text) if opts[:verbose]
+  end
+
+  def abort_scan
+    print_line_break
+    print_good('Scan aborted')
+    exit(1)
+  end
+
+  def update_target_uri(new_uri)
+    fingerprint_scanner.update_target_uri new_uri
+    print_verbose("Now targetting #{fingerprint_scanner.target_uri}")
+  end
+
+  def verify_target_change(new_uri)
+    print_info("The remote host tried to redirect to: #{new_uri}")
+    answer = read_input('Do you want to follow the redirection? [Y]es [N]o [A]bort: ')
+    if answer =~ /^y/i
+      update_target_uri(new_uri)
+    elsif answer =~ /^a/i
+      abort_scan
+    end
+  end
+
   def check_target_redirection
     redirected_uri = fingerprint_scanner.target_redirects_to
     return unless redirected_uri
 
     if opts[:follow_redirection]
-      fingerprint_scanner.update_target_uri redirected_uri
-      print_info("Now targetting #{fingerprint_scanner.target_uri}") if opts[:verbose]
+      update_target_uri(redirected_uri)
     else
       print_line_break
-      print_info("The remote host tried to redirect to: #{redirected_uri}")
-      answer = read_input('Do you want to follow the redirection? [Y]es [N]o [A]bort: ')
-      if answer =~ /^y/i
-        fingerprint_scanner.update_target_uri redirected_uri
-        print_info("Now targetting #{fingerprint_scanner.target_uri}") if opts[:verbose]
-      elsif answer =~ /^a/i
-        print_line_break
-        print_good('Scan aborted')
-        exit(1)
-      end
+      verify_target_change(redirected_uri)
     end
   end
 
@@ -176,14 +202,14 @@ class JoomlaVS
 
   def check_user_registration
     print_line_break
-    print_good('Checking if registration is enabled...') if opts[:verbose]
+    print_verbose('Checking if registration is enabled...')
     print_warning("Registration is enabled: #{fingerprint_scanner.target_uri}#{fingerprint_scanner.registration_uri}") if fingerprint_scanner.user_registration_enabled
-    print_good('User registration is not enabled.') if !fingerprint_scanner.user_registration_enabled && opts[:verbose]
+    print_verbose('User registration is not enabled.') if !fingerprint_scanner.user_registration_enabled
   end
 
   def inspect_headers
     print_line_break if opts[:verbose]
-    print_good('Looking for interesting headers...') if opts[:verbose]
+    print_verbose('Looking for interesting headers...')
     interesting_headers = fingerprint_scanner.interesting_headers
     print_good("Found #{interesting_headers.length} interesting headers.")
     interesting_headers.each do |header|
@@ -191,10 +217,7 @@ class JoomlaVS
     end
   end
 
-  def check_indexes
-    print_line_break if opts[:verbose]
-    print_good('Looking for directory listings...') if opts[:verbose]
-
+  def check_component_indexes
     if fingerprint_scanner.administrator_components_listing_enabled
       print_warning("Components listing enabled: #{fingerprint_scanner.target_uri}/administrator/components")
     end
@@ -202,7 +225,9 @@ class JoomlaVS
     if fingerprint_scanner.components_listing_enabled
       print_warning("Components listing enabled: #{fingerprint_scanner.target_uri}/components")
     end
+  end
 
+  def check_module_indexes
     if fingerprint_scanner.administrator_modules_listing_enabled
       print_warning("Modules listing enabled: #{fingerprint_scanner.target_uri}/administrator/modules")
     end
@@ -210,7 +235,9 @@ class JoomlaVS
     if fingerprint_scanner.modules_listing_enabled
       print_warning("Modules listing enabled: #{fingerprint_scanner.target_uri}/modules")
     end
+  end
 
+  def check_template_indexes
     if fingerprint_scanner.administrator_templates_listing_enabled
       print_warning("Templates listing enabled: #{fingerprint_scanner.target_uri}/administrator/templates")
     end
@@ -220,20 +247,41 @@ class JoomlaVS
     end
   end
 
+  def check_indexes
+    print_line_break if opts[:verbose]
+    print_verbose('Looking for directory listings...')
+
+    check_component_indexes
+    check_module_indexes
+    check_template_indexes
+  end
+
+  def determine_joomla_version_from_meta_tags
+    print_verbose('Searching for version in meta data...')
+    @joomla_version = fingerprint_scanner.version_from_meta_tag
+
+    if joomla_version
+      print_good("Joomla version #{@joomla_version} identified from meta data")
+    else
+      print_verbose('No version found in the meta data')
+    end
+  end
+
+  def determine_joomla_version_from_readme
+    print_verbose('Searching for version in README.txt...')
+    @joomla_version = fingerprint_scanner.version_from_readme
+    if joomla_version
+      print_good("Joomla version #{@joomla_version} identified from README.txt")
+    else
+      print_verbose('No version found in README.txt')
+    end
+  end
+
   def determine_joomla_version
     print_line_break
-    print_good('Determining Joomla version...') if opts[:verbose]
-    print_info('Searching for version in meta data...') if opts[:verbose]
-    @joomla_version = fingerprint_scanner.version_from_meta_tag
-    print_good("Joomla version #{@joomla_version} identified from meta data") if joomla_version
-
-    unless @joomla_version
-      @joomla_version = fingerprint_scanner.version_from_readme
-      print_error('No version found in the meta data') if opts[:verbose]
-      print_info('Searching for version in README.txt...') if opts[:verbose]
-      print_good("Joomla version #{@joomla_version} identified from README.txt") if joomla_version
-    end
-
+    print_verbose('Determining Joomla version...')
+    determine_joomla_version_from_meta_tags
+    determine_joomla_version_from_readme unless @joomla_version
     print_error('Couldn\'t determine version') unless joomla_version
   end
 
@@ -293,29 +341,34 @@ class JoomlaVS
     templates.each { |t| display_detected_extension(t) }
   end
 
+  def scan_extensions
+    scan_components
+    scan_modules
+    scan_templates
+  end
+
+  def has_target
+    !opts[:url].nil? && !opts[:url].empty?
+  end
+
   def start
-    print_banner
-
-    if opts[:url]
-      print_good("URL: #{opts[:url]}")
-      print_good("Started: #{Time.now.asctime}")
-      @target = opts[:url]
-
-      execute_fingerprinting_tasks
-      display_joomla_vulns
-      scan_components
-      scan_modules
-      scan_templates
-
-      print_line_break
-      print_good 'Finished'
-    else
-      puts opts
-    end
-
-    print_line_break
+    execute_fingerprinting_tasks
+    display_joomla_vulns
+    scan_extensions
   end
 end
 
 app = JoomlaVS.new
-app.start
+app.print_banner
+
+if app.has_target
+  app.print_good("URL: #{app.target}")
+  app.print_good("Started: #{Time.now.asctime}")
+  app.start
+  app.print_line_break
+  app.print_good 'Finished'
+else
+  puts app.opts
+end
+
+app.print_line_break
