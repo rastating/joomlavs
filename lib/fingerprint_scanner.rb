@@ -20,6 +20,13 @@ require_relative 'scanner'
 class FingerprintScanner < Scanner
   def initialize(target_uri, opts)
     super(target_uri, opts)
+
+    @administrator_components_listing_enabled = nil
+    @components_listing_enabled = nil
+    @administrator_modules_listing_enabled = nil
+    @modules_listing_enabled = nil
+    @administrator_templates_listing_enabled = nil
+    @templates_listing_enabled = nil
   end
 
   def common_resp_headers
@@ -86,27 +93,51 @@ class FingerprintScanner < Scanner
   end
 
   def administrator_components_listing_enabled
-    directory_listing_enabled('/administrator/components/')
+    if @administrator_components_listing_enabled.nil?
+      @administrator_components_listing_enabled = directory_listing_enabled('/administrator/components/')
+    end
+
+    @administrator_components_listing_enabled
   end
 
   def components_listing_enabled
-    directory_listing_enabled('/components/')
+    if @components_listing_enabled.nil?
+      @components_listing_enabled = directory_listing_enabled('/components/')
+    end
+
+    @components_listing_enabled
   end
 
   def administrator_modules_listing_enabled
-    directory_listing_enabled('/administrator/modules/')
+    if @administrator_modules_listing_enabled.nil?
+      @administrator_modules_listing_enabled = directory_listing_enabled('/administrator/modules/')
+    end
+
+    @administrator_modules_listing_enabled
   end
 
   def modules_listing_enabled
-    directory_listing_enabled('/modules/')
+    if @modules_listing_enabled.nil?
+      @modules_listing_enabled = directory_listing_enabled('/modules/')
+    end
+
+    @modules_listing_enabled
   end
 
   def administrator_templates_listing_enabled
-    directory_listing_enabled('/administrator/templates/')
+    if @administrator_templates_listing_enabled.nil?
+      @administrator_templates_listing_enabled = directory_listing_enabled('/administrator/templates/')
+    end
+
+    @administrator_templates_listing_enabled
   end
 
   def templates_listing_enabled
-    directory_listing_enabled('/templates/')
+    if @templates_listing_enabled.nil?
+      @templates_listing_enabled = directory_listing_enabled('/templates/')
+    end
+
+    @templates_listing_enabled
   end
 
   def extract_extension_list_from_page(url, pattern)
