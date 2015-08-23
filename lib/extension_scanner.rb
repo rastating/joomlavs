@@ -138,7 +138,8 @@ class ExtensionScanner < Scanner
     extensions
   end
 
-  def scan(filter = [])
+  def scan(filter)
+    return [] unless filter
     extensions = apply_filter(data_file_json, filter)
     detected = []
     lock = Mutex.new

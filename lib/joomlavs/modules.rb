@@ -27,6 +27,7 @@ module JoomlaVS
         modules |= fingerprint_scanner.extract_modules_from_admin_index
       end
 
+      return nil if modules.empty?
       modules
     end
 

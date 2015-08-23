@@ -27,6 +27,7 @@ module JoomlaVS
         components |= fingerprint_scanner.extract_components_from_admin_index
       end
 
+      return nil if components.empty?
       components
     end
 
