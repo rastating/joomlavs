@@ -1,17 +1,17 @@
-# This file is part of Joomla VS.
+# This file is part of JoomlaVS.
 
-# Joomla VS is free software: you can redistribute it and/or modify
+# JoomlaVS is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# Joomla VS is distributed in the hope that it will be useful,
+# JoomlaVS is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with Joomla VS.  If not, see <http://www.gnu.org/licenses/>.
+# along with JoomlaVS.  If not, see <http://www.gnu.org/licenses/>.
 
 require_relative 'scanner'
 
@@ -20,6 +20,13 @@ require_relative 'scanner'
 class FingerprintScanner < Scanner
   def initialize(target_uri, opts)
     super(target_uri, opts)
+
+    @administrator_components_listing_enabled = nil
+    @components_listing_enabled = nil
+    @administrator_modules_listing_enabled = nil
+    @modules_listing_enabled = nil
+    @administrator_templates_listing_enabled = nil
+    @templates_listing_enabled = nil
   end
 
   def common_resp_headers
@@ -86,27 +93,51 @@ class FingerprintScanner < Scanner
   end
 
   def administrator_components_listing_enabled
-    directory_listing_enabled('/administrator/components/')
+    if @administrator_components_listing_enabled.nil?
+      @administrator_components_listing_enabled = directory_listing_enabled('/administrator/components/')
+    end
+
+    @administrator_components_listing_enabled
   end
 
   def components_listing_enabled
-    directory_listing_enabled('/components/')
+    if @components_listing_enabled.nil?
+      @components_listing_enabled = directory_listing_enabled('/components/')
+    end
+
+    @components_listing_enabled
   end
 
   def administrator_modules_listing_enabled
-    directory_listing_enabled('/administrator/modules/')
+    if @administrator_modules_listing_enabled.nil?
+      @administrator_modules_listing_enabled = directory_listing_enabled('/administrator/modules/')
+    end
+
+    @administrator_modules_listing_enabled
   end
 
   def modules_listing_enabled
-    directory_listing_enabled('/modules/')
+    if @modules_listing_enabled.nil?
+      @modules_listing_enabled = directory_listing_enabled('/modules/')
+    end
+
+    @modules_listing_enabled
   end
 
   def administrator_templates_listing_enabled
-    directory_listing_enabled('/administrator/templates/')
+    if @administrator_templates_listing_enabled.nil?
+      @administrator_templates_listing_enabled = directory_listing_enabled('/administrator/templates/')
+    end
+
+    @administrator_templates_listing_enabled
   end
 
   def templates_listing_enabled
-    directory_listing_enabled('/templates/')
+    if @templates_listing_enabled.nil?
+      @templates_listing_enabled = directory_listing_enabled('/templates/')
+    end
+
+    @templates_listing_enabled
   end
 
   def extract_extension_list_from_page(url, pattern)

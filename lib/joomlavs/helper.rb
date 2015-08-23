@@ -13,15 +13,17 @@
 # You should have received a copy of the GNU General Public License
 # along with JoomlaVS.  If not, see <http://www.gnu.org/licenses/>.
 
-require_relative '../lib/scanner'
-require_relative '../lib/module_scanner'
-require_relative '../lib/fingerprint_scanner'
-require_relative '../lib/component_scanner'
-require_relative '../lib/extension_scanner'
-require_relative '../lib/template_scanner'
+require_relative '../component_scanner'
+require_relative '../module_scanner'
+require_relative '../fingerprint_scanner'
+require_relative '../template_scanner'
 
-RSpec.configure do |config|
-  config.before :each do
-    Typhoeus::Expectation.clear
-  end
-end
+require_relative 'joomlavs'
+require_relative 'output'
+require_relative 'extensions'
+require_relative 'components'
+require_relative 'target'
+require_relative 'version'
+require_relative 'fingerprint'
+require_relative 'modules'
+require_relative 'templates'
