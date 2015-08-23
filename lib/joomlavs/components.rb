@@ -15,8 +15,7 @@
 
 module JoomlaVS
   module Components
-    def components_filter
-      return [] unless opts[:quiet]
+    def build_components_filter
       components = fingerprint_scanner.extract_components_from_home
 
       if fingerprint_scanner.components_listing_enabled
@@ -32,15 +31,7 @@ module JoomlaVS
     end
 
     def scan_components
-      return unless opts[:scan_all] || opts[:scan_components]
-      scanner = ComponentScanner.new(target, opts)
-      print_line_break
-      print_good('Scanning for vulnerable components...')
-      components = scanner.scan(components_filter)
-      print_warning("Found #{components.length} vulnerable components.")
-      print_line_break
-      print_horizontal_rule
-      components.each { |c| display_detected_extension(c) }
+      scan(:components, ComponentScanner, opts[:scan_components])
     end
 
     def check_component_indexes

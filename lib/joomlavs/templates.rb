@@ -15,8 +15,7 @@
 
 module JoomlaVS
   module Templates
-    def templates_filter
-      return [] unless opts[:quiet]
+    def build_templates_filter
       templates = fingerprint_scanner.extract_templates_from_home
       
       if fingerprint_scanner.templates_listing_enabled
@@ -42,15 +41,7 @@ module JoomlaVS
     end
 
     def scan_templates
-      return unless opts[:scan_all] || opts[:scan_templates]
-      scanner = TemplateScanner.new(target, opts)
-      print_line_break
-      print_good('Scanning for vulnerable templates...')
-      templates = scanner.scan(templates_filter)
-      print_warning("Found #{templates.length} vulnerable templates.")
-      print_line_break
-      print_horizontal_rule
-      templates.each { |t| display_detected_extension(t) }
+      scan(:templates, TemplateScanner, opts[:scan_templates])
     end
   end
 end

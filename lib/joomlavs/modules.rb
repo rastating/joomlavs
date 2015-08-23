@@ -15,8 +15,7 @@
 
 module JoomlaVS
   module Modules
-    def modules_filter
-      return [] unless opts[:quiet]
+    def build_modules_filter
       modules = fingerprint_scanner.extract_modules_from_home
 
       if fingerprint_scanner.modules_listing_enabled
@@ -42,15 +41,7 @@ module JoomlaVS
     end
 
     def scan_modules
-      return unless opts[:scan_all] || opts[:scan_modules]
-      scanner = ModuleScanner.new(target, opts)
-      print_line_break
-      print_good('Scanning for vulnerable modules...')
-      modules = scanner.scan(modules_filter)
-      print_warning("Found #{modules.length} vulnerable modules.")
-      print_line_break
-      print_horizontal_rule
-      modules.each { |m| display_detected_extension(m) }
+      scan(:modules, ModuleScanner, opts[:scan_modules])
     end
   end
 end
