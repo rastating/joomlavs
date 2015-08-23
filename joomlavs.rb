@@ -14,7 +14,9 @@
 # along with JoomlaVS.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'slop'
-
+require 'typhoeus'
+require_relative 'lib/cache'
+Typhoeus::Config.cache = Cache.new
 require_relative 'lib/joomlavs/helper'
 
 class Application

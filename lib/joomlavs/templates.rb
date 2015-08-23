@@ -27,6 +27,7 @@ module JoomlaVS
         templates |= fingerprint_scanner.extract_templates_from_admin_index
       end
 
+      return nil if templates.empty?
       templates
     end
 
