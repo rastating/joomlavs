@@ -31,7 +31,7 @@ class ModuleScanner < ExtensionScanner
   end
 
   def extract_extensions_from_page(url)
-    pattern = /mod_[a-z0-9\-_]+/i
+    pattern = /mod_[a-z0-9\-\._]+/i
     matches = extract_extension_list_from_page(url, pattern)
     matches.map { |m| m.sub(/^mod_/i, '') }
   end

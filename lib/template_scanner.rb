@@ -54,7 +54,7 @@ class TemplateScanner < ExtensionScanner
   end
 
   def extract_list_from_home
-    pattern = /(\/administrator)?\/templates\/[a-z0-9\-_]+/i
+    pattern = /(\/administrator)?\/templates\/[a-z0-9\-\._]+/i
     url = '/'
     matches = extract_extension_list_from_page(url, pattern)
     matches.map { |m| m.sub(/^(\/administrator)?\/templates\//i, '') }
