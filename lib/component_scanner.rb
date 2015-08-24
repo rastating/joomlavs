@@ -29,4 +29,22 @@ class ComponentScanner < ExtensionScanner
   def directory_name
     'components'
   end
+
+  def extract_components_from_page(url)
+    pattern = /com_[a-z0-9\-_]+/i
+    matches = extract_extension_list_from_page(url, pattern)
+    matches.map { |m| m.sub(/^com_/i, '') }
+  end
+
+  def extract_list_from_admin_index
+    extract_components_from_page '/administrator/components/'
+  end
+
+  def extract_list_from_index
+    extract_components_from_page '/components/'
+  end
+
+  def extract_list_from_home
+    extract_components_from_page '/'
+  end
 end

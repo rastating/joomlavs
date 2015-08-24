@@ -15,19 +15,8 @@
 
 module JoomlaVS
   module Components
-    def build_components_filter
-      components = fingerprint_scanner.extract_components_from_home
-
-      if fingerprint_scanner.components_listing_enabled
-        components |= fingerprint_scanner.extract_components_from_index
-      end
-
-      if fingerprint_scanner.administrator_components_listing_enabled
-        components |= fingerprint_scanner.extract_components_from_admin_index
-      end
-
-      return nil if components.empty?
-      components
+    def build_components_filter(scanner)
+      scanner.build_filter(fingerprint_scanner.components_listing_enabled, fingerprint_scanner.administrator_components_listing_enabled)
     end
 
     def scan_components

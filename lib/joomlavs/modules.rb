@@ -15,19 +15,8 @@
 
 module JoomlaVS
   module Modules
-    def build_modules_filter
-      modules = fingerprint_scanner.extract_modules_from_home
-
-      if fingerprint_scanner.modules_listing_enabled
-        modules |= fingerprint_scanner.extract_modules_from_index
-      end
-
-      if fingerprint_scanner.administrator_modules_listing_enabled
-        modules |= fingerprint_scanner.extract_modules_from_admin_index
-      end
-
-      return nil if modules.empty?
-      modules
+    def build_modules_filter(scanner)
+      scanner.build_filter(fingerprint_scanner.modules_listing_enabled, fingerprint_scanner.administrator_modules_listing_enabled)
     end
 
     def check_module_indexes

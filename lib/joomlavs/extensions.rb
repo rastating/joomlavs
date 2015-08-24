@@ -64,22 +64,22 @@ module JoomlaVS
       end
     end
 
-    def build_filter(extension_type)
+    def build_filter(scanner)
       return [] unless opts[:quiet]
-      if extension_type == :components
-        return build_components_filter
-      elsif extension_type == :modules
-        return build_modules_filter
-      elsif extension_type == :templates
-        return build_templates_filter
-      end          
+      if scanner.instance_of? ComponentScanner
+        return build_components_filter(scanner)
+      elsif scanner.instance_of? ModuleScanner
+        return build_modules_filter(scanner)
+      elsif scanner.instance_of? TemplateScanner
+        return build_templates_filter(scanner)
+      end
     end
 
     def scan(extension_type, scanner_class, scan_flag)
-      filter = build_filter(extension_type)
+      scanner = scanner_class.new(target, opts)
+      filter = build_filter(scanner)
       return unless should_scan(scan_flag, filter)
 
-      scanner = scanner_class.new(target, opts)
       print_line_break
       print_good("Scanning for vulnerable #{extension_type}...")
       extensions = scanner.scan(filter)

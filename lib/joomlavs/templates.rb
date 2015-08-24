@@ -15,19 +15,8 @@
 
 module JoomlaVS
   module Templates
-    def build_templates_filter
-      templates = fingerprint_scanner.extract_templates_from_home
-      
-      if fingerprint_scanner.templates_listing_enabled
-        templates |= fingerprint_scanner.extract_templates_from_index
-      end
-
-      if fingerprint_scanner.administrator_templates_listing_enabled
-        templates |= fingerprint_scanner.extract_templates_from_admin_index
-      end
-
-      return nil if templates.empty?
-      templates
+    def build_templates_filter(scanner)
+      scanner.build_filter(fingerprint_scanner.templates_listing_enabled, fingerprint_scanner.administrator_templates_listing_enabled)
     end
 
     def check_template_indexes
