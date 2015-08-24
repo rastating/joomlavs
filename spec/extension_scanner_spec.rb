@@ -239,4 +239,12 @@ describe ExtensionScanner do
       end
     end
   end
+
+  describe '#extract_extension_list_from_page' do
+    let(:typhoeus_body) { 'Index of page com_foo<br /> com_bar' }
+    it 'returns a list of strings matching the specified pattern' do
+      res = @scanner.extract_extension_list_from_page('/', /com_[a-z0-9\-_]+/i)
+      expect(res).to eq ['com_foo', 'com_bar']
+    end
+  end
 end
