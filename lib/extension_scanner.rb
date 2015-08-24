@@ -168,6 +168,22 @@ class ExtensionScanner < Scanner
     matches.uniq
   end
 
+  def extract_extensions_from_page(url)
+    []
+  end
+
+  def extract_list_from_admin_index
+    extract_extensions_from_page "/administrator/#{directory_name}/"
+  end
+
+  def extract_list_from_index
+    extract_extensions_from_page "/#{directory_name}/"
+  end
+
+  def extract_list_from_home
+    extract_extensions_from_page '/'
+  end
+
   def build_filter(use_root_listing, use_admin_listing)
     extensions = extract_list_from_home
 

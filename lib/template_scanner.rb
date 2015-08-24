@@ -38,7 +38,7 @@ class TemplateScanner < ExtensionScanner
     hrefs
   end
 
-  def extract_templates_from_page(url)
+  def extract_extensions_from_page(url)
     req = create_request(url)
     matches = []
 
@@ -51,14 +51,6 @@ class TemplateScanner < ExtensionScanner
 
     req.run
     matches
-  end
-
-  def extract_list_from_admin_index
-    extract_templates_from_page '/administrator/templates/'
-  end
-
-  def extract_list_from_index
-    extract_templates_from_page '/templates/'
   end
 
   def extract_list_from_home

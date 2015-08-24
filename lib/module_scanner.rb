@@ -30,21 +30,9 @@ class ModuleScanner < ExtensionScanner
     'modules'
   end
 
-  def extract_modules_from_page(url)
+  def extract_extensions_from_page(url)
     pattern = /mod_[a-z0-9\-_]+/i
     matches = extract_extension_list_from_page(url, pattern)
     matches.map { |m| m.sub(/^mod_/i, '') }
-  end
-
-  def extract_list_from_admin_index
-    extract_modules_from_page '/administrator/modules/'
-  end
-
-  def extract_list_from_index
-    extract_modules_from_page '/modules/'
-  end
-
-  def extract_list_from_home
-    extract_modules_from_page '/'
   end
 end
