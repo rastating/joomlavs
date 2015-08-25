@@ -21,12 +21,7 @@ class FingerprintScanner < Scanner
   def initialize(target_uri, opts)
     super(target_uri, opts)
 
-    @administrator_components_listing_enabled = nil
-    @components_listing_enabled = nil
-    @administrator_modules_listing_enabled = nil
-    @modules_listing_enabled = nil
-    @administrator_templates_listing_enabled = nil
-    @templates_listing_enabled = nil
+    @cached_index_results = {}
   end
 
   def common_resp_headers
@@ -80,64 +75,42 @@ class FingerprintScanner < Scanner
   end
 
   def directory_listing_enabled(uri)
+    return @cached_index_results[uri] if @cached_index_results.has_key?(uri)
+
     req = create_request(uri)
-    enabled = false
+    @cached_index_results[uri] = false
     req.on_complete do |resp|
       if resp.code == 200 && resp.body[%r{<title>Index of}]
-        enabled = true
+        @cached_index_results[uri] = true
       end
     end
 
     req.run
-    enabled
+    @cached_index_results[uri]
   end
 
   def administrator_components_listing_enabled
-    if @administrator_components_listing_enabled.nil?
-      @administrator_components_listing_enabled = directory_listing_enabled('/administrator/components/')
-    end
-
-    @administrator_components_listing_enabled
+    directory_listing_enabled('/administrator/components/')
   end
 
   def components_listing_enabled
-    if @components_listing_enabled.nil?
-      @components_listing_enabled = directory_listing_enabled('/components/')
-    end
-
-    @components_listing_enabled
+    directory_listing_enabled('/components/')
   end
 
   def administrator_modules_listing_enabled
-    if @administrator_modules_listing_enabled.nil?
-      @administrator_modules_listing_enabled = directory_listing_enabled('/administrator/modules/')
-    end
-
-    @administrator_modules_listing_enabled
+    directory_listing_enabled('/administrator/modules/')
   end
 
   def modules_listing_enabled
-    if @modules_listing_enabled.nil?
-      @modules_listing_enabled = directory_listing_enabled('/modules/')
-    end
-
-    @modules_listing_enabled
+    directory_listing_enabled('/modules/')
   end
 
   def administrator_templates_listing_enabled
-    if @administrator_templates_listing_enabled.nil?
-      @administrator_templates_listing_enabled = directory_listing_enabled('/administrator/templates/')
-    end
-
-    @administrator_templates_listing_enabled
+    directory_listing_enabled('/administrator/templates/')
   end
 
   def templates_listing_enabled
-    if @templates_listing_enabled.nil?
-      @templates_listing_enabled = directory_listing_enabled('/templates/')
-    end
-
-    @templates_listing_enabled
+    directory_listing_enabled('/templates/')
   end
 
   def user_registration_enabled

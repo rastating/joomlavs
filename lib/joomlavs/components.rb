@@ -22,15 +22,5 @@ module JoomlaVS
     def scan_components
       scan(:components, ComponentScanner, opts[:scan_components])
     end
-
-    def check_component_indexes
-      if fingerprint_scanner.administrator_components_listing_enabled
-        print_warning("Components listing enabled: #{fingerprint_scanner.target_uri}/administrator/components")
-      end
-
-      if fingerprint_scanner.components_listing_enabled
-        print_warning("Components listing enabled: #{fingerprint_scanner.target_uri}/components")
-      end
-    end
   end
 end

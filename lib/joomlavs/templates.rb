@@ -19,16 +19,6 @@ module JoomlaVS
       scanner.build_filter(fingerprint_scanner.templates_listing_enabled, fingerprint_scanner.administrator_templates_listing_enabled)
     end
 
-    def check_template_indexes
-      if fingerprint_scanner.administrator_templates_listing_enabled
-        print_warning("Templates listing enabled: #{fingerprint_scanner.target_uri}/administrator/templates")
-      end
-
-      if fingerprint_scanner.templates_listing_enabled
-        print_warning("Templates listing enabled: #{fingerprint_scanner.target_uri}/templates")
-      end
-    end
-
     def scan_templates
       scan(:templates, TemplateScanner, opts[:scan_templates])
     end

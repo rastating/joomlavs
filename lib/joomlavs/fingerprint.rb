@@ -36,9 +36,20 @@ module JoomlaVS
       print_line_break if opts[:verbose]
       print_verbose('Looking for directory listings...')
 
-      check_component_indexes
-      check_module_indexes
-      check_template_indexes
+      indexes = [
+        '/components/',
+        '/administrator/components/',
+        '/modules/',
+        '/administrator/modules/',
+        '/templates/',
+        '/administrator/templates/'
+      ]
+
+      indexes.each do |i|
+        if fingerprint_scanner.directory_listing_enabled(i)
+          print_warning("Listing enabled: #{fingerprint_scanner.target_uri}#{i}")
+        end
+      end
     end
   end
 end

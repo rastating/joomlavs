@@ -19,16 +19,6 @@ module JoomlaVS
       scanner.build_filter(fingerprint_scanner.modules_listing_enabled, fingerprint_scanner.administrator_modules_listing_enabled)
     end
 
-    def check_module_indexes
-      if fingerprint_scanner.administrator_modules_listing_enabled
-        print_warning("Modules listing enabled: #{fingerprint_scanner.target_uri}/administrator/modules")
-      end
-
-      if fingerprint_scanner.modules_listing_enabled
-        print_warning("Modules listing enabled: #{fingerprint_scanner.target_uri}/modules")
-      end
-    end
-
     def scan_modules
       scan(:modules, ModuleScanner, opts[:scan_modules])
     end
