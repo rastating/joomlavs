@@ -169,7 +169,9 @@ class ExtensionScanner < Scanner
   end
 
   def extract_extensions_from_page(url)
-    []
+    pattern = /#{extension_prefix}[a-z0-9\-\._]+/i
+    matches = extract_extension_list_from_page(url, pattern)
+    matches.map { |m| m.sub(/^#{extension_prefix}/i, '') }
   end
 
   def extract_list_from_admin_index
