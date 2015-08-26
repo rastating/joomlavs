@@ -57,5 +57,36 @@ module JoomlaVS
       display_vulns(e[:vulns])
       print_horizontal_rule
     end
+
+    def should_scan(scan_flag, filter)
+      if scan_flag || opts[:scan_all]
+        return !opts[:quiet] || (opts[:quiet] && filter)
+      end
+    end
+
+    def build_filter(scanner)
+      return [] unless opts[:quiet]
+      if scanner.instance_of? ComponentScanner
+        return build_components_filter(scanner)
+      elsif scanner.instance_of? ModuleScanner
+        return build_modules_filter(scanner)
+      elsif scanner.instance_of? TemplateScanner
+        return build_templates_filter(scanner)
+      end
+    end
+
+    def scan(extension_type, scanner_class, scan_flag)
+      scanner = scanner_class.new(target, opts)
+      filter = build_filter(scanner)
+      return unless should_scan(scan_flag, filter)
+
+      print_line_break
+      print_good("Scanning for vulnerable #{extension_type}...")
+      extensions = scanner.scan(filter)
+      print_warning("Found #{extensions.length} vulnerable #{extension_type}.")
+      print_line_break
+      print_horizontal_rule
+      extensions.each { |e| display_detected_extension(e) }
+    end
   end
 end

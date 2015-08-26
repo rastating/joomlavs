@@ -21,12 +21,7 @@ class FingerprintScanner < Scanner
   def initialize(target_uri, opts)
     super(target_uri, opts)
 
-    @administrator_components_listing_enabled = nil
-    @components_listing_enabled = nil
-    @administrator_modules_listing_enabled = nil
-    @modules_listing_enabled = nil
-    @administrator_templates_listing_enabled = nil
-    @templates_listing_enabled = nil
+    @cached_index_results = {}
   end
 
   def common_resp_headers
@@ -80,147 +75,42 @@ class FingerprintScanner < Scanner
   end
 
   def directory_listing_enabled(uri)
+    return @cached_index_results[uri] if @cached_index_results.has_key?(uri)
+
     req = create_request(uri)
-    enabled = false
+    @cached_index_results[uri] = false
     req.on_complete do |resp|
       if resp.code == 200 && resp.body[%r{<title>Index of}]
-        enabled = true
+        @cached_index_results[uri] = true
       end
     end
 
     req.run
-    enabled
+    @cached_index_results[uri]
   end
 
   def administrator_components_listing_enabled
-    if @administrator_components_listing_enabled.nil?
-      @administrator_components_listing_enabled = directory_listing_enabled('/administrator/components/')
-    end
-
-    @administrator_components_listing_enabled
+    directory_listing_enabled('/administrator/components/')
   end
 
   def components_listing_enabled
-    if @components_listing_enabled.nil?
-      @components_listing_enabled = directory_listing_enabled('/components/')
-    end
-
-    @components_listing_enabled
+    directory_listing_enabled('/components/')
   end
 
   def administrator_modules_listing_enabled
-    if @administrator_modules_listing_enabled.nil?
-      @administrator_modules_listing_enabled = directory_listing_enabled('/administrator/modules/')
-    end
-
-    @administrator_modules_listing_enabled
+    directory_listing_enabled('/administrator/modules/')
   end
 
   def modules_listing_enabled
-    if @modules_listing_enabled.nil?
-      @modules_listing_enabled = directory_listing_enabled('/modules/')
-    end
-
-    @modules_listing_enabled
+    directory_listing_enabled('/modules/')
   end
 
   def administrator_templates_listing_enabled
-    if @administrator_templates_listing_enabled.nil?
-      @administrator_templates_listing_enabled = directory_listing_enabled('/administrator/templates/')
-    end
-
-    @administrator_templates_listing_enabled
+    directory_listing_enabled('/administrator/templates/')
   end
 
   def templates_listing_enabled
-    if @templates_listing_enabled.nil?
-      @templates_listing_enabled = directory_listing_enabled('/templates/')
-    end
-
-    @templates_listing_enabled
-  end
-
-  def extract_extension_list_from_page(url, pattern)
-    matches = []
-    req = create_request(url)
-    req.on_complete do |resp|
-      matches = resp.body.to_enum(:scan, pattern).map { Regexp.last_match.to_s } if resp.code == 200
-    end
-
-    req.run
-    matches.uniq
-  end
-
-  def extract_components_from_page(url)
-    pattern = /com_[a-z0-9\-_]+/i
-    matches = extract_extension_list_from_page(url, pattern)
-    matches.map { |m| m.sub(/^com_/i, '') }
-  end
-
-  def extract_components_from_admin_index
-    extract_components_from_page '/administrator/components/'
-  end
-
-  def extract_components_from_index
-    extract_components_from_page '/components/'
-  end
-
-  def extract_components_from_home
-    extract_components_from_page '/'
-  end
-
-  def extract_modules_from_page(url)
-    pattern = /mod_[a-z0-9\-_]+/i
-    matches = extract_extension_list_from_page(url, pattern)
-    matches.map { |m| m.sub(/^mod_/i, '') }
-  end
-
-  def extract_modules_from_admin_index
-    extract_modules_from_page '/administrator/modules/'
-  end
-
-  def extract_modules_from_index
-    extract_modules_from_page '/modules/'
-  end
-
-  def extract_modules_from_home
-    extract_modules_from_page '/'
-  end
-
-  def get_hrefs_from_links(links)
-    hrefs = links.map { |link| link.attribute('href').to_s }
-    hrefs = hrefs.uniq.sort.delete_if { |href| href.empty? || href.start_with?('?') || href == '/' }
-    hrefs
-  end
-
-  def extract_templates_from_page(url)
-    req = create_request(url)
-    matches = []
-
-    req.on_complete do |resp|
-      doc = Nokogiri::HTML(resp.body)
-      links = doc.css('a')
-      hrefs = get_hrefs_from_links(links)
-      matches = hrefs.map { |href| href.match(/\/?([a-z0-9\-_]+)\/?$/i)[1] }
-    end
-
-    req.run
-    matches
-  end
-
-  def extract_templates_from_admin_index
-    extract_templates_from_page '/administrator/templates/'
-  end
-
-  def extract_templates_from_index
-    extract_templates_from_page '/templates/'
-  end
-
-  def extract_templates_from_home
-    pattern = /(\/administrator)?\/templates\/[a-z0-9\-_]+/i
-    url = '/'
-    matches = extract_extension_list_from_page(url, pattern)
-    matches.map { |m| m.sub(/^(\/administrator)?\/templates\//i, '') }
+    directory_listing_enabled('/templates/')
   end
 
   def user_registration_enabled

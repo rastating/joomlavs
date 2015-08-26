@@ -156,4 +156,48 @@ class ExtensionScanner < Scanner
     hydra.run
     detected
   end
+
+  def extract_extension_list_from_page(url, pattern)
+    matches = []
+    req = create_request(url)
+    req.on_complete do |resp|
+      matches = resp.body.to_enum(:scan, pattern).map { Regexp.last_match.to_s } if resp.code == 200
+    end
+
+    req.run
+    matches.uniq
+  end
+
+  def extract_extensions_from_page(url)
+    pattern = /#{extension_prefix}[a-z0-9\-\._]+/i
+    matches = extract_extension_list_from_page(url, pattern)
+    matches.map { |m| m.sub(/^#{extension_prefix}/i, '') }
+  end
+
+  def extract_list_from_admin_index
+    extract_extensions_from_page "/administrator/#{directory_name}/"
+  end
+
+  def extract_list_from_index
+    extract_extensions_from_page "/#{directory_name}/"
+  end
+
+  def extract_list_from_home
+    extract_extensions_from_page '/'
+  end
+
+  def build_filter(use_root_listing, use_admin_listing)
+    extensions = extract_list_from_home
+
+    if use_root_listing
+      extensions |= extract_list_from_index
+    end
+
+    if use_admin_listing
+      extensions |= extract_list_from_admin_index
+    end
+
+    return nil if extensions.empty?
+    extensions
+  end
 end

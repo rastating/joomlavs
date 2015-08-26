@@ -15,42 +15,12 @@
 
 module JoomlaVS
   module Templates
-    def templates_filter
-      return [] unless opts[:quiet]
-      templates = fingerprint_scanner.extract_templates_from_home
-      
-      if fingerprint_scanner.templates_listing_enabled
-        templates |= fingerprint_scanner.extract_templates_from_index
-      end
-
-      if fingerprint_scanner.administrator_templates_listing_enabled
-        templates |= fingerprint_scanner.extract_templates_from_admin_index
-      end
-
-      return nil if templates.empty?
-      templates
-    end
-
-    def check_template_indexes
-      if fingerprint_scanner.administrator_templates_listing_enabled
-        print_warning("Templates listing enabled: #{fingerprint_scanner.target_uri}/administrator/templates")
-      end
-
-      if fingerprint_scanner.templates_listing_enabled
-        print_warning("Templates listing enabled: #{fingerprint_scanner.target_uri}/templates")
-      end
+    def build_templates_filter(scanner)
+      scanner.build_filter(fingerprint_scanner.templates_listing_enabled, fingerprint_scanner.administrator_templates_listing_enabled)
     end
 
     def scan_templates
-      return unless opts[:scan_all] || opts[:scan_templates]
-      scanner = TemplateScanner.new(target, opts)
-      print_line_break
-      print_good('Scanning for vulnerable templates...')
-      templates = scanner.scan(templates_filter)
-      print_warning("Found #{templates.length} vulnerable templates.")
-      print_line_break
-      print_horizontal_rule
-      templates.each { |t| display_detected_extension(t) }
+      scan(:templates, TemplateScanner, opts[:scan_templates])
     end
   end
 end
