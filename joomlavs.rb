@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 # This file is part of JoomlaVS.
 
 # JoomlaVS is free software: you can redistribute it and/or modify
