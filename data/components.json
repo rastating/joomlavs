@@ -10037,5 +10037,26 @@
         "date": "2015-08-15"
       }
     ]
+  },
+  {
+    "name": "rpl",
+    "vulns": [
+      {
+        "title": "Realtyna RPL Joomla Extension 8.9.2 - Persistent XSS And CSRF Vulnerabilities",
+        "edbid": 38528,
+        "cveid": "2015-7715",
+        "introduced_in": "8.9.2",
+        "fixed_in": "8.9.5",
+        "date": "2015-10-23"
+      },
+      {
+        "title": "Realtyna RPL Joomla Extension 8.9.2 - Multiple SQL Injection Vulnerabilities",
+        "edbid": 38527,
+        "cveid": "2015-7714",
+        "introduced_in": "8.9.2",
+        "fixed_in": "8.9.5",
+        "date": "2015-10-23"
+      }
+    ]
   }
 ]
