@@ -10058,5 +10058,16 @@
         "date": "2015-10-23"
       }
     ]
+  },
+  {
+    "name": "jnews",
+    "vulns": [
+      {
+        "title": "Joomla JNews (com_jnews) Component 8.5.1 - SQL Injection",
+        "edbid": 38565,
+        "introduced_in": "8.5.1",
+        "date": "2015-10-29"
+      }
+    ]
   }
 ]
