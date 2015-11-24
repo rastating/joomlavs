@@ -279,5 +279,18 @@
     "date": "2012-07-02",
     "introduced_in": 2.5,
     "fixed_in": 3
+  },
+  {
+    "title": "Joomla Content History SQLi Remote Code Execution",
+    "edbid": 38797,
+    "cveid": [
+      "2015-7857",
+      "2015-7297",
+      "2015-7857",
+      "2015-7858"
+    ],
+    "date": "2015-11-23",
+    "introduced_in": 3,
+    "fixed_in": "3.4.5"
   }
 ]

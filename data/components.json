@@ -2011,6 +2011,12 @@
         "edbid": 8919,
         "date": "2009-06-09",
         "introduced_in": "1.0"
+      },
+      {
+        "title": "Joomla Real Estate Manager Component 3.7 - SQL injection",
+        "edbid": 38445,
+        "date": "2015-10-11",
+        "fixed_in": "3.7.1"
       }
     ]
   },
