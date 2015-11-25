@@ -135,8 +135,7 @@ class FingerprintScanner < Scanner
     version = nil
     doc = Nokogiri::HTML(resp.body)
     doc.xpath('//meta[@name=\'generator\']/@content').each do |gen|
-      match = /([0-9]+(\.?[0-9]+)?(\.?[0-9]+)?)+/.match(gen)
-      version = match.captures[0] if match
+      version = extract_version_number(gen)
     end
 
     version

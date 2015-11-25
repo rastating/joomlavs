@@ -29,10 +29,23 @@ class ExtensionScanner < Scanner
     '//*[self::extension or self::install]'
   end
 
+  def get_version_from_manifest(manifest)
+    version_text = manifest.xpath("#{root_element_xpath}/version").text
+
+    begin
+      version = Gem::Version.new(version_text)
+    rescue
+      version_number = extract_version_number(version_text)
+      version = Gem::Version.new(version_number) if version_number
+    ensure
+      return version
+    end
+  end
+
   def create_extension_from_manifest(xml, extension_path, manifest_uri)
     manifest = Nokogiri::XML(xml)
     {
-      version: Gem::Version.new(manifest.xpath("#{root_element_xpath}/version").text),
+      version: get_version_from_manifest(manifest),
       name: manifest.xpath("#{root_element_xpath}/name").text,
       author: manifest.xpath("#{root_element_xpath}/author").text,
       author_url: manifest.xpath("#{root_element_xpath}/authorUrl").text,

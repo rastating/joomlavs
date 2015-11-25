@@ -247,4 +247,21 @@ describe ExtensionScanner do
       expect(res).to eq ['com_foo', 'com_bar']
     end
   end
+
+  describe '#get_version_from_manifest' do
+    it 'returns a Gem::Version if a valid version number is found in the manifest object' do
+      manifest = Nokogiri::XML('<install type="component" version="1.5.0"><version>1.2.1</version></install>')
+      expect(@scanner.get_version_from_manifest(manifest)).to eq Gem::Version.new('1.2.1')
+    end
+
+    it 'returns a Gem::Version if an invalid version string is found but can extract a valid one from within it' do
+      manifest = Nokogiri::XML('<install type="component" version="1.5.0"><version>1.2.1 Stable</version></install>')
+      expect(@scanner.get_version_from_manifest(manifest)).to eq Gem::Version.new('1.2.1')
+    end
+
+    it 'returns nil if an invalid version string is found and a valid version cannot be extracted' do
+      manifest = Nokogiri::XML('<install type="component" version="1.5.0"><version>invalid version string</version></install>')
+      expect(@scanner.get_version_from_manifest(manifest)).to be_nil
+    end
+  end
 end

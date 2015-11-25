@@ -188,4 +188,18 @@ describe Scanner do
       expect(@scanner.run_request(req)).to be_an_instance_of Typhoeus::Response
     end
   end
+
+  describe '#extract_version_number' do
+    it 'returns a version number containing up to three numbers' do
+      expect(@scanner.extract_version_number('1.2.1 Stable')).to eq '1.2.1'
+    end
+
+    it 'returns nil if no version number can be found' do
+      expect(@scanner.extract_version_number('invalid version string')).to be_nil
+    end
+
+    it 'returns the version number excluding text based additions such as "-beta"' do
+      expect(@scanner.extract_version_number('1.2.1-beta')).to eq '1.2.1'
+    end
+  end
 end
