@@ -292,5 +292,13 @@
     "date": "2015-11-23",
     "introduced_in": 3,
     "fixed_in": "3.4.5"
+  },
+  {
+    "title": "Joomla 1.5 - 3.4.5 - Object Injection Remote Command Execution",
+    "edbid": 38977,
+    "cveid": "2015-8562",
+    "date": "2015-12-15",
+    "introduced_in": 1.5,
+    "fixed_in": "3.4.6"
   }
 ]
