@@ -284,6 +284,11 @@
         "edbid": 3734,
         "date": "2007-04-14",
         "introduced_in": "1.0"
+      },
+      {
+        "title": "Autostand File Upload Vulnerability",
+        "url": "https://www.intelligentexploit.com/view-details.html?id=22593",
+        "date": "2015-11-22"
       }
     ]
   },
@@ -5668,6 +5673,11 @@
         "title": "Joomla Component com_jumi (fileid) Blind SQL Injection Exploit",
         "edbid": 8968,
         "date": "2009-06-15"
+      },
+      {
+        "title": "com_jumi SQL Injection",
+        "url": "https://www.intelligentexploit.com/view-details.html?id=23067",
+        "date": "2016-01-19"
       }
     ]
   },
@@ -10073,6 +10083,36 @@
         "edbid": 38565,
         "introduced_in": "8.5.1",
         "date": "2015-10-29"
+      }
+    ]
+  },
+  {
+    "name": "hotproperty",
+    "vulns": [
+      {
+        "title": "com_hotproperty SQL Injection",
+        "url": "https://www.intelligentexploit.com/view-details.html?id=23101",
+        "date": "2016-01-18"
+      }
+    ]
+  },
+  {
+    "name": "furniture",
+    "vulns": [
+      {
+        "title": "com_furniture SQL Injection",
+        "url": "https://www.intelligentexploit.com/view-details.html?id=23086",
+        "date": "2016-01-18"
+      }
+    ]
+  },
+  {
+    "name": "igallery",
+    "vulns": [
+      {
+        "title": "com_igallery SQL Injection",
+        "url": "https://www.intelligentexploit.com/view-details.html?id=23070",
+        "date": "2016-01-18"
       }
     ]
   }
