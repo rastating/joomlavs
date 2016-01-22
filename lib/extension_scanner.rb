@@ -26,7 +26,7 @@ class ExtensionScanner < Scanner
   end
 
   def root_element_xpath
-    '//*[self::extension or self::install]'
+    '//*'
   end
 
   def get_version_from_manifest(manifest)
