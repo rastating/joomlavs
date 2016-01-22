@@ -15,14 +15,14 @@
 
 module JoomlaVS
   module Extensions
-    def display_reference(ref, base_url)
+    def display_reference(ref, base_url = nil)
       return unless ref
       if ref.is_a?(Array)
         ref.each do |id|
-          print_indent("Reference: #{base_url}#{id}/")
+          print_indent("Reference: #{base_url}#{id}")
         end
       else
-        print_indent("Reference: #{base_url}#{ref}/")
+        print_indent("Reference: #{base_url}#{ref}")
       end
     end
 
@@ -33,6 +33,7 @@ module JoomlaVS
         display_reference v['edbid'], 'https://www.exploit-db.com/exploits/'
         display_reference v['cveid'], 'http://www.cvedetails.com/cve/'
         display_reference v['osvdbid'], 'http://osvdb.org/'
+        display_reference v['url']
         print_info("Fixed in: #{v['fixed_in']}") if v['fixed_in']
         print_line_break
       end
