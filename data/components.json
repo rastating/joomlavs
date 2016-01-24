@@ -10115,5 +10115,15 @@
         "date": "2016-01-18"
       }
     ]
+  },
+  {
+    "name": "abook",
+    "vulns": [
+      {
+        "title": "com_abook SQL Injection",
+        "url": "https://www.intelligentexploit.com/view-details.html?id=23114",
+        "date": "2016-01-24"
+      }
+    ]
   }
 ]
