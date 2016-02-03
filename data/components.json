@@ -10125,5 +10125,25 @@
         "date": "2016-01-24"
       }
     ]
+  },
+  {
+    "name": "hotelguide",
+    "vulns": [
+      {
+        "title": "com_hotelguide SQL Injection",
+        "url": "https://www.intelligentexploit.com/view-details.html?id=23145",
+        "date": "2016-01-25"
+      }
+    ]
+  },
+  {
+    "name": "hotel",
+    "vulns": [
+      {
+        "title": "com_hotel Reflected XSS",
+        "url": "https://www.intelligentexploit.com/view-details.html?id=23181",
+        "date": "2016-01-28"
+      }
+    ]
   }
 ]
