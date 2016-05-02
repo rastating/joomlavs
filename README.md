@@ -22,6 +22,19 @@ JoomlaVS has so far only been tested on Debian, but the installation process sho
 2. Clone the source code using ```git clone https://github.com/rastating/joomlavs.git```
 3. Install bundler and required gems using ```sudo gem install bundler && bundle install```
 
+## Troubleshooting Installation
+If you have issues installing JoomlaVS' dependencies (in particular, Nokogiri), first make sure you have all the tooling necessary to compile C extensions:
+
+```
+sudo apt-get install build-essential patch
+```
+
+It’s possible that you don’t have important development header files installed on your system. Here’s what you should do if you should find yourself in this situation:
+
+```
+sudo apt-get install ruby-dev zlib1g-dev liblzma-dev
+``` 
+
 ## How to use
 The only required option is the ```-u``` / ```--url``` option, which specifies the address to target. To do a full scan, however, the ```--scan-all``` option should also be specified, e.g. ```ruby joomlavs.rb -u yourjoomlatarget.com --scan-all```.
 
