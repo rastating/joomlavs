@@ -405,7 +405,6 @@
       {
         "title": "Joomla RSfiles Component (cid param) - SQL Injection Vulnerability",
         "edbid": 24851,
-        "osvdbid": 91448,
         "date": "2013-03-18"
       }
     ]
@@ -1672,7 +1671,6 @@
         "title": "Joomla mdigg Component SQL Injection Vulnerability",
         "edbid": 17464,
         "cveid": "2008-6149",
-        "osvdbid": 51005,
         "date": "2011-07-01"
       }
     ]
@@ -2485,7 +2483,6 @@
       {
         "title": "Joomla! VirtueMart Component 2.0.22a - SQL Injection",
         "edbid": 27879,
-        "osvdbid": 96586,
         "date": "2013-08-26",
         "fixed_in": "2.0.22b"
       },
@@ -2658,14 +2655,12 @@
         "title": "Joomla redSHOP Component 1.2 - SQL Injection",
         "edbid": 27532,
         "cveid": "2010-2694",
-        "osvdbid": 66246,
         "date": "2013-08-12",
         "introduced_in": "1.2"
       },
       {
         "title": "RedShop 1.0.23.1 Joomla Component Blind SQL Injection Vulnerability",
         "edbid": 14368,
-        "osvdbid": 66392,
         "date": "2010-07-15",
         "introduced_in": "1.0.23.1"
       }
@@ -2743,7 +2738,6 @@
       {
         "title": "Joomla Freestyle Support 1.9.1.1447 (com_fss) SQL Injection",
         "edbid": 22097,
-        "osvdbid": 86499,
         "date": "2012-10-19",
         "introduced_in": "1.9.1.144"
       }
@@ -2883,7 +2877,6 @@
         "title": "Webee Comments Component 1.1/1.2 for Joomla! Multiple BBCode Tags XSS",
         "edbid": 33638,
         "cveid": "2009-4651",
-        "osvdbid": 62525,
         "date": "2009-11-15",
         "introduced_in": "1.1.1"
       }
@@ -3028,7 +3021,6 @@
         "title": "Joomla RokModule Component (index.php module parameter) Blind SQLi",
         "edbid": 21221,
         "cveid": "2010-1480",
-        "osvdbid": 63710,
         "date": "2012-09-10"
       }
     ]
@@ -4265,7 +4257,6 @@
       {
         "title": "Joomla Kunena Component (index.php search parameter) SQL Injection",
         "edbid": 22153,
-        "osvdbid": 86718,
         "date": "2012-10-22"
       }
     ]
@@ -4276,7 +4267,6 @@
       {
         "title": "Joomla AJAX Shoutbox <= 1.6 - Remote SQL Injection Vulnerability",
         "edbid": 32331,
-        "osvdbid": 104467,
         "date": "2010-04-01",
         "fixed_in": 1.7
       }
@@ -4414,7 +4404,6 @@
       {
         "title": "Joomla com_niceajaxpoll <= 1.3.0 - SQL Injection Vulnerability",
         "edbid": 20166,
-        "osvdbid": 84683,
         "date": "2012-08-01",
         "fixed_in": "1.3.0.1"
       }
@@ -4426,7 +4415,6 @@
       {
         "title": "Joomla Movm Extension (com_movm) SQL Injection",
         "edbid": 20170,
-        "osvdbid": 84439,
         "date": "2012-08-01",
         "introduced_in": "1.0"
       }
@@ -4453,7 +4441,6 @@
       {
         "title": "Joomla En Masse Component 1.2.0.4 - SQL Injection",
         "edbid": 20343,
-        "osvdbid": 84490,
         "date": "2012-08-08",
         "introduced_in": "1.2.0.4"
       }
@@ -4465,7 +4452,6 @@
       {
         "title": "Joomla Commedia Plugin (index.php task parameter) SQL Injection",
         "edbid": 22152,
-        "osvdbid": 86485,
         "date": "2012-10-22",
         "introduced_in": "3.1"
       }
@@ -4477,7 +4463,6 @@
       {
         "title": "Joomla Spider Catalog (index.php product_id parameter) SQL Injection Vulnerability",
         "edbid": 22403,
-        "osvdbid": 86846,
         "date": "2012-11-01",
         "introduced_in": "1.1"
       }
@@ -4504,7 +4489,6 @@
       {
         "title": "CiviCRM for Joomla 4.2.2 - Remote Code Injection",
         "edbid": 24969,
-        "osvdbid": 59051,
         "cveid": "2011-4275",
         "date": "2013-04-22",
         "introduced_in": "4.2.2"
@@ -4522,7 +4506,6 @@
       {
         "title": "Joomla Sectionex Component 2.5.96 - SQL Injection Vulnerability",
         "edbid": 27405,
-        "osvdbid": 95997,
         "date": "2013-08-07",
         "introduced_in": "2.5.96",
         "fixed_in": "2.5.104"
@@ -4611,7 +4594,6 @@
       {
         "title": "Joomla Komento Extension 1.7.2 - Stored XSS Vulnerabilities",
         "edbid": 31174,
-        "osvdbid": 101961,
         "date": "2014-01-24",
         "cveid": [
           "2014-0793"
@@ -4631,7 +4613,6 @@
       {
         "title": "Joomla JV Comment Extension 3.0.2 (index.php id param) - SQL Injection",
         "edbid": 31175,
-        "osvdbid": 101960,
         "date": "2014-01-24",
         "cveid": [
           "2014-0794"
@@ -4657,7 +4638,6 @@
       {
         "title": "Joomla JomSocial Component 2.6 - Code Execution Exploit",
         "edbid": 31435,
-        "osvdbid": 102756,
         "date": "2014-02-05",
         "introduced_in": "2.6",
         "fixed_in": "3.1.0.1"
@@ -4724,7 +4704,6 @@
       {
         "title": "Joomla Kunena Component 3.0.4 - Persistent XSS",
         "edbid": 32562,
-        "osvdbid": 105095,
         "date": "2014-03-27",
         "introduced_in": "3.0.4"
       }
@@ -4815,7 +4794,6 @@
       {
         "title": "Joomla Youtube Gallery Component - SQL Injection Vulnerability",
         "edbid": 34087,
-        "osvdbid": 109195,
         "date": "2014-07-16",
         "cveid": [
           "2014-4960"
@@ -4852,7 +4830,6 @@
       {
         "title": "Joomla Spider Form Maker <= 3.4 - SQLInjection",
         "edbid": 34637,
-        "osvdbid": 111467,
         "date": "2014-09-12",
         "fixed_in": "3.4.1"
       }
@@ -4864,7 +4841,6 @@
       {
         "title": "Joomla Spider Calendar <= 3.2.6 - SQL Injection",
         "edbid": 34571,
-        "osvdbid": 111201,
         "date": "2014-09-08",
         "fixed_in": "3.2.6.1"
       },
@@ -4886,7 +4862,6 @@
       {
         "title": "Joomla Spider Contacts 1.3.6 (index.php contacts_id param) - SQL Injection",
         "edbid": 34625,
-        "osvdbid": 111381,
         "date": "2014-09-11",
         "introduced_in": "1.3.6"
       }
@@ -4913,7 +4888,6 @@
       {
         "title": "Joomla Mac Gallery 1.5 - Arbitrary File Download",
         "edbid": 34755,
-        "osvdbid": 112009,
         "date": "2014-09-24",
         "introduced_in": "1.5"
       }
@@ -4926,7 +4900,6 @@
         "title": "Creative Contact Form (Wordpress 0.9.7 and Joomla 2.0.0) - Shell Upload Vulnerability",
         "edbid": 35057,
         "cveid": "2014-8739",
-        "osvdbid": 113673,
         "date": "2014-10-25",
         "fixed_in": "2.0.1"
       }
@@ -4938,14 +4911,12 @@
       {
         "title": "Joomla HD FLV Player <= 2.1.0.1 - SQL Injection Vulnerability",
         "edbid": 35220,
-        "osvdbid": 114696,
         "date": "2014-11-13",
         "fixed_in": "2.1.0.2"
       },
       {
         "title": "Joomla HD FLV Player <= 2.1.0.1 - Arbitrary File Download Vulnerability",
         "edbid": 35246,
-        "osvdbid": 114696,
         "date": "2014-11-15",
         "fixed_in": "2.1.0.2"
       },
@@ -4994,7 +4965,6 @@
     "vulns": [
       {
         "title": "Joomla Simple Photo Gallery 1.0 - Arbitrary File Upload",
-        "osvdbid": 119624,
         "edbid": 36373,
         "date": "2015-03-10",
         "introduced_in": 1,
@@ -5002,7 +4972,6 @@
       },
       {
         "title": "Joomla Simple Photo Gallery 1.0 - SQL injection",
-        "osvdbid": 119627,
         "edbid": 36385,
         "date": "2015-03-16",
         "introduced_in": 1,
@@ -5017,7 +4986,6 @@
         "title": "Joomla ECommerce-WD Plugin 1.2.5 - SQL Injection Vulnerabilities",
         "edbid": 36439,
         "cveid": "2015-2562",
-        "osvdbid": 119771,
         "date": "2015-03-19",
         "introduced_in": "1.2.5"
       }
@@ -5041,7 +5009,6 @@
         "title": "Joomla Contact Form Maker 1.0.1 Component - SQL injection vulnerability",
         "edbid": 36561,
         "cveid": "2015-2798",
-        "osvdbid": 120067,
         "date": "2015-03-30",
         "introduced_in": "1.0.1"
       }
@@ -6113,7 +6080,6 @@
         "title": "Joomla Ext. iF Portfolio Nexus SQL injection",
         "edbid": 10177,
         "cveid": "2009-4057",
-        "osvdbid": 60308,
         "introduced_in": 1.1,
         "date": "2009-11-18"
       }
@@ -6401,7 +6367,6 @@
         "title": "Joomla Component jVideoDirect Blind SQL Injection Vulnerability",
         "edbid": 11280,
         "cveid": "2010-0803",
-        "osvdbid": 62042,
         "date": "2010-01-28"
       }
     ]
@@ -7557,7 +7522,6 @@
       {
         "title": "Joomla S5 Clan Roster com_s5clanroster (index.php id param) - SQL Injection",
         "edbid": 25410,
-        "osvdbid": 93457,
         "date": "2013-05-13"
       }
     ]
@@ -7568,7 +7532,6 @@
       {
         "title": "Joomla DJ Classifieds Extension 2.0 - Blind SQL Injection Vulnerability",
         "edbid": 25248,
-        "osvdbid": 93090,
         "date": "2013-05-04",
         "introduced_in": 2,
         "fixed_in": 2.1
@@ -7672,7 +7635,6 @@
         "title": "Joomla Component JE Section Finder LFI Vulnerability",
         "edbid": 14064,
         "cveid": "2010-2680",
-        "osvdbid": 66261,
         "date": "2010-06-26"
       }
     ]
@@ -8308,7 +8270,6 @@
       {
         "title": "Joomla JE Ajax Event Calendar SQL Injection Vulnerability",
         "edbid": 13997,
-        "osvdbid": 65828,
         "cveid": [
           "2010-2513",
           "2010-4365"
@@ -8560,7 +8521,6 @@
         "title": "Joomla Component JE Story Submit SQL Injection Vulnerability",
         "edbid": 14054,
         "cveid": "2010-5022",
-        "osvdbid": 76886,
         "date": "2010-06-25",
         "introduced_in": 1.4
       }
@@ -8692,7 +8652,6 @@
       {
         "title": "Joomla FireBoard Component (com_fireboard) SQL Injection Vulnerability",
         "edbid": 20390,
-        "osvdbid": 85153,
         "date": "2012-08-09"
       },
       {
@@ -8722,7 +8681,6 @@
       {
         "title": "Joomla Tags (index.php tag parameter) SQL Injection",
         "edbid": 22098,
-        "osvdbid": 86789,
         "date": "2012-10-19"
       }
     ]
@@ -8733,7 +8691,6 @@
       {
         "title": "Joomla com_collector Component Arbitrary File Upload Vulnerability",
         "edbid": 24228,
-        "osvdbid": 89439,
         "date": "2013-01-19"
       }
     ]
@@ -9554,7 +9511,6 @@
       {
         "title": "Joomla Spider FAQ Component - SQL Injection Vulnerability",
         "edbid": 36464,
-        "osvdbid": 119910,
         "date": "2015-03-22"
       }
     ]
@@ -9585,7 +9541,6 @@
       {
         "title": "Joomla Gallery WD Component - SQL Injection Vulnerability",
         "edbid": 36560,
-        "osvdbid": 120066,
         "date": "2015-03-30"
       },
       {
@@ -9681,7 +9636,6 @@
       {
         "title": "Joomla Spider Random Article Component - SQL Injection",
         "edbid": 36601,
-        "osvdbid": 119902,
         "date": "2015-04-02"
       }
     ]
@@ -9874,7 +9828,6 @@
         "title": "Joomla Component Turtushout 0.11 (Name) SQL Injection Vulnerability",
         "edbid": 9653,
         "cveid": "2009-3335",
-        "osvdbid": 58362,
         "date": "2009-09-14",
         "introduced_in": 0.11
       }
@@ -9993,7 +9946,6 @@
         "title": "Joomla! ProofReader 1.0 RC9 Component Cross-Site Scripting Vulnerability",
         "edbid": 33377,
         "cveid": "2009-4112",
-        "osvdbid": 60653,
         "date": "2009-11-16",
         "fixed_in": "1.0RC9"
       }
@@ -10006,7 +9958,6 @@
         "title": "Joomla! FreiChat Component 1.0/2.x Unspecified HTML Injection Vulnerability",
         "edbid": 34374,
         "cveid": "2010-4949",
-        "osvdbid": 66628,
         "date": "2010-07-26",
         "fixed_in": "2.1.2"
       }

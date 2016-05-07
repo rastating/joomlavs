@@ -29,7 +29,6 @@
         "title": "Joomla Module Simple File Upload 1.3 - Remote Code Execution",
         "edbid": 18287,
         "cveid": "2011-5148",
-        "osvdbid": 78122,
         "date": "2011-12-28",
         "introduced_in": 1.3
       }
@@ -63,7 +62,6 @@
         "title": "Joomla! Currency Converter Component 'from' Parameter Cross-Site Scripting Vulnerability",
         "edbid": 36659,
         "cveid": "2012-1018",
-        "osvdbid": 78998,
         "date": "2012-02-02"
       }
     ]
@@ -75,7 +73,6 @@
         "title": "Joomla CCNewsLetter Module 1.0.7 'id' Parameter SQL Injection Vulnerability",
         "edbid": 37101,
         "cveid": "2011-5099",
-        "osvdbid": 81534,
         "date": "2012-04-23",
         "introduced_in": "1.0.7"
       }
