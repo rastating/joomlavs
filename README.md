@@ -1,4 +1,4 @@
-# joomlavs [![Build Status](https://travis-ci.org/rastating/joomlavs.svg?branch=master)](https://travis-ci.org/rastating/joomlavs) [![Code Climate](https://codeclimate.com/github/rastating/joomlavs/badges/gpa.svg)](https://codeclimate.com/github/rastating/joomlavs)
+# joomlavs [![Build Status](https://travis-ci.org/rastating/joomlavs.svg?branch=master)](https://travis-ci.org/rastating/joomlavs) [![Code Climate](https://codeclimate.com/github/rastating/joomlavs/badges/gpa.svg)](https://codeclimate.com/github/rastating/joomlavs) [![Dependency Status](https://gemnasium.com/badges/github.com/rastating/joomlavs.svg)](https://gemnasium.com/github.com/rastating/joomlavs)
 A black box, Ruby powered, Joomla vulnerability scanner
 
 ## What is it?
@@ -33,7 +33,7 @@ It’s possible that you don’t have important development header files install
 
 ```
 sudo apt-get install ruby-dev zlib1g-dev liblzma-dev
-``` 
+```
 
 ## How to use
 The only required option is the ```-u``` / ```--url``` option, which specifies the address to target. To do a full scan, however, the ```--scan-all``` option should also be specified, e.g. ```ruby joomlavs.rb -u yourjoomlatarget.com --scan-all```.
