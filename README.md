@@ -32,7 +32,7 @@ sudo apt-get install build-essential patch
 It’s possible that you don’t have important development header files installed on your system. Here’s what you should do if you should find yourself in this situation:
 
 ```
-sudo apt-get install ruby-dev zlib1g-dev liblzma-dev
+sudo apt-get install ruby-dev zlib1g-dev liblzma-dev libcurl4-openssl-dev
 ```
 
 ## How to use
