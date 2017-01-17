@@ -30,7 +30,7 @@ module JoomlaVS
   end
 
   def joomla_vulnerabilities
-    json = File.read('data/joomla.json')
+    json = File.read(File.join(ExtensionScanner.base_path, 'data/joomla.json'))
     vulns = JSON.parse(json)
     found = []
 
