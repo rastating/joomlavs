@@ -301,9 +301,7 @@
     "introduced_in": 1.5,
     "fixed_in": "3.6.5",
     "severity": "high"
-  }
-]
-[
+  },
   {
     "title": "Clickjacking",
     "cveid": "2012-5827",
