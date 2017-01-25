@@ -22,7 +22,7 @@ module JoomlaVS
       if joomla_version
         print_good("Joomla version #{@joomla_version} identified from language file (en-GB.xml)")
       else
-        print_verbose('No version found in README.txt')
+        print_verbose('No version found in language file')
       end
     end
 
