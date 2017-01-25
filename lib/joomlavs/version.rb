@@ -15,6 +15,17 @@
 
 module JoomlaVS
   module Version
+
+    def determine_joomla_version_from_language
+      print_verbose('Searching for version in language file (en-GB-xml)...')
+      @joomla_version = fingerprint_scanner.version_from_language
+      if joomla_version
+        print_good("Joomla version #{@joomla_version} identified from language file (en-GB.xml)")
+      else
+        print_verbose('No version found in README.txt')
+      end
+    end
+
     def determine_joomla_version_from_meta_tags
       print_verbose('Searching for version in meta data...')
       @joomla_version = fingerprint_scanner.version_from_meta_tag
@@ -39,7 +50,8 @@ module JoomlaVS
     def determine_joomla_version
       print_line_break
       print_verbose('Determining Joomla version...')
-      determine_joomla_version_from_meta_tags
+      determine_joomla_version_from_language
+      determine_joomla_version_from_meta_tags unless @joomla_version
       determine_joomla_version_from_readme unless @joomla_version
       print_error('Couldn\'t determine version') unless joomla_version
     end
