@@ -141,6 +141,17 @@ class FingerprintScanner < Scanner
     version
   end
 
+  def version_from_language
+    req = create_request('/language/en-GB/en-GB.xml')
+    version = nil
+    req.on_complete do |resp|
+      match = /\<version\>(.+?)\<\/version\>/.match(resp.body)
+      version = match.captures[0] if match
+    end
+    req.run
+    version
+  end
+
   def version_from_readme
     req = create_request('/README.txt')
     version = nil
