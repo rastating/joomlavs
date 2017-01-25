@@ -51,9 +51,61 @@ describe FingerprintScanner do
     end
   end
 
+  describe '#version_from_language' do
+    context 'when a valid version number is in the language file' do
+      let(:typhoeus_body) {
+        %(
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- $Id -->
+          <metafile version="1.5"  client="site" >
+          <name>English(United Kingdom)</name>
+          <tag>en-GB</tag>
+          <version>1.5.15</version>
+          <creationDate>2009-10-27</creationDate>
+          <author>Joomla! Project</author>
+          <authorEmail>admin@joomla.org</authorEmail>
+          <authorUrl>www.joomla.org</authorUrl>
+          <copyright>Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.</copyright>
+          <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+          <description></description>
+          <metadata>
+            <name>English (United Kingdom)</name>
+            <tag>en-GB</tag>
+            <rtl>0</rtl>
+            <locale>en_GB.utf8, en_GB.UTF-8, en_GB, eng_GB, en, english, english-uk, uk, gbr, britain, england, great britain, uk, united kingdom, united-kingdom</locale>
+            <winCodePage>iso-8859-1</winCodePage>
+            <backwardLang>english</backwardLang>
+            <pdfFontName>freesans</pdfFontName>
+          </metadata>
+          <params />
+          </metafile>
+        )
+      }
+
+      it 'returns the version number from the language file' do
+        expect(@scanner.version_from_language).to eq '1.5.15'
+      end
+    end
+
+    context 'when no version number appears' do
+      let(:typhoeus_body) { 'This is not the language file you are looking for.' }
+      it 'returns nil' do
+        expect(@scanner.version_from_language).to be_nil
+      end
+    end
+
+    context 'when the language file does not exist' do
+      let(:typhoeus_code) { 404 }
+      let(:typhoeus_body) { nil }
+      it 'returns nil' do
+        expect(@scanner.version_from_language).to be_nil
+      end
+    end
+  end
+
   describe '#version_from_meta_tag' do
     context 'when a valid version number is in the meta tag' do
-      let(:typhoeus_body) { 
+      let(:typhoeus_body) {
         %(
           <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" >
           <head>
@@ -62,7 +114,7 @@ describe FingerprintScanner do
             <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
           </head>
           </html>
-        ) 
+        )
       }
 
       it 'returns the version number from the meta tag' do
@@ -71,7 +123,7 @@ describe FingerprintScanner do
     end
 
     context 'when no version number appears in the meta tag' do
-      let(:typhoeus_body) { 
+      let(:typhoeus_body) {
         %(
           <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" >
           <head>
@@ -80,7 +132,7 @@ describe FingerprintScanner do
             <meta name="generator" content="This is not the readme you are looking for." />
           </head>
           </html>
-        ) 
+        )
       }
       it 'returns nil' do
         expect(@scanner.version_from_meta_tag).to be_nil
@@ -88,7 +140,7 @@ describe FingerprintScanner do
     end
 
     context 'when no generator meta tag is present' do
-      let(:typhoeus_body) { 
+      let(:typhoeus_body) {
         %(
           <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" >
           <head>
@@ -96,7 +148,7 @@ describe FingerprintScanner do
             <meta name="description" content="Joomla! Forum" />
           </head>
           </html>
-        ) 
+        )
       }
       it 'returns nil' do
         expect(@scanner.version_from_meta_tag).to be_nil
