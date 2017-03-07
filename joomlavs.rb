@@ -21,6 +21,9 @@ require_relative 'lib/cache'
 Typhoeus::Config.cache = Cache.new
 require_relative 'lib/joomlavs/helper'
 
+# Automatically flush stdout
+$stdout.sync = true
+
 class Application
   include JoomlaVS
   include JoomlaVS::Output
@@ -59,6 +62,7 @@ class Application
       o.string '--proxy-auth', '<username:password> The proxy authentication credentials'
       o.integer '--threads', 'The number of threads to use when multi-threading requests', default: 20
       o.string '--user-agent', 'The user agent string to send with all requests', default: 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+      o.bool '--hide-banner', 'Do not show the JoomlaVS banner'
     end
   end
 
@@ -86,7 +90,9 @@ class Application
 end
 
 app = Application.new
-app.print_banner
+if !app.opts[:hide_banner]
+  app.print_banner
+end
 
 if app.has_target
   app.print_good("URL: #{app.target}")
