@@ -21,6 +21,9 @@ require_relative 'lib/cache'
 Typhoeus::Config.cache = Cache.new
 require_relative 'lib/joomlavs/helper'
 
+# Automatically flush stdout
+$stdout.sync = true
+
 class Application
   include JoomlaVS
   include JoomlaVS::Output
