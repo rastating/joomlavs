@@ -51,6 +51,53 @@ describe FingerprintScanner do
     end
   end
 
+  describe '#version_from_manifest' do
+    context 'when a valid version number is in the manifest file' do
+      let(:typhoeus_body) {
+        %(
+          <?xml version="1.0" encoding="UTF-8"?>
+          <extension version="3.6" type="file" method="upgrade">
+          	<name>files_joomla</name>
+          	<author>Joomla! Project</author>
+          	<authorEmail>admin@joomla.org</authorEmail>
+          	<authorUrl>www.joomla.org</authorUrl>
+          	<copyright>(C) 2005 - 2016 Open Source Matters. All rights reserved</copyright>
+          	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+          	<version>3.6.5</version>
+          	<creationDate>December 2016</creationDate>
+          	<description>FILES_JOOMLA_XML_DESCRIPTION</description>
+
+          	<scriptfile>administrator/components/com_admin/script.php</scriptfile>
+
+          	<updateservers>
+          		<server name="Joomla! Core" type="collection">https://update.joomla.org/core/list.xml</server>
+          		<server name="Joomla! Extension Directory" type="collection">https://update.joomla.org/jed/list.xml</server>
+          	</updateservers>
+          </extension>
+        )
+      }
+
+      it 'returns the version number from the "version" element' do
+        expect(@scanner.version_from_manifest).to eq '3.6.5'
+      end
+    end
+
+    context 'when no version number appears' do
+      let(:typhoeus_body) { 'This is not the manifest file you are looking for.' }
+      it 'returns nil' do
+        expect(@scanner.version_from_manifest).to be_nil
+      end
+    end
+
+    context 'when the manifest file does not exist' do
+      let(:typhoeus_code) { 404 }
+      let(:typhoeus_body) { nil }
+      it 'returns nil' do
+        expect(@scanner.version_from_manifest).to be_nil
+      end
+    end
+  end
+
   describe '#version_from_language' do
     context 'when a valid version number is in the language file' do
       let(:typhoeus_body) {
