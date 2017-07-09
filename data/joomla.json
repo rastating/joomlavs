@@ -540,7 +540,8 @@
     "date": "2016-10-18",
     "severity": "High",
     "introduced_in": "3.4.4",
-    "fixed_in": "3.6.3"
+    "fixed_in": "3.6.3",
+    "edbid": 40637
   },
   {
     "title": "Elevated Privileges",
@@ -548,7 +549,8 @@
     "date": "2016-10-21",
     "severity": "High",
     "introduced_in": "3.4.4",
-    "fixed_in": "3.6.3"
+    "fixed_in": "3.6.3",
+    "edbid": 40637
   },
   {
     "title": "Account Modifications",
@@ -559,12 +561,13 @@
     "fixed_in": "3.6.3"
   },
   {
-    "title": "Elevated Privileges",
+    "title": "Joomla! < 3.6.4 Privilege Escalation",
     "cveid": "2016-9838",
     "date": "2016-11-04",
     "severity": "High",
     "introduced_in": "1.6",
-    "fixed_in": "3.6.4"
+    "fixed_in": "3.6.4",
+    "edbid:": 41157
   },
   {
     "title": "Shell Upload",
@@ -581,5 +584,12 @@
     "severity": "Low",
     "introduced_in": 3,
     "fixed_in": "3.6.4"
+  },
+  {
+    "title": "Joomla! < 2.5.2 - Admin Creation",
+    "cveid": "2012-1563",
+    "date": "2017-01-20",
+    "fixed_in": "2.5.3",
+    "edbid": 41156
   }
 ]
