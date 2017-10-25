@@ -6058,6 +6058,11 @@
         "date": "2009-12-18",
         "edbid": 10548,
         "title": "Joomla Component com_zcalendar Blind SQL-injection Vulnerability"
+      },
+      {
+        "date": "2017-08-18",
+        "edbid": 42500,
+        "title": "Joomla! Component Zap Calendar Lite 4.3.4 - SQL Injection"
       }
     ],
     "name": "zcalendar"
@@ -11122,131 +11127,109 @@
       {
         "date": "2017-07-20",
 	"edbid": 42347,
-	"component": "JoomRecipe",
 	"title": "Joomla! Component JoomRecipe 1.0.4 - 'search_author' SQL Injection"
       }
     ],
-    "name": "JoomRecipe"
+    "name": "joomrecipe"
   },
   {
     "vulns": [
       {
         "date": "2017-08-02",
         "edbid": 42413,
-        "component": "SIMGenealogy",
         "title": "Joomla! Component SIMGenealogy 2.1.5 - SQL Injection"
       }
     ],
-    "name": "SIMGenealogy"
+    "name": "simgenealogy"
   },
   {
     "vulns": [
       {
         "date": "2017-08-02",
         "edbid": 42414,
-        "component": "PHP-Bridge",
         "title": "Joomla! Component PHP-Bridge 1.2.3 - SQL Injection"
       }
     ],
-    "name": "PHP-Bridge"
+    "name": "phpbridge"
   },
   {
     "vulns": [
       {
         "date": "2017-08-02",
         "edbid": 42415,
-        "component": "LMS King Professional",
         "title": "Joomla! Component LMS King Professional 3.2.4.0 - SQL Injection"
       }
     ],
-    "name": "LMS King Professional"
+    "name": "lmsking"
   },
   {
     "vulns": [
       {
         "date": "2017-08-02",
         "edbid": 42416,
-        "component": "Event Registration Pro Calendar",
         "title": "Joomla! Component Event Registration Pro Calendar v4.1.3 - SQL Injection"
       }
     ],
-    "name": "Event Registration Pro Calendar"
+    "name": "registrationpro"
   },
   {
     "vulns": [
       {
         "date": "2017-08-02",
         "edbid": 42417,
-        "component": "Ultimate Property Listing",
         "title": "Joomla! Component Ultimate Property Listing 1.0.2 - SQL Injection"
       }
     ],
-    "name": "Ultimate Property Listing"
+    "name": "upl"
   },
   {
     "vulns": [
       {
         "date": "2017-08-18",
         "edbid": 42492,
-        "component": "Appointment",
         "title": "Joomla! Component Appointment 1.1 - SQL Injection"
       }
     ],
-    "name": "Appointment"
+    "name": "appointment"
   },
   {
     "vulns": [
       {
         "date": "2017-08-18",
         "edbid": 42493,
-        "component": "Twitch Tv",
         "title": "Joomla! Component Twitch Tv 1.1 - SQL Injection"
       }
     ],
-    "name": "Twitch Tv"
+    "name": "twitchtv"
   },
   {
     "vulns": [
       {
         "date": "2017-08-18",
         "edbid": 42494,
-        "component": "KissGallery",
         "title": "Joomla! Component KissGallery 1.0.0 - SQL Injection"
       }
     ],
-    "name": "KissGallery"
-  },
-  {
-    "vulns": [
-      {
-        "date": "2017-08-18",
-        "edbid": 42500,
-        "component": "Zap Calendar Lite",
-        "title": "Joomla! Component Zap Calendar Lite 4.3.4 - SQL Injection"
-      }
-    ],
-    "name": "Zap Calendar Lite"
+    "name": "kissgallery"
   },
   {
     "vulns": [
       {
         "date": "2017-08-18",
         "edbid": 42501,
-        "component": "Calendar Planner",
         "title": "Joomla! Component Calendar Planner 1.0.1 - SQL Injection"
       }
     ],
-    "name": "Calendar Planner"
+    "name": "calendarplanner"
   },
   {
     "vulns": [
       {
         "date": "2017-08-18",
         "edbid": 42502,
-        "component": "SP Movie Database",
         "title": "Joomla! Component SP Movie Database 1.3 - SQL Injection"
       }
     ],
-    "name": "SP Movie Database"
+    "name": "spmoviedb"
   }
 ]
