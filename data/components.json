@@ -8397,6 +8397,11 @@
         "date": "2010-10-31",
         "edbid": 15366,
         "title": "Joomla Flip Wall Component (com_flipwall) SQL Injection Vulnerability"
+      },
+      {
+        "date": "2017-08-21",
+        "edbid": 42524,
+        "title": "Joomla! Component Flip Wall 8.0 - 'wallid' SQL Injection"
       }
     ],
     "name": "flipwall"
@@ -8413,6 +8418,11 @@
         "edbid": 41325,
         "component": "sponsorwall",
         "title": "Joomla! Component Sponsor Wall 7.0 - 'wallid' Parameter SQL Injection"
+      },
+      {
+        "date": "2017-08-21",
+        "edbid": 42525,
+        "title": "Joomla! Component Sponsor Wall 8.0 - SQL Injection"
       }
     ],
     "name": "sponsorwall"
@@ -10045,6 +10055,11 @@
         "cveid": "2010-2622",
         "osvdbid": "66085",
         "title": "Joomla Joomanager SQL Injection Vulnerability"
+      },
+      {
+        "date": "2017-08-30",
+        "edbid": 42590,
+        "title": "Joomla! Component Joomanager 2.0.0 - Arbitrary File Download"
       }
     ],
     "name": "joomanager"
@@ -11231,5 +11246,130 @@
       }
     ],
     "name": "spmoviedb"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-08-21",
+        "edbid": 42530,
+        "title": "Joomla! Component FocalPoint 1.2.3 - SQL Injection"
+      }
+    ],
+    "name": "focalpoint"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-08-21",
+        "edbid": 42532,
+        "title": "Joomla! Component Ajax Quiz 1.8 - SQL Injection"
+      }
+    ],
+    "name": "ajaxquiz"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-08-24",
+        "edbid": 42553,
+        "title": "Joomla! Component Price Alert 3.0.2 - 'product_id' SQL Injection"
+      }
+    ],
+    "name": "price_alert"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-08-24",
+        "edbid": 42552,
+        "title": "Joomla! Component Bargain Product VM3 1.0 - 'product_id' SQL Injection"
+      }
+    ],
+    "name": "pazzari_vm3"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-08-25",
+        "edbid": 42561,
+        "title": "Joomla! Component OSDownloads 1.7.4 - SQL Injection"
+      }
+    ],
+    "name": "osdownloads"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-08-25",
+        "edbid": 42563,
+        "title": "Joomla! Component Photo Contest 1.0.2 - SQL Injection"
+      }
+    ],
+    "name": "photocontest"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-08-25",
+        "edbid": 42564,
+        "title": "Joomla! Component Responsive Portfolio 1.6.1 - SQL Injection"
+      }
+    ],
+    "name": "pofos"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-08-30",
+        "edbid": 42589,
+        "title": "Joomla! Component Quiz Deluxe 3.7.4 - SQL Injection"
+      }
+    ],
+    "name": "joomlaquiz"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-08-31",
+        "edbid": 42596,
+        "title": "Joomla! Component Huge-IT Video Gallery 1.0.9 - SQL Injection"
+      }
+    ],
+    "name": "videogallerylite"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-08-31",
+        "edbid": 42597,
+        "title": "Joomla! Component Huge-IT Portfolio Gallery Plugin 1.0.6 - SQL Injection"
+      },
+      {
+        "date": "2017-08-31",
+        "edbid": 42598,
+        "title": "Joomla! Component Huge-IT Portfolio Gallery Plugin 1.0.7 - SQL Injection"
+      }
+    ],
+    "name": "portfoliogallery"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-09-03",
+        "edbid": 42606,
+        "title": "Joomla! Component Survey Force Deluxe 3.2.4 - 'invite' SQL Injection"
+      }
+    ],
+    "name": "surveyforce"
+  },
+  {
+    "vulns": [
+      {
+        "date": "2017-09-03",
+        "edbid": 42607,
+        "title": "Joomla! Component CheckList 1.1.0 - SQL Injection"
+      }
+    ],
+    "name": "checklist"
   }
 ]
