@@ -42,6 +42,7 @@ Enumeration options
     -t, --scan-templates   Scan for vulnerable templates
     -q, --quiet            Scan using only passive methods
 Advanced options
+    --disable-tls-checks   Disable SSL/TLS certificate verification.
     --follow-redirection   Automatically follow redirections
     --no-colour            Disable colours in output
     --proxy                <[protocol://]host:port> HTTP, SOCKS4 SOCKS4A and SOCKS5 are supported. If no protocol is given, HTTP will be used
