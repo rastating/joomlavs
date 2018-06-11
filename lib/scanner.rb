@@ -56,7 +56,9 @@ class Scanner
     req = Typhoeus::Request.new(
       target_uri + path,
       followlocation: @opts[:follow_redirection] ? true : false,
-      headers: { 'User-Agent' => @opts[:user_agent] }
+      headers: { 'User-Agent' => @opts[:user_agent] },
+      ssl_verifyhost: @opts[:disable_tls_checks] ? 0 : 2,
+      ssl_verifypeer: !@opts[:disable_tls_checks]
     )
     req.options['userpwd'] = @opts[:basic_auth] if @opts[:basic_auth]
     req.options['proxy'] = @opts[:proxy] if @opts[:proxy]

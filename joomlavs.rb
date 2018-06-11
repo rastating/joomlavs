@@ -56,6 +56,7 @@ class Application
       o.bool '-q', '--quiet', 'Scan using only passive methods'
 
       o.separator 'Advanced options'
+      o.bool '--disable-tls-checks', 'Disable SSL/TLS certificate verification.'
       o.bool '--follow-redirection', 'Automatically follow redirections'
       o.bool '--no-colour', 'Disable colours in output'
       o.string '--proxy', '<[protocol://]host:port> HTTP, SOCKS4 SOCKS4A and SOCKS5 are supported. If no protocol is given, HTTP will be used'
@@ -90,9 +91,7 @@ class Application
 end
 
 app = Application.new
-if !app.opts[:hide_banner]
-  app.print_banner
-end
+app.print_banner unless app.opts[:hide_banner]
 
 if app.has_target
   app.print_good("URL: #{app.target}")
