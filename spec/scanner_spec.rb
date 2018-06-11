@@ -16,7 +16,6 @@
 require 'spec_helper'
 
 describe Scanner do
-
   let(:target_uri) { 'http://localhost/' }
   let(:opts_user_agent) { 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0' }
   let(:opts_threads) { 20 }
@@ -24,6 +23,7 @@ describe Scanner do
   let(:opts_basic_auth) { nil }
   let(:opts_proxy) { nil }
   let(:opts_proxy_auth) { nil }
+  let(:opts_disable_tls_checks) { false }
 
   let(:typhoeus_code) { 200 }
   let(:typhoeus_body) { '' }
@@ -36,7 +36,8 @@ describe Scanner do
       :follow_redirection => opts_follow_redirection,
       :basic_auth => opts_basic_auth,
       :proxy => opts_proxy,
-      :proxy_auth => opts_proxy_auth
+      :proxy_auth => opts_proxy_auth,
+      :disable_tls_checks => opts_disable_tls_checks
     })
 
     Typhoeus.stub(/.*/) do
@@ -153,6 +154,34 @@ describe Scanner do
       let(:opts_proxy_auth) { 'root:toor' }
       it 'sets the proxyuserpwd option' do
         expect(@scanner.create_request('/').options['proxyuserpwd']).to eq opts_proxy_auth
+      end
+    end
+
+    context 'when the :disable_tls_checks option is set' do
+      let(:opts_disable_tls_checks) { true }
+
+      it 'should set the `ssl_verifyhost` option to `0`' do
+        req = @scanner.create_request('/')
+        expect(req.options[:ssl_verifyhost]).to eq 0
+      end
+
+      it 'should set the `ssl_verifypeer` option to false' do
+        req = @scanner.create_request('/')
+        expect(req.options[:ssl_verifypeer]).to be false
+      end
+    end
+
+    context 'when the :disable_tls_checks option is not set' do
+      let(:opts_disable_tls_checks) { false }
+
+      it 'should set the `ssl_verifyhost` option to `2`' do
+        req = @scanner.create_request('/')
+        expect(req.options[:ssl_verifyhost]).to eq 2
+      end
+
+      it 'should set the `ssl_verifypeer` option to true' do
+        req = @scanner.create_request('/')
+        expect(req.options[:ssl_verifypeer]).to be true
       end
     end
   end
