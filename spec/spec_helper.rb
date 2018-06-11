@@ -13,6 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with JoomlaVS.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'coveralls'
+Coveralls.wear!
+
 require_relative '../lib/scanner'
 require_relative '../lib/module_scanner'
 require_relative '../lib/fingerprint_scanner'
