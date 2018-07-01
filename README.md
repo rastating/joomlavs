@@ -9,7 +9,7 @@ JoomlaVS has so far only been tested on Debian, but the installation process sho
 
 1. Ensure Ruby [2.4.4 or above] is installed on your system
 2. Clone the source code using ```git clone https://github.com/rastating/joomlavs.git```
-3. Install bundler and required gems using ```sudo gem install bundler && bundle install```
+3. Install bundler and required gems using ```gem install bundler && bundle install```
 
 ## Troubleshooting Installation
 If you have issues installing JoomlaVS' dependencies (in particular, Nokogiri), first make sure you have all the tooling necessary to compile C extensions:
