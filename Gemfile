@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 group :cli do
@@ -6,7 +8,7 @@ group :cli do
 end
 
 group :http do
-  gem 'nokogiri', '~>1.8.1'
+  gem 'nokogiri', '~>1.8.4'
   gem 'typhoeus', '~>1.3.0'
 end
 

@@ -15,7 +15,7 @@ GEM
     ffi (1.9.18)
     json (2.1.0)
     mini_portile2 (2.3.0)
-    nokogiri (1.8.1)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
@@ -49,10 +49,10 @@ PLATFORMS
 DEPENDENCIES
   colorize (>= 0.8.1)
   coveralls
-  nokogiri (~> 1.8.1)
+  nokogiri (~> 1.8.4)
   rspec (~> 3.7)
   slop (~> 4.6.2)
   typhoeus (~> 1.3.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is part of JoomlaVS.
 
 # JoomlaVS is free software: you can redistribute it and/or modify
@@ -213,7 +215,7 @@ describe ExtensionScanner do
     end
 
     context 'when multiple ranges of versions are vulnerable' do
-      vuln = { 
+      vuln = {
         'ranges' => [
           {
             'introduced_in' => '2.0',
